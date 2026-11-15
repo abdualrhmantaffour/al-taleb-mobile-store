@@ -32,45 +32,37 @@ import {
   ZoomOut,
 } from 'lucide-react';
 
-
 // ============================================================================
 // إعدادات المتجر المركزية (WHITE-LABEL STORE_CONFIG)
-// عدّل هذه القيم فقط عند بيع أو تخصيص الموقع لأي تاجر جديد خلال ثوانٍ
 // ============================================================================
 const STORE_CONFIG = {
-  // الهوية الأساسية للمتجر
   brandNameAr: 'شركة الطالب للإتصالات',
   brandNameEn: 'Al-Taleb',
   brandSubEn: 'MOBILE STORE',
   brandInitials: 'AT',
-  customLogoUrl: '', // ضع رابط صورة الشعار هنا إن وجد، أو اتركه فارغاً لاستخدام الشعار المدمج تلقائياً
+  customLogoUrl: '',
 
-  // النصوص والشعارات الترويجية
   slogan: 'دائماً وأبداً شعارنا: ثقتكم تهمنا',
   sloganPrefix: 'دائماً وأبداً شعارنا:',
   sloganHighlight: 'ثقتكم تهمنا',
   topAnnouncement: 'كفالة شهر بعد المبيع • بيع وشراء مدى الحياة • ثقتكم تهمنا',
 
-  // ألوان الهوية البصرية (تُطبق تلقائياً في الموقع والشعار)
   colors: {
-    primary: '#0095D9', // اللون الأساسي (الأزرق السماوي)
-    secondary: '#6CBE45', // اللون الثانوي (الأخضر)
-    darkBg: '#050507', // لون الخلفية الداكنة (نمط أبل)
-    lightBg: '#F5F5F7', // لون الخلفية الفاتحة (نمط أبل)
+    primary: '#0095D9',
+    secondary: '#6CBE45',
+    darkBg: '#050507',
+    lightBg: '#F5F5F7',
   },
 
-  // بيانات التواصل والعنوان الافتراضية
   defaultWhatsapp: '963942000000',
   defaultSalesPhone: '0935 240 669',
   defaultRepairPhone: '0986 895 611',
-  defaultChannelUrl:
-    'https://www.whatsapp.com/channel/0029VaCMm90KbYMJyac2v10R',
+  defaultChannelUrl: 'https://www.whatsapp.com/channel/0029VaCMm90KbYMJyac2v10R',
   storeAddress: 'الفرع الرئيسي - الشارع العام - شركة الطالب للإتصالات',
   workHours: 'يومياً من 10:00 صباحاً حتى 10:00 مساءً',
   showroomImage:
     'https://images.unsplash.com/photo-1556656793-08538906a9f8?auto=format&fit=crop&w=1200&q=85',
 
-  // الإحصائيات والضمانات في الواجهة
   instagramFollowers: '125K',
   instagramLabel: 'متابع على إنستغرام والقناة',
   warrantyPeriod: 'شهر',
@@ -78,11 +70,10 @@ const STORE_CONFIG = {
   buyBackPolicy: 'مدى الحياة',
   buyBackLabel: 'بيع وشراء وتبديل',
 
-  // الإعدادات المالية والأمان وعزل قاعدة البيانات لكل تاجر
   defaultCurrency: '$',
   defaultExchangeRate: 15000,
   defaultAdminPin: 'admin',
-  storageCollectionPrefix: 'altaleb_store_v1', // غيّر هذا المعرف لكل تاجر جديد لعزل بياناته تماماً
+  storageCollectionPrefix: 'altaleb_store_v1',
 };
 
 // --- Firebase Initialization ---
@@ -104,7 +95,7 @@ try {
   console.warn('Firebase fallback mode:', e);
 }
 
-// --- Dynamic Brand Logo Component (Supports Custom Image or Dynamic SVG from STORE_CONFIG) ---
+// --- Dynamic Brand Logo Component ---
 const AlTalebLogo = ({
   size = 'md',
   darkText = false,
@@ -203,7 +194,7 @@ const AlTalebLogo = ({
   );
 };
 
-// --- Centered Crest Icon for Hero Top (Reads dynamically from STORE_CONFIG) ---
+// --- Centered Crest Icon ---
 const AlTalebCrest = () => (
   <div className="flex flex-col items-center select-none">
     <div className="w-14 h-14 rounded-2xl bg-gradient-to-b from-white/[0.09] to-white/[0.02] border border-white/15 flex items-center justify-center shadow-lg relative">
@@ -235,13 +226,7 @@ const AlTalebCrest = () => (
 );
 
 // --- Interactive HTML5 Canvas Scratch-to-Reveal Price Card ---
-const ScratchPriceCard = ({
-  price,
-  sypPrice,
-  currencySymbol,
-  isRevealed,
-  onReveal,
-}) => {
+const ScratchPriceCard = ({ price, sypPrice, currencySymbol, isRevealed, onReveal }) => {
   const canvasRef = useRef(null);
   const isDrawingRef = useRef(false);
 
@@ -261,7 +246,6 @@ const ScratchPriceCard = ({
     const w = rect.width;
     const h = rect.height;
 
-    // Silver/Pearl Metallic Foil Background
     const grad = ctx.createLinearGradient(0, 0, w, h);
     grad.addColorStop(0, '#E6E9EF');
     grad.addColorStop(0.5, '#F8FAFC');
@@ -269,7 +253,7 @@ const ScratchPriceCard = ({
     ctx.globalCompositeOperation = 'source-over';
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, w, h);
-    // Diagonal Watermark Pattern
+    
     ctx.save();
     ctx.translate(w / 2, h / 2);
     ctx.rotate((-16 * Math.PI) / 180);
@@ -284,16 +268,10 @@ const ScratchPriceCard = ({
     }
     ctx.restore();
 
-    // Center Golden/Brand Coin Seal
     ctx.save();
     ctx.beginPath();
     ctx.arc(w / 2, h / 2 - 12, 18, 0, Math.PI * 2);
-    const coinGrad = ctx.createLinearGradient(
-      w / 2 - 18,
-      h / 2 - 30,
-      w / 2 + 18,
-      h / 2 + 6
-    );
+    const coinGrad = ctx.createLinearGradient(w / 2 - 18, h / 2 - 30, w / 2 + 18, h / 2 + 6);
     coinGrad.addColorStop(0, '#FACC15');
     coinGrad.addColorStop(1, '#CA8A04');
     ctx.fillStyle = coinGrad;
@@ -308,7 +286,6 @@ const ScratchPriceCard = ({
     ctx.fillText(STORE_CONFIG.brandInitials, w / 2, h / 2 - 12);
     ctx.restore();
 
-    // White Pill Label ("امسح بإصبعك واكشف السعر")
     const pillW = 166;
     const pillH = 26;
     const pillX = (w - pillW) / 2;
@@ -344,7 +321,6 @@ const ScratchPriceCard = ({
     ctx.arc(x, y, 26, 0, Math.PI * 2);
     ctx.fill();
 
-    // Calculate scratched percentage to auto-complete reveal
     try {
       const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
       let clearPixels = 0;
@@ -360,17 +336,13 @@ const ScratchPriceCard = ({
 
   return (
     <div className="relative w-full h-32 sm:h-36 rounded-2xl overflow-hidden select-none border border-white/15 bg-gradient-to-br from-[#161922] via-[#111318] to-[#0B0D12] shadow-inner">
-      {/* Hidden Revealed Offer Price Layer Underneath */}
       <div className="absolute inset-0 flex flex-col items-center justify-center p-3 text-center">
         <span className="text-[11px] font-semibold text-[#6CBE45] mb-1 flex items-center gap-1">
           <Sparkles className="w-3.5 h-3.5" />
           <span>سعر العرض الحصري اليوم</span>
         </span>
         <div className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight flex items-center justify-center gap-1">
-          <span>
-            {currencySymbol}
-            {price}
-          </span>
+          <span>{currencySymbol}{price}</span>
         </div>
         {sypPrice && (
           <div className="text-xs font-semibold text-[#0095D9] mt-1 bg-[#0095D9]/10 px-3 py-0.5 rounded-full border border-[#0095D9]/20">
@@ -379,35 +351,16 @@ const ScratchPriceCard = ({
         )}
       </div>
 
-      {/* Interactive Scratch Foil Layer */}
       {!isRevealed && (
         <canvas
           ref={canvasRef}
-          onMouseDown={(e) => {
-            isDrawingRef.current = true;
-            scratchAt(e.clientX, e.clientY);
-          }}
-          onMouseMove={(e) => {
-            if (isDrawingRef.current) scratchAt(e.clientX, e.clientY);
-          }}
-          onMouseUp={() => {
-            isDrawingRef.current = false;
-          }}
-          onMouseLeave={() => {
-            isDrawingRef.current = false;
-          }}
-          onTouchStart={(e) => {
-            isDrawingRef.current = true;
-            const t = e.touches[0];
-            if (t) scratchAt(t.clientX, t.clientY);
-          }}
-          onTouchMove={(e) => {
-            const t = e.touches[0];
-            if (t) scratchAt(t.clientX, t.clientY);
-          }}
-          onTouchEnd={() => {
-            isDrawingRef.current = false;
-          }}
+          onMouseDown={(e) => { isDrawingRef.current = true; scratchAt(e.clientX, e.clientY); }}
+          onMouseMove={(e) => { if (isDrawingRef.current) scratchAt(e.clientX, e.clientY); }}
+          onMouseUp={() => { isDrawingRef.current = false; }}
+          onMouseLeave={() => { isDrawingRef.current = false; }}
+          onTouchStart={(e) => { isDrawingRef.current = true; const t = e.touches[0]; if (t) scratchAt(t.clientX, t.clientY); }}
+          onTouchMove={(e) => { const t = e.touches[0]; if (t) scratchAt(t.clientX, t.clientY); }}
+          onTouchEnd={() => { isDrawingRef.current = false; }}
           className="absolute inset-0 w-full h-full cursor-pointer touch-none"
         />
       )}
@@ -415,7 +368,7 @@ const ScratchPriceCard = ({
   );
 };
 
-// --- Initial Store Settings (Derived Directly from STORE_CONFIG) ---
+// --- Initial Data Sets ---
 const DEFAULT_SETTINGS = {
   storeName: STORE_CONFIG.brandNameAr,
   storeSubName: `${STORE_CONFIG.brandNameEn} ${STORE_CONFIG.brandSubEn}`,
@@ -437,11 +390,9 @@ const DEFAULT_SETTINGS = {
   stat4Val: STORE_CONFIG.buyBackPolicy,
   stat4Label: STORE_CONFIG.buyBackLabel,
   midBannerTitle: 'بيع أو استبدل جهازك القديم بأفضل سعر',
-  midBannerSub:
-    'أرسل مواصفات وصور جهازك عبر واتساب لتحصل على تقييم فوري أو استبداله بجهاز أحدث بفرق سعر مدروس.',
+  midBannerSub: 'أرسل مواصفات وصور جهازك عبر واتساب لتحصل على تقييم فوري أو استبداله بجهاز أحدث بفرق سعر مدروس.',
   locationTitle: 'موقعنا وتواصل معنا',
-  locationDesc:
-    'نستقبلكم يومياً في صالة العرض لتجربة الأجهزة والاطلاع على أحدث العروض والمسابقات اليومية.',
+  locationDesc: 'نستقبلكم يومياً في صالة العرض لتجربة الأجهزة والاطلاع على أحدث العروض والمسابقات اليومية.',
   addressLine1: STORE_CONFIG.storeAddress,
   workingHours: STORE_CONFIG.workHours,
   showroomImage: STORE_CONFIG.showroomImage,
@@ -459,7 +410,6 @@ const DEFAULT_CATEGORIES = [
   { id: 'accessories', name: 'إكسسوارات', sheetLabel: 'إكسسوارات' },
 ];
 
-// الترتيب المعتمد للأقسام داخل نشرة الأسعار
 const PRICE_SHEET_CATEGORY_ORDER = [
   { id: 'iphone', label: 'IPHONE' },
   { id: 'samsung', label: 'SAMSUNG' },
@@ -472,327 +422,33 @@ const PRICE_SHEET_CATEGORY_ORDER = [
 ];
 
 const DEFAULT_PRODUCTS = [
-  {
-    id: 'p-1',
-    title: 'IPHONE 16 PRO MAX 256GB',
-    category: 'iphone',
-    specs: 'بطارية 100% • تيتانيوم صحراوي • مع كفالة',
-    price: 1185,
-    oldPrice: 1250,
-    badge: 'عرض خاص',
-    condition: 'جديد',
-    isFeaturedOffer: true,
-    imageUrl:
-      'https://images.unsplash.com/photo-1695048133142-1a20484d2569?auto=format&fit=crop&w=800&q=85',
-    description:
-      'نسخة الشرق الأوسط، مختوم غير مفعل، مع كفالة حقيقية وتجهيز الحساب ونقل البيانات مجاناً.',
-    inStock: true,
-    createdAt: 1710000016000,
-  },
-  {
-    id: 'p-2',
-    title: 'IPHONE 15 PRO MAX 256GB',
-    category: 'iphone',
-    specs: 'بطارية 96% • تيتانيوم طبيعي • مع كفالة',
-    price: 965,
-    oldPrice: 1030,
-    badge: 'عرض خاص',
-    condition: 'مستعمل',
-    isFeaturedOffer: true,
-    imageUrl:
-      'https://images.unsplash.com/photo-1678685888221-cda773a3dcdb?auto=format&fit=crop&w=800&q=85',
-    description:
-      'نظافة 100% خالي من أي خدش، غير مفتوح نهائياً على الفحص، مع العلبة الأصلية وكفالة شركة الطالب.',
-    inStock: true,
-    createdAt: 1710000015000,
-  },
-  {
-    id: 'p-3',
-    title: 'IPHONE 14 PRO MAX 256GB',
-    category: 'iphone',
-    specs: 'بطارية 92% • بنفسجي غامق • مع كفالة',
-    price: 815,
-    oldPrice: 870,
-    badge: 'عرض خاص',
-    condition: 'مستعمل',
-    isFeaturedOffer: true,
-    imageUrl:
-      'https://images.unsplash.com/photo-1663499482523-1c0c1bae4ce1?auto=format&fit=crop&w=800&q=85',
-    description:
-      'جهاز وكالة بالكامل، شاشة وبورد وبطارية أصلية 100%، مرفق مع لصقة حماية وكفر MagSafe هدية.',
-    inStock: true,
-    createdAt: 1710000014000,
-  },
-  {
-    id: 'p-5',
-    title: 'IPHONE 13 PRO 128GB',
-    category: 'iphone',
-    specs: 'بطارية 89% • أزرق سييرا • مع كفالة',
-    price: 585,
-    oldPrice: 630,
-    badge: 'مستعمل نظيف',
-    condition: 'مستعمل',
-    isFeaturedOffer: false,
-    imageUrl:
-      'https://images.unsplash.com/photo-1632661674596-df8be070a5c5?auto=format&fit=crop&w=800&q=85',
-    description:
-      'حالة الوكالة بدون أي ملاحظة، شاشة 120Hz، مفحوص بالكامل على الكمبيوتر مع كفالة محل.',
-    inStock: true,
-    createdAt: 1710000013000,
-  },
-  {
-    id: 'p-11',
-    title: 'IPHONE 12 PRO MAX 256GB',
-    category: 'iphone',
-    specs: 'بطارية 87% • أزرق • مع كفالة',
-    price: 510,
-    oldPrice: 545,
-    badge: 'مستعمل نظيف',
-    condition: 'مستعمل',
-    isFeaturedOffer: false,
-    imageUrl:
-      'https://images.unsplash.com/photo-1603921326210-6edd2d60ca68?auto=format&fit=crop&w=800&q=85',
-    description:
-      'نظافة عالية جداً، جميع القطع أصلية، فيس آيدي وتروتون شغال 100%.',
-    inStock: true,
-    createdAt: 1710000012000,
-  },
-  {
-    id: 'p-4',
-    title: 'GALAXY S24 ULTRA 512GB',
-    category: 'samsung',
-    specs: 'بطارية 100% • رام 12GB • تيتانيوم رمادي',
-    price: 995,
-    oldPrice: 1080,
-    badge: 'عرض خاص',
-    condition: 'جديد',
-    isFeaturedOffer: true,
-    imageUrl:
-      'https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?auto=format&fit=crop&w=800&q=85',
-    description:
-      'النسخة الرسمية شريحتين، معالج Snapdragon 8 Gen 3، يدعم ميزات الذكاء الاصطناعي بالكامل.',
-    inStock: true,
-    createdAt: 1710000011000,
-  },
-  {
-    id: 'p-13',
-    title: 'GALAXY S23 ULTRA 256GB',
-    category: 'samsung',
-    specs: 'بطارية 95% • رام 12GB • أخضر زيتي',
-    price: 685,
-    oldPrice: 730,
-    badge: 'مستعمل نظيف',
-    condition: 'مستعمل',
-    isFeaturedOffer: false,
-    imageUrl:
-      'https://images.unsplash.com/photo-1678911820864-e2c567c655d7?auto=format&fit=crop&w=800&q=85',
-    description:
-      'جهاز نظيف جداً كالجديد مع القلم الأصلي وكفالة شاملة من شركة الطالب.',
-    inStock: true,
-    createdAt: 1710000010000,
-  },
-  {
-    id: 'p-6',
-    title: 'REDMI NOTE 13 PRO+ 512GB',
-    category: 'xiaomi',
-    specs: 'بطارية 100% • رام 12GB • شحن 120W',
-    price: 315,
-    oldPrice: 340,
-    badge: 'جديد',
-    condition: 'جديد',
-    isFeaturedOffer: false,
-    imageUrl:
-      'https://images.unsplash.com/photo-1598327105666-5b89351aff97?auto=format&fit=crop&w=800&q=85',
-    description:
-      'شاشة منحنية AMOLED 120Hz، كاميرا 200MP، مع الشاحن الصاروخي 120 واط داخل العلبة.',
-    inStock: true,
-    createdAt: 1710000009000,
-  },
-  {
-    id: 'p-14',
-    title: 'INFINIX NOTE 40 PRO 256GB',
-    category: 'infinix',
-    specs: 'بطارية 100% • شحن MagCharge • كفالة سنة',
-    price: 225,
-    oldPrice: 250,
-    badge: 'جديد',
-    condition: 'جديد',
-    isFeaturedOffer: false,
-    imageUrl:
-      'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=85',
-    description: 'شاشة أموليد منحنية مع شاحن لاسلكي مغناطيسي مرفق داخل العلبة.',
-    inStock: true,
-    createdAt: 1710000008000,
-  },
-  {
-    id: 'p-15',
-    title: 'HONOR X9B 5G 256GB',
-    category: 'honor',
-    specs: 'بطارية 100% • 5800mAh • شاشة ضد الكسر',
-    price: 265,
-    oldPrice: 290,
-    badge: 'جديد',
-    condition: 'جديد',
-    isFeaturedOffer: false,
-    imageUrl:
-      'https://images.unsplash.com/photo-1580910051074-3eb694886505?auto=format&fit=crop&w=800&q=85',
-    description:
-      'أقوى شاشة مقاومة للصدمات مع بطارية عملاقة تدوم حتى 3 أيام متواصلة.',
-    inStock: true,
-    createdAt: 1710000007000,
-  },
-  {
-    id: 'p-16',
-    title: 'TECNO CAMON 30 256GB',
-    category: 'tecno',
-    specs: 'بطارية 100% • رام 8+8GB • شحن 70W',
-    price: 195,
-    oldPrice: 215,
-    badge: 'جديد',
-    condition: 'جديد',
-    isFeaturedOffer: false,
-    imageUrl:
-      'https://images.unsplash.com/photo-1567581935884-3349723552ca?auto=format&fit=crop&w=800&q=85',
-    description: 'تصميم أنيق وكاميرا احترافية للتصوير الليلي مع شحن سريع جداً.',
-    inStock: true,
-    createdAt: 1710000006000,
-  },
-  {
-    id: 'p-7',
-    title: 'APPLE WATCH ULTRA 2',
-    category: 'other',
-    specs: 'بطارية 100% • 49mm تيتانيوم • GPS',
-    price: 690,
-    oldPrice: 740,
-    badge: 'أصلي',
-    condition: 'جديد',
-    isFeaturedOffer: false,
-    imageUrl:
-      'https://images.unsplash.com/photo-1434493789847-2f02dc6ca35d?auto=format&fit=crop&w=800&q=85',
-    description:
-      'ساعة أبل ألترا الجيل الثاني الأصلية، هيكل تيتانيوم مقاوم للصدمات والماء مع بطارية تدوم طويلاً.',
-    inStock: true,
-    createdAt: 1710000005000,
-  },
-  {
-    id: 'p-8',
-    title: 'AIRPODS PRO 2 USB-C',
-    category: 'accessories',
-    specs: 'أصلية وكالة • عزل ضوضاء ذكي',
-    price: 210,
-    oldPrice: 235,
-    badge: 'جديد',
-    condition: 'جديد',
-    isFeaturedOffer: false,
-    imageUrl:
-      'https://images.unsplash.com/photo-1600294037681-c80b4cb5b434?auto=format&fit=crop&w=800&q=85',
-    description:
-      'سماعة أبل الأصلية بمنفذ Type-C، صوت محيطي وعزل ضوضاء مضاعف مع كفالة حقيقية.',
-    inStock: true,
-    createdAt: 1710000004000,
-  },
-  {
-    id: 'p-9',
-    title: 'APPLE 20W CHARGER',
-    category: 'accessories',
-    specs: 'رأس شاحن Type-C وكالة • كفالة سنة',
-    price: 20,
-    oldPrice: 25,
-    badge: 'أصلي 100%',
-    condition: 'جديد',
-    isFeaturedOffer: false,
-    imageUrl:
-      'https://images.unsplash.com/photo-1583863788434-e58a36330cf0?auto=format&fit=crop&w=800&q=85',
-    description:
-      'شاحن أبل الأصلي يحمي بطارية جهازك من التلف ويشحن حتى 50% خلال 30 دقيقة فقط.',
-    inStock: true,
-    createdAt: 1710000003000,
-  },
-  {
-    id: 'p-10',
-    title: 'ANKER MAGGO 10000',
-    category: 'accessories',
-    specs: 'شحن لاسلكي Qi2 • مع ستاند مدمج',
-    price: 45,
-    oldPrice: 55,
-    badge: 'جديد',
-    condition: 'جديد',
-    isFeaturedOffer: false,
-    imageUrl:
-      'https://images.unsplash.com/photo-1609592424361-91f8bdf9b3e1?auto=format&fit=crop&w=800&q=85',
-    description:
-      'بطارية مغناطيسية لاسلكية سريعة مع شاشة ذكية لعرض النسبة المتبقية ومنفذ Type-C.',
-    inStock: true,
-    createdAt: 1710000002000,
-  },
-  {
-    id: 'p-12',
-    title: 'MAGSAFE PACKAGE',
-    category: 'accessories',
-    specs: 'كفر شفاف أصلي + لصقة لقافة + حماية كاميرا',
-    price: 15,
-    oldPrice: 22,
-    badge: 'عرض خاص',
-    condition: 'جديد',
-    isFeaturedOffer: false,
-    imageUrl:
-      'https://images.unsplash.com/photo-1603313011101-320f26a4f6f6?auto=format&fit=crop&w=800&q=85',
-    description:
-      'حماية متكاملة 360 درجة متوفرة لكافة موديلات الآيفون من 11 حتى 16 برو ماكس.',
-    inStock: true,
-    createdAt: 1710000001000,
-  },
+  { id: 'p-1', title: 'IPHONE 16 PRO MAX 256GB', category: 'iphone', specs: 'بطارية 100% • تيتانيوم صحراوي • مع كفالة', price: 1185, oldPrice: 1250, badge: 'عرض خاص', condition: 'جديد', isFeaturedOffer: true, imageUrl: 'https://images.unsplash.com/photo-1695048133142-1a20484d2569?auto=format&fit=crop&w=800&q=85', description: 'نسخة الشرق الأوسط، مختوم غير مفعل، مع كفالة حقيقية وتجهيز الحساب ونقل البيانات مجاناً.', inStock: true, createdAt: 1710000016000 },
+  { id: 'p-2', title: 'IPHONE 15 PRO MAX 256GB', category: 'iphone', specs: 'بطارية 96% • تيتانيوم طبيعي • مع كفالة', price: 965, oldPrice: 1030, badge: 'عرض خاص', condition: 'مستعمل', isFeaturedOffer: true, imageUrl: 'https://images.unsplash.com/photo-1678685888221-cda773a3dcdb?auto=format&fit=crop&w=800&q=85', description: 'نظافة 100% خالي من أي خدش، غير مفتوح نهائياً على الفحص، مع العلبة الأصلية وكفالة شركة الطالب.', inStock: true, createdAt: 1710000015000 },
+  { id: 'p-3', title: 'IPHONE 14 PRO MAX 256GB', category: 'iphone', specs: 'بطارية 92% • بنفسجي غامق • مع كفالة', price: 815, oldPrice: 870, badge: 'عرض خاص', condition: 'مستعمل', isFeaturedOffer: true, imageUrl: 'https://images.unsplash.com/photo-1663499482523-1c0c1bae4ce1?auto=format&fit=crop&w=800&q=85', description: 'جهاز وكالة بالكامل، شاشة وبورد وبطارية أصلية 100%، مرفق مع لصقة حماية وكفر MagSafe هدية.', inStock: true, createdAt: 1710000014000 },
+  { id: 'p-5', title: 'IPHONE 13 PRO 128GB', category: 'iphone', specs: 'بطارية 89% • أزرق سييرا • مع كفالة', price: 585, oldPrice: 630, badge: 'مستعمل نظيف', condition: 'مستعمل', isFeaturedOffer: false, imageUrl: 'https://images.unsplash.com/photo-1632661674596-df8be070a5c5?auto=format&fit=crop&w=800&q=85', description: 'حالة الوكالة بدون أي ملاحظة، شاشة 120Hz، مفحوص بالكامل على الكمبيوتر مع كفالة محل.', inStock: true, createdAt: 1710000013000 },
+  { id: 'p-11', title: 'IPHONE 12 PRO MAX 256GB', category: 'iphone', specs: 'بطارية 87% • أزرق • مع كفالة', price: 510, oldPrice: 545, badge: 'مستعمل نظيف', condition: 'مستعمل', isFeaturedOffer: false, imageUrl: 'https://images.unsplash.com/photo-1603921326210-6edd2d60ca68?auto=format&fit=crop&w=800&q=85', description: 'نظافة عالية جداً، جميع القطع أصلية، فيس آيدي وتروتون شغال 100%.', inStock: true, createdAt: 1710000012000 },
+  { id: 'p-4', title: 'GALAXY S24 ULTRA 512GB', category: 'samsung', specs: 'بطارية 100% • رام 12GB • تيتانيوم رمادي', price: 995, oldPrice: 1080, badge: 'عرض خاص', condition: 'جديد', isFeaturedOffer: true, imageUrl: 'https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?auto=format&fit=crop&w=800&q=85', description: 'النسخة الرسمية شريحتين، معالج Snapdragon 8 Gen 3، يدعم ميزات الذكاء الاصطناعي بالكامل.', inStock: true, createdAt: 1710000011000 },
+  { id: 'p-13', title: 'GALAXY S23 ULTRA 256GB', category: 'samsung', specs: 'بطارية 95% • رام 12GB • أخضر زيتي', price: 685, oldPrice: 730, badge: 'مستعمل نظيف', condition: 'مستعمل', isFeaturedOffer: false, imageUrl: 'https://images.unsplash.com/photo-1678911820864-e2c567c655d7?auto=format&fit=crop&w=800&q=85', description: 'جهاز نظيف جداً كالجديد مع القلم الأصلي وكفالة شاملة من شركة الطالب.', inStock: true, createdAt: 1710000010000 },
+  { id: 'p-6', title: 'REDMI NOTE 13 PRO+ 512GB', category: 'xiaomi', specs: 'بطارية 100% • رام 12GB • شحن 120W', price: 315, oldPrice: 340, badge: 'جديد', condition: 'جديد', isFeaturedOffer: false, imageUrl: 'https://images.unsplash.com/photo-1598327105666-5b89351aff97?auto=format&fit=crop&w=800&q=85', description: 'شاشة منحنية AMOLED 120Hz، كاميرا 200MP، مع الشاحن الصاروخي 120 واط داخل العلبة.', inStock: true, createdAt: 1710000009000 },
+  { id: 'p-14', title: 'INFINIX NOTE 40 PRO 256GB', category: 'infinix', specs: 'بطارية 100% • شحن MagCharge • كفالة سنة', price: 225, oldPrice: 250, badge: 'جديد', condition: 'جديد', isFeaturedOffer: false, imageUrl: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=85', description: 'شاشة أموليد منحنية مع شاحن لاسلكي مغناطيسي مرفق داخل العلبة.', inStock: true, createdAt: 1710000008000 },
+  { id: 'p-15', title: 'HONOR X9B 5G 256GB', category: 'honor', specs: 'بطارية 100% • 5800mAh • شاشة ضد الكسر', price: 265, oldPrice: 290, badge: 'جديد', condition: 'جديد', isFeaturedOffer: false, imageUrl: 'https://images.unsplash.com/photo-1580910051074-3eb694886505?auto=format&fit=crop&w=800&q=85', description: 'أقوى شاشة مقاومة للصدمات مع بطارية عملاقة تدوم حتى 3 أيام متواصلة.', inStock: true, createdAt: 1710000007000 },
+  { id: 'p-16', title: 'TECNO CAMON 30 256GB', category: 'tecno', specs: 'بطارية 100% • رام 8+8GB • شحن 70W', price: 195, oldPrice: 215, badge: 'جديد', condition: 'جديد', isFeaturedOffer: false, imageUrl: 'https://images.unsplash.com/photo-1567581935884-3349723552ca?auto=format&fit=crop&w=800&q=85', description: 'تصميم أنيق وكاميرا احترافية للتصوير الليلي مع شحن سريع جداً.', inStock: true, createdAt: 1710000006000 },
+  { id: 'p-7', title: 'APPLE WATCH ULTRA 2', category: 'other', specs: 'بطارية 100% • 49mm تيتانيوم • GPS', price: 690, oldPrice: 740, badge: 'أصلي', condition: 'جديد', isFeaturedOffer: false, imageUrl: 'https://images.unsplash.com/photo-1434493789847-2f02dc6ca35d?auto=format&fit=crop&w=800&q=85', description: 'ساعة أبل ألترا الجيل الثاني الأصلية، هيكل تيتانيوم مقاوم للصدمات والماء مع بطارية تدوم طويلاً.', inStock: true, createdAt: 1710000005000 },
+  { id: 'p-8', title: 'AIRPODS PRO 2 USB-C', category: 'accessories', specs: 'أصلية وكالة • عزل ضوضاء ذكي', price: 210, oldPrice: 235, badge: 'جديد', condition: 'جديد', isFeaturedOffer: false, imageUrl: 'https://images.unsplash.com/photo-1600294037681-c80b4cb5b434?auto=format&fit=crop&w=800&q=85', description: 'سماعة أبل الأصلية بمنفذ Type-C، صوت محيطي وعزل ضوضاء مضاعف مع كفالة حقيقية.', inStock: true, createdAt: 1710000004000 },
+  { id: 'p-9', title: 'APPLE 20W CHARGER', category: 'accessories', specs: 'رأس شاحن Type-C وكالة • كفالة سنة', price: 20, oldPrice: 25, badge: 'أصلي 100%', condition: 'جديد', isFeaturedOffer: false, imageUrl: 'https://images.unsplash.com/photo-1583863788434-e58a36330cf0?auto=format&fit=crop&w=800&q=85', description: 'شاحن أبل الأصلي يحمي بطارية جهازك من التلف ويشحن حتى 50% خلال 30 دقيقة فقط.', inStock: true, createdAt: 1710000003000 },
+  { id: 'p-10', title: 'ANKER MAGGO 10000', category: 'accessories', specs: 'شحن لاسلكي Qi2 • مع ستاند مدمج', price: 45, oldPrice: 55, badge: 'جديد', condition: 'جديد', isFeaturedOffer: false, imageUrl: 'https://images.unsplash.com/photo-1609592424361-91f8bdf9b3e1?auto=format&fit=crop&w=800&q=85', description: 'بطارية مغناطيسية لاسلكية سريعة مع شاشة ذكية لعرض النسبة المتبقية ومنفذ Type-C.', inStock: true, createdAt: 1710000002000 },
+  { id: 'p-12', title: 'MAGSAFE PACKAGE', category: 'accessories', specs: 'كفر شفاف أصلي + لصقة لقافة + حماية كاميرا', price: 15, oldPrice: 22, badge: 'عرض خاص', condition: 'جديد', isFeaturedOffer: false, imageUrl: 'https://images.unsplash.com/photo-1603313011101-320f26a4f6f6?auto=format&fit=crop&w=800&q=85', description: 'حماية متكاملة 360 درجة متوفرة لكافة موديلات الآيفون من 11 حتى 16 برو ماكس.', inStock: true, createdAt: 1710000001000 },
 ];
 
 const DEFAULT_SERVICES = [
-  {
-    id: 's-1',
-    title: 'تبديل شاشة أصلية',
-    sub: 'مع نقل التروتون بدون رسالة',
-    price: 'حسب الموديل',
-  },
-  {
-    id: 's-2',
-    title: 'تبديل بطارية وكالة',
-    sub: 'نسبة 100% مع كفالة حقيقية',
-    price: 'ابتداءً من 25$',
-  },
-  {
-    id: 's-3',
-    title: 'صيانة بورد متقدمة',
-    sub: 'إصلاح شورت، شبكة، شحن، صوت',
-    price: 'فحص مجاني',
-  },
-  {
-    id: 's-4',
-    title: 'تبديل ظهر بالليزر',
-    sub: 'إزالة الكسر دون فتح الجهاز',
-    price: 'ابتداءً من 20$',
-  },
-  {
-    id: 's-5',
-    title: 'تخطي وفك قفل',
-    sub: 'حسابات آيكلاود، جيميل، سوفت وير',
-    price: 'ابتداءً من 10$',
-  },
-  {
-    id: 's-6',
-    title: 'فحص شامل قبل الشراء',
-    sub: 'تقرير فحص كامل على الكمبيوتر',
-    price: 'مجاناً للزبائن',
-  },
-  {
-    id: 's-7',
-    title: 'تبديل جام خارجي',
-    sub: 'الحفاظ على شاشة الوكالة الأصلية',
-    price: 'ابتداءً من 30$',
-  },
-  {
-    id: 's-8',
-    title: 'نقل بيانات ونسخ احتياطي',
-    sub: 'نقل الواتساب وكافة الصور والأسماء',
-    price: 'خدمة فورية',
-  },
+  { id: 's-1', title: 'تبديل شاشة أصلية', sub: 'مع نقل التروتون بدون رسالة', price: 'حسب الموديل' },
+  { id: 's-2', title: 'تبديل بطارية وكالة', sub: 'نسبة 100% مع كفالة حقيقية', price: 'ابتداءً من 25$' },
+  { id: 's-3', title: 'صيانة بورد متقدمة', sub: 'إصلاح شورت، شبكة، شحن، صوت', price: 'فحص مجاني' },
+  { id: 's-4', title: 'تبديل ظهر بالليزر', sub: 'إزالة الكسر دون فتح الجهاز', price: 'ابتداءً من 20$' },
+  { id: 's-5', title: 'تخطي وفك قفل', sub: 'حسابات آيكلاود، جيميل، سوفت وير', price: 'ابتداءً من 10$' },
+  { id: 's-6', title: 'فحص شامل قبل الشراء', sub: 'تقرير فحص كامل على الكمبيوتر', price: 'مجاناً للزبائن' },
+  { id: 's-7', title: 'تبديل جام خارجي', sub: 'الحفاظ على شاشة الوكالة الأصلية', price: 'ابتداءً من 30$' },
+  { id: 's-8', title: 'نقل بيانات ونسخ احتياطي', sub: 'نقل الواتساب وكافة الصور والأسماء', price: 'خدمة فورية' },
 ];
 
 export default function App() {
@@ -803,24 +459,20 @@ export default function App() {
   const [services, setServices] = useState(DEFAULT_SERVICES);
   const [isDataLoaded, setIsDataLoaded] = useState(false);
 
-  // Hero Offer Carousel & Scratch Reveal States
   const [currentOfferIndex, setCurrentOfferIndex] = useState(0);
   const [revealedOffers, setRevealedOffers] = useState({});
   const [favorites, setFavorites] = useState(['p-1', 'p-2']);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  // Daily Price Sheet Modal ("نشرة الأسعار") States
   const [showPriceSheet, setShowPriceSheet] = useState(false);
   const [sheetZoom, setSheetZoom] = useState(1);
   const [isGeneratingImage, setIsGeneratingImage] = useState(false);
 
-  // Filter States
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [conditionFilter, setConditionFilter] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [activeProduct, setActiveProduct] = useState(null);
 
-  // Admin States
   const [isAdminLoginOpen, setIsAdminLoginOpen] = useState(false);
   const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(false);
   const [isAdminDashboardOpen, setIsAdminDashboardOpen] = useState(false);
@@ -829,21 +481,11 @@ export default function App() {
   const [adminTab, setAdminTab] = useState('products');
   const [toastMessage, setToastMessage] = useState(null);
 
-  // Admin Product Modal State
   const [isProductFormOpen, setIsProductFormOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
   const [productForm, setProductForm] = useState({
-    title: '',
-    category: 'iphone',
-    specs: '',
-    price: '',
-    oldPrice: '',
-    badge: 'عرض خاص',
-    condition: 'جديد',
-    isFeaturedOffer: false,
-    imageUrl: '',
-    description: '',
-    inStock: true,
+    title: '', category: 'iphone', specs: '', price: '', oldPrice: '',
+    badge: 'عرض خاص', condition: 'جديد', isFeaturedOffer: false, imageUrl: '', description: '', inStock: true,
   });
 
   const showToast = (msg) => {
@@ -851,129 +493,57 @@ export default function App() {
     setTimeout(() => setToastMessage(null), 3200);
   };
 
-  // Format SYP Currency cleanly
   const formatSYP = (usdPrice) => {
-    if (!settings.showSYP || !settings.exchangeRateSYP || !usdPrice)
-      return null;
+    if (!settings.showSYP || !settings.exchangeRateSYP || !usdPrice) return null;
     const val = Math.round(Number(usdPrice) * Number(settings.exchangeRateSYP));
     return val.toLocaleString('en-US') + ' ل.س';
   };
 
-  // Live Available In-Stock Products Counter
   const availableProductsCount = useMemo(() => {
     return products.filter((p) => p.inStock !== false).length;
   }, [products]);
 
-  // Helper to extract Storage & Battery percentage from product title/specs for Price Sheet
   const parseDeviceMeta = (prod) => {
     const combined = `${prod.title || ''} ${prod.specs || ''}`;
     const storageMatch = combined.match(/(\d+\s*(?:GB|TB))/i);
     const batteryMatch = combined.match(/(?:بطارية\s*)?(\d{2,3})%/);
-    const storage = storageMatch
-      ? storageMatch[1].replace(/\s+/g, '').toUpperCase()
-      : prod.condition === 'جديد'
-      ? 'NEW'
-      : '256GB';
-    const battery = batteryMatch
-      ? `${batteryMatch[1]}%`
-      : prod.condition === 'جديد'
-      ? 'NEW'
-      : '95%';
-    const shortName = (prod.title || '')
-      .replace(
-        /^(IPHONE|SAMSUNG|GALAXY|XIAOMI|REDMI|INFINIX|HONOR|TECNO)\s*/i,
-        ''
-      )
-      .replace(/(\d+\s*(?:GB|TB))/gi, '')
-      .trim();
-    return {
-      shortName: shortName || prod.title,
-      storage,
-      battery,
-      isNew:
-        prod.condition === 'جديد' || battery === '100%' || battery === 'NEW',
-    };
+    const storage = storageMatch ? storageMatch[1].replace(/\s+/g, '').toUpperCase() : prod.condition === 'جديد' ? 'NEW' : '256GB';
+    const battery = batteryMatch ? `${batteryMatch[1]}%` : prod.condition === 'جديد' ? 'NEW' : '95%';
+    const shortName = (prod.title || '').replace(/^(IPHONE|SAMSUNG|GALAXY|XIAOMI|REDMI|INFINIX|HONOR|TECNO)\s*/i, '').replace(/(\d+\s*(?:GB|TB))/gi, '').trim();
+    return { shortName: shortName || prod.title, storage, battery, isNew: prod.condition === 'جديد' || battery === '100%' || battery === 'NEW', };
   };
 
-  // Detect exact ordered category key for each product (handles legacy categories gracefully)
   const resolveProductOrderedCategory = (prod) => {
     const cat = (prod.category || '').toLowerCase();
     const title = (prod.title || '').toLowerCase();
-    if (PRICE_SHEET_CATEGORY_ORDER.some((c) => c.id === cat)) {
-      return cat;
-    }
-    if (
-      title.includes('iphone') ||
-      title.includes('آيفون') ||
-      title.includes('ايفون')
-    )
-      return 'iphone';
-    if (
-      title.includes('samsung') ||
-      title.includes('galaxy') ||
-      title.includes('سامسونج')
-    )
-      return 'samsung';
-    if (
-      title.includes('xiaomi') ||
-      title.includes('redmi') ||
-      title.includes('poco') ||
-      title.includes('شاومي')
-    )
-      return 'xiaomi';
-    if (
-      title.includes('infinix') ||
-      title.includes('انفنكس') ||
-      title.includes('إنفنكس')
-    )
-      return 'infinix';
+    if (PRICE_SHEET_CATEGORY_ORDER.some((c) => c.id === cat)) return cat;
+    if (title.includes('iphone') || title.includes('آيفون') || title.includes('ايفون')) return 'iphone';
+    if (title.includes('samsung') || title.includes('galaxy') || title.includes('سامسونج')) return 'samsung';
+    if (title.includes('xiaomi') || title.includes('redmi') || title.includes('poco') || title.includes('شاومي')) return 'xiaomi';
+    if (title.includes('infinix') || title.includes('انفنكس') || title.includes('إنفنكس')) return 'infinix';
     if (title.includes('honor') || title.includes('هونر')) return 'honor';
     if (title.includes('tecno') || title.includes('تكنو')) return 'tecno';
-    if (
-      cat === 'accessories' ||
-      title.includes('شاحن') ||
-      title.includes('كفر') ||
-      title.includes('سماعة') ||
-      title.includes('باور')
-    )
-      return 'accessories';
+    if (cat === 'accessories' || title.includes('شاحن') || title.includes('كفر') || title.includes('سماعة') || title.includes('باور')) return 'accessories';
     return 'other';
   };
 
-  // Organize available products strictly in the requested 8-category sequence:
-  // 1. iphone -> 2. samsung -> 3. xiaomi -> 4. infinix -> 5. honor -> 6. tecno -> 7. other -> 8. accessories
-  // And distribute them sequentially across 3 balanced columns (Right -> Middle -> Left)
   const priceSheetData = useMemo(() => {
     const available = products.filter((p) => p.inStock !== false);
-
-    // Group products by the strict 8-category order
     const orderedGroups = PRICE_SHEET_CATEGORY_ORDER.map((groupDef) => {
-      const items = available.filter(
-        (p) => resolveProductOrderedCategory(p) === groupDef.id
-      );
-      return {
-        ...groupDef,
-        items,
-      };
+      const items = available.filter((p) => resolveProductOrderedCategory(p) === groupDef.id);
+      return { ...groupDef, items };
     }).filter((g) => g.items.length > 0);
 
-    // Flatten into a sequential stream of rows (Category Header Row + Item Rows)
     const flatRows = [];
     orderedGroups.forEach((group) => {
-      flatRows.push({
-        type: 'header',
-        id: `hdr-${group.id}`,
-        label: group.label,
-      });
+      flatRows.push({ type: 'header', id: `hdr-${group.id}`, label: group.label });
       group.items.forEach((item) => {
         flatRows.push({ type: 'item', id: item.id, product: item });
       });
     });
 
-    // Split sequentially into 3 columns (Col 1: Right/First, Col 2: Middle/Second, Col 3: Left/Third)
     const totalRows = flatRows.length;
     const perCol = Math.max(1, Math.ceil(totalRows / 3));
-
     const col1 = flatRows.slice(0, perCol);
     const col2 = flatRows.slice(perCol, perCol * 2);
     const col3 = flatRows.slice(perCol * 2);
@@ -981,20 +551,14 @@ export default function App() {
     return { orderedGroups, col1, col2, col3, allAvailable: available };
   }, [products]);
 
-  // Arabic formatted date for Price Sheet Header (e.g. الجمعة، ١٣ تشرين الثاني)
   const todayArabicDate = useMemo(() => {
     try {
-      return new Date().toLocaleDateString('ar-SY', {
-        weekday: 'long',
-        day: 'numeric',
-        month: 'long',
-      });
+      return new Date().toLocaleDateString('ar-SY', { weekday: 'long', day: 'numeric', month: 'long' });
     } catch (e) {
       return 'نشرة محدثة اليوم';
     }
   }, []);
 
-  // High-Resolution HTML5 Canvas Generator for "حفظ الصورة" Button
   const handleDownloadPriceSheetImage = async () => {
     setIsGeneratingImage(true);
     try {
@@ -1005,7 +569,6 @@ export default function App() {
       canvas.height = height;
       const ctx = canvas.getContext('2d');
 
-      // 1. Dark Luxury Background
       const bgGrad = ctx.createLinearGradient(0, 0, 0, height);
       bgGrad.addColorStop(0, '#0E1015');
       bgGrad.addColorStop(0.5, '#090A0D');
@@ -1013,26 +576,16 @@ export default function App() {
       ctx.fillStyle = bgGrad;
       ctx.fillRect(0, 0, width, height);
 
-      // Subtle Ambient Glow
-      const radialGlow = ctx.createRadialGradient(
-        width / 2,
-        220,
-        40,
-        width / 2,
-        220,
-        520
-      );
+      const radialGlow = ctx.createRadialGradient(width / 2, 220, 40, width / 2, 220, 520);
       radialGlow.addColorStop(0, 'rgba(0, 149, 217, 0.14)');
       radialGlow.addColorStop(1, 'rgba(0, 0, 0, 0)');
       ctx.fillStyle = radialGlow;
       ctx.fillRect(0, 0, width, 600);
 
-      // Outer Border Frame
       ctx.strokeStyle = 'rgba(255, 255, 255, 0.12)';
       ctx.lineWidth = 2;
       ctx.strokeRect(36, 36, width - 72, height - 72);
 
-      // 2. Top Header: Brand on Left + "نشرة الأسعار" on Right
       ctx.textAlign = 'left';
       ctx.fillStyle = '#FFFFFF';
       ctx.font = '900 46px "IBM Plex Sans Arabic", sans-serif';
@@ -1051,7 +604,6 @@ export default function App() {
       ctx.font = '500 24px "IBM Plex Sans Arabic", sans-serif';
       ctx.fillText(todayArabicDate, width - 85, 178);
 
-      // Header Divider Line
       ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
       ctx.lineWidth = 1.5;
       ctx.beginPath();
@@ -1059,10 +611,9 @@ export default function App() {
       ctx.lineTo(width - 80, 215);
       ctx.stroke();
 
-      // 3. Draw 3 Columns Strictly Following the Ordered Category Sequence
       const colWidth = 325;
       const colGap = 32;
-      const startXRight = width - 80; // Col 0 = Rightmost (Starts with IPHONE), Col 1 = Middle, Col 2 = Leftmost (Ends with إكسسوارات)
+      const startXRight = width - 80;
 
       const drawOrderedColumn = (rows, colIdx) => {
         const colRightX = startXRight - colIdx * (colWidth + colGap);
@@ -1071,10 +622,8 @@ export default function App() {
 
         rows.forEach((row) => {
           if (y > 1235) return;
-
           if (row.type === 'header') {
             y += 6;
-            // Category Pill Header (e.g. IPHONE, SAMSUNG, XIAOMI...)
             ctx.fillStyle = 'rgba(255, 255, 255, 0.09)';
             ctx.beginPath();
             ctx.roundRect(colLeftX, y - 22, 130, 30, 15);
@@ -1082,51 +631,32 @@ export default function App() {
             ctx.strokeStyle = 'rgba(255, 255, 255, 0.28)';
             ctx.lineWidth = 1.2;
             ctx.stroke();
-
             ctx.textAlign = 'center';
             ctx.fillStyle = '#FFFFFF';
             ctx.font = '800 13px "IBM Plex Sans Arabic", sans-serif';
             ctx.fillText(row.label, colLeftX + 65, y - 3);
-
             y += 32;
           } else if (row.type === 'item') {
             const prod = row.product;
             const meta = parseDeviceMeta(prod);
-
-            // Row subtle bottom line
             ctx.strokeStyle = 'rgba(255, 255, 255, 0.06)';
             ctx.lineWidth = 1;
             ctx.beginPath();
             ctx.moveTo(colLeftX, y + 11);
             ctx.lineTo(colRightX, y + 11);
             ctx.stroke();
-
-            // Device Name (Left)
             ctx.textAlign = 'left';
             ctx.fillStyle = '#F3F4F6';
             ctx.font = '700 15px "IBM Plex Sans Arabic", sans-serif';
             ctx.fillText(meta.shortName.slice(0, 16), colLeftX, y);
-
-            // Storage + Battery Badge (Center)
             ctx.textAlign = 'center';
             ctx.fillStyle = '#9CA3AF';
             ctx.font = '600 12px "IBM Plex Sans Arabic", sans-serif';
-            ctx.fillText(
-              `${meta.storage} • ${meta.battery}`,
-              colLeftX + colWidth * 0.56,
-              y
-            );
-
-            // Price (Right)
+            ctx.fillText(`${meta.storage} • ${meta.battery}`, colLeftX + colWidth * 0.56, y);
             ctx.textAlign = 'right';
             ctx.fillStyle = '#FFFFFF';
             ctx.font = '800 17px "IBM Plex Sans Arabic", sans-serif';
-            ctx.fillText(
-              `${settings.currencySymbol}${prod.price}`,
-              colRightX,
-              y
-            );
-
+            ctx.fillText(`${settings.currencySymbol}${prod.price}`, colRightX, y);
             y += 38;
           }
         });
@@ -1136,7 +666,6 @@ export default function App() {
       drawOrderedColumn(priceSheetData.col2, 1);
       drawOrderedColumn(priceSheetData.col3, 2);
 
-      // Vertical separators between columns
       ctx.strokeStyle = 'rgba(255,255,255,0.08)';
       ctx.beginPath();
       ctx.moveTo(startXRight - colWidth - colGap / 2, 245);
@@ -1145,7 +674,6 @@ export default function App() {
       ctx.lineTo(startXRight - 2 * colWidth - 1.5 * colGap, 1240);
       ctx.stroke();
 
-      // 4. Footer Section ("واتس حصراً" + Sales & Repair Numbers + Address)
       const footerTop = 1285;
       ctx.strokeStyle = 'rgba(255,255,255,0.1)';
       ctx.beginPath();
@@ -1153,7 +681,6 @@ export default function App() {
       ctx.lineTo(width - 120, footerTop);
       ctx.stroke();
 
-      // Center Pill "واتس حصراً"
       ctx.fillStyle = '#14171F';
       ctx.strokeStyle = 'rgba(255,255,255,0.28)';
       ctx.lineWidth = 1.5;
@@ -1167,7 +694,6 @@ export default function App() {
       ctx.font = '700 20px "IBM Plex Sans Arabic", sans-serif';
       ctx.fillText('واتس حصراً', width / 2, footerTop + 7);
 
-      // Sales & Maintenance Phone Columns
       ctx.fillStyle = '#9CA3AF';
       ctx.font = '500 20px "IBM Plex Sans Arabic", sans-serif';
       ctx.fillText('قسم المبيعات', width / 2 + 190, footerTop + 62);
@@ -1175,25 +701,12 @@ export default function App() {
 
       ctx.fillStyle = '#FFFFFF';
       ctx.font = '800 32px "IBM Plex Sans Arabic", sans-serif';
-      ctx.fillText(
-        settings.salesPhone || '0935 240 669',
-        width / 2 + 190,
-        footerTop + 104
-      );
-      ctx.fillText(
-        settings.repairPhone || '0986 895 611',
-        width / 2 - 190,
-        footerTop + 104
-      );
+      ctx.fillText(settings.salesPhone || '0935 240 669', width / 2 + 190, footerTop + 104);
+      ctx.fillText(settings.repairPhone || '0986 895 611', width / 2 - 190, footerTop + 104);
 
-      // Slogan & Address
       ctx.fillStyle = '#D1D5DB';
       ctx.font = '600 20px "IBM Plex Sans Arabic", sans-serif';
-      ctx.fillText(
-        `${STORE_CONFIG.brandNameAr} • ${STORE_CONFIG.slogan}`,
-        width / 2,
-        footerTop + 165
-      );
+      ctx.fillText(`${STORE_CONFIG.brandNameAr} • ${STORE_CONFIG.slogan}`, width / 2, footerTop + 165);
 
       ctx.fillStyle = '#9CA3AF';
       ctx.font = '500 18px "IBM Plex Sans Arabic", sans-serif';
@@ -1201,18 +714,11 @@ export default function App() {
 
       ctx.fillStyle = '#6B7280';
       ctx.font = '500 16px "IBM Plex Sans Arabic", sans-serif';
-      ctx.fillText(
-        'الأسعار قابلة للتغيير • ما في حجز، يلي بيسبق بياكل فستق',
-        width / 2,
-        footerTop + 245
-      );
+      ctx.fillText('الأسعار قابلة للتغيير • ما في حجز، يلي بيسبق بياكل فستق', width / 2, footerTop + 245);
 
-      // Download PNG
       const dataUrl = canvas.toDataURL('image/png');
       const link = document.createElement('a');
-      link.download = `price-sheet-${new Date()
-        .toISOString()
-        .slice(0, 10)}.png`;
+      link.download = `price-sheet-${new Date().toISOString().slice(0, 10)}.png`;
       link.href = dataUrl;
       document.body.appendChild(link);
       link.click();
@@ -1225,32 +731,21 @@ export default function App() {
     }
   };
 
-  // Featured Offers for the Hero Scratch Carousel
   const featuredOffers = useMemo(() => {
-    const list = products.filter(
-      (p) => p.isFeaturedOffer && p.inStock !== false
-    );
+    const list = products.filter((p) => p.isFeaturedOffer && p.inStock !== false);
     return list.length > 0 ? list : products.slice(0, 4);
   }, [products]);
 
-  const currentOffer =
-    featuredOffers[currentOfferIndex % Math.max(1, featuredOffers.length)] ||
-    products[0];
+  const currentOffer = featuredOffers[currentOfferIndex % Math.max(1, featuredOffers.length)] || products[0];
 
   const toggleFavorite = (id, e) => {
     if (e) e.stopPropagation();
-    setFavorites((prev) =>
-      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
-    );
+    setFavorites((prev) => prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]);
   };
 
-  // Listen to #admin hash for direct access
   useEffect(() => {
     const handleHash = () => {
-      if (
-        window.location.hash === '#admin' ||
-        window.location.search.includes('admin=1')
-      ) {
+      if (window.location.hash === '#admin' || window.location.search.includes('admin=1')) {
         setIsAdminDashboardOpen(false);
         setIsAdminAuthenticated(false);
         setIsAdminLoginOpen(true);
@@ -1261,7 +756,6 @@ export default function App() {
     return () => window.removeEventListener('hashchange', handleHash);
   }, []);
 
-  // Firebase Auth (Rule 3)
   useEffect(() => {
     if (!auth) {
       setIsDataLoaded(true);
@@ -1269,10 +763,7 @@ export default function App() {
     }
     const initAuth = async () => {
       try {
-        if (
-          typeof __initial_auth_token !== 'undefined' &&
-          __initial_auth_token
-        ) {
+        if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
           await signInWithCustomToken(auth, __initial_auth_token);
         } else {
           await signInAnonymously(auth);
@@ -1286,89 +777,44 @@ export default function App() {
     return () => unsub();
   }, []);
 
-  // Firestore Sync (Rule 1 & 2 - Isolated via STORE_CONFIG.storageCollectionPrefix)
   const configColName = `${STORE_CONFIG.storageCollectionPrefix}_config`;
   const productsColName = `${STORE_CONFIG.storageCollectionPrefix}_products`;
 
   useEffect(() => {
     if (!user || !db) return;
+    const settingsRef = doc(db, 'artifacts', appId, 'public', 'data', configColName, 'store_settings');
+    const unsubSettings = onSnapshot(settingsRef, (snap) => {
+      if (snap.exists()) {
+        setSettings({ ...DEFAULT_SETTINGS, ...snap.data() });
+      } else {
+        setDoc(settingsRef, DEFAULT_SETTINGS).catch(() => {});
+      }
+    }, () => {});
 
-    const settingsRef = doc(
-      db,
-      'artifacts',
-      appId,
-      'public',
-      'data',
-      configColName,
-      'store_settings'
-    );
-    const unsubSettings = onSnapshot(
-      settingsRef,
-      (snap) => {
-        if (snap.exists()) {
-          setSettings({ ...DEFAULT_SETTINGS, ...snap.data() });
-        } else {
-          setDoc(settingsRef, DEFAULT_SETTINGS).catch(() => {});
-        }
-      },
-      () => {}
-    );
+    const servicesRef = doc(db, 'artifacts', appId, 'public', 'data', configColName, 'repair_services');
+    const unsubServices = onSnapshot(servicesRef, (snap) => {
+      if (snap.exists() && Array.isArray(snap.data().list)) {
+        setServices(snap.data().list);
+      } else {
+        setDoc(servicesRef, { list: DEFAULT_SERVICES }).catch(() => {});
+      }
+    }, () => {});
 
-    const servicesRef = doc(
-      db,
-      'artifacts',
-      appId,
-      'public',
-      'data',
-      configColName,
-      'repair_services'
-    );
-    const unsubServices = onSnapshot(
-      servicesRef,
-      (snap) => {
-        if (snap.exists() && Array.isArray(snap.data().list)) {
-          setServices(snap.data().list);
-        } else {
-          setDoc(servicesRef, { list: DEFAULT_SERVICES }).catch(() => {});
-        }
-      },
-      () => {}
-    );
-
-    const productsCol = collection(
-      db,
-      'artifacts',
-      appId,
-      'public',
-      'data',
-      productsColName
-    );
-    const unsubProducts = onSnapshot(
-      productsCol,
-      (snapshot) => {
-        if (snapshot.empty && !isDataLoaded) {
-          DEFAULT_PRODUCTS.forEach((p) => {
-            const pDoc = doc(
-              db,
-              'artifacts',
-              appId,
-              'public',
-              'data',
-              productsColName,
-              p.id
-            );
-            setDoc(pDoc, p).catch(() => {});
-          });
-          setProducts(DEFAULT_PRODUCTS);
-        } else if (!snapshot.empty) {
-          const list = snapshot.docs.map((d) => ({ id: d.id, ...d.data() }));
-          list.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
-          setProducts(list);
-        }
-        setIsDataLoaded(true);
-      },
-      () => setIsDataLoaded(true)
-    );
+    const productsCol = collection(db, 'artifacts', appId, 'public', 'data', productsColName);
+    const unsubProducts = onSnapshot(productsCol, (snapshot) => {
+      if (snapshot.empty && !isDataLoaded) {
+        DEFAULT_PRODUCTS.forEach((p) => {
+          const pDoc = doc(db, 'artifacts', appId, 'public', 'data', productsColName, p.id);
+          setDoc(pDoc, p).catch(() => {});
+        });
+        setProducts(DEFAULT_PRODUCTS);
+      } else if (!snapshot.empty) {
+        const list = snapshot.docs.map((d) => ({ id: d.id, ...d.data() }));
+        list.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+        setProducts(list);
+      }
+      setIsDataLoaded(true);
+    }, () => setIsDataLoaded(true));
 
     return () => {
       unsubSettings();
@@ -1377,57 +823,33 @@ export default function App() {
     };
   }, [user, configColName, productsColName]);
 
-  // Filtered Products
   const filteredProducts = useMemo(() => {
     return products.filter((p) => {
       const prodCat = resolveProductOrderedCategory(p);
-      const matchCat =
-        selectedCategory === 'all' ||
-        prodCat === selectedCategory ||
-        p.category === selectedCategory;
-      const matchCond =
-        conditionFilter === 'all' || p.condition === conditionFilter;
+      const matchCat = selectedCategory === 'all' || prodCat === selectedCategory || p.category === selectedCategory;
+      const matchCond = conditionFilter === 'all' || p.condition === conditionFilter;
       const q = searchQuery.trim().toLowerCase();
-      const matchSearch =
-        !q ||
-        (p.title && p.title.toLowerCase().includes(q)) ||
-        (p.specs && p.specs.toLowerCase().includes(q));
+      const matchSearch = !q || (p.title && p.title.toLowerCase().includes(q)) || (p.specs && p.specs.toLowerCase().includes(q));
       return matchCat && matchCond && matchSearch;
     });
   }, [products, selectedCategory, conditionFilter, searchQuery]);
 
-  // WhatsApp Helpers
   const cleanPhone = (num) => (num || '').replace(/[^0-9]/g, '');
 
   const openWhatsAppProduct = (prod, e) => {
     if (e) e.stopPropagation();
     const phone = cleanPhone(settings.whatsappNumber);
     const sypText = formatSYP(prod.price) ? ` (${formatSYP(prod.price)})` : '';
-    const text = `السلام عليكم *${
-      settings.storeName
-    }* 👋\nأرغب بطلب / الاستفسار عن الجهاز التالي:\n\n📱 *الجهاز:* ${
-      prod.title
-    }\n📝 *المواصفات:* ${prod.specs || '-'}\n💵 *السعر:* ${prod.price}${
-      settings.currencySymbol
-    }${sypText}\n\nهل متوفر حالياً؟`;
-    window.open(
-      `https://wa.me/${phone}?text=${encodeURIComponent(text)}`,
-      '_blank'
-    );
+    const text = `السلام عليكم *${settings.storeName}* 👋\nأرغب بطلب / الاستفسار عن الجهاز التالي:\n\n📱 *الجهاز:* ${prod.title}\n📝 *المواصفات:* ${prod.specs || '-'}\n💵 *السعر:* ${prod.price}${settings.currencySymbol}${sypText}\n\nهل متوفر حالياً؟`;
+    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`, '_blank');
   };
 
   const openWhatsAppGeneral = (customText) => {
     const phone = cleanPhone(settings.whatsappNumber);
-    const text =
-      customText ||
-      `السلام عليكم *${settings.storeName}*، لدي استفسار بخصوص الأجهزة والعروض المتوفرة لديكم.`;
-    window.open(
-      `https://wa.me/${phone}?text=${encodeURIComponent(text)}`,
-      '_blank'
-    );
+    const text = customText || `السلام عليكم *${settings.storeName}*، لدي استفسار بخصوص الأجهزة والعروض المتوفرة لديكم.`;
+    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`, '_blank');
   };
 
-  // Admin Actions
   const handleAdminLogin = (e) => {
     e.preventDefault();
     if (passwordInput === (settings.adminPassword || 'admin')) {
@@ -1477,37 +899,13 @@ export default function App() {
 
   const openAddProduct = () => {
     setEditingProduct(null);
-    setProductForm({
-      title: '',
-      category: 'iphone',
-      specs: '',
-      price: '',
-      oldPrice: '',
-      badge: 'عرض خاص',
-      condition: 'جديد',
-      isFeaturedOffer: false,
-      imageUrl: '',
-      description: '',
-      inStock: true,
-    });
+    setProductForm({ title: '', category: 'iphone', specs: '', price: '', oldPrice: '', badge: 'عرض خاص', condition: 'جديد', isFeaturedOffer: false, imageUrl: '', description: '', inStock: true });
     setIsProductFormOpen(true);
   };
 
   const openEditProduct = (prod) => {
     setEditingProduct(prod);
-    setProductForm({
-      title: prod.title || '',
-      category: prod.category || 'iphone',
-      specs: prod.specs || '',
-      price: prod.price ?? '',
-      oldPrice: prod.oldPrice ?? '',
-      badge: prod.badge || '',
-      condition: prod.condition || 'جديد',
-      isFeaturedOffer: Boolean(prod.isFeaturedOffer),
-      imageUrl: prod.imageUrl || '',
-      description: prod.description || '',
-      inStock: prod.inStock ?? true,
-    });
+    setProductForm({ title: prod.title || '', category: prod.category || 'iphone', specs: prod.specs || '', price: prod.price ?? '', oldPrice: prod.oldPrice ?? '', badge: prod.badge || '', condition: prod.condition || 'جديد', isFeaturedOffer: Boolean(prod.isFeaturedOffer), imageUrl: prod.imageUrl || '', description: prod.description || '', inStock: prod.inStock ?? true });
     setIsProductFormOpen(true);
   };
 
@@ -1515,64 +913,28 @@ export default function App() {
     e.preventDefault();
     if (!productForm.title.trim()) return;
     const prodId = editingProduct ? editingProduct.id : `p-${Date.now()}`;
-    const itemData = {
-      id: prodId,
-      title: productForm.title.trim(),
-      category: productForm.category,
-      specs: productForm.specs.trim(),
-      price: Number(productForm.price) || 0,
-      oldPrice: productForm.oldPrice ? Number(productForm.oldPrice) : null,
-      badge: productForm.badge.trim(),
-      condition: productForm.condition,
-      isFeaturedOffer: Boolean(productForm.isFeaturedOffer),
-      imageUrl:
-        productForm.imageUrl.trim() ||
-        'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=85',
-      description: productForm.description.trim(),
-      inStock: Boolean(productForm.inStock),
-      createdAt: editingProduct ? editingProduct.createdAt : Date.now(),
-    };
+    const itemData = { id: prodId, title: productForm.title.trim(), category: productForm.category, specs: productForm.specs.trim(), price: Number(productForm.price) || 0, oldPrice: productForm.oldPrice ? Number(productForm.oldPrice) : null, badge: productForm.badge.trim(), condition: productForm.condition, isFeaturedOffer: Boolean(productForm.isFeaturedOffer), imageUrl: productForm.imageUrl.trim() || 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=85', description: productForm.description.trim(), inStock: Boolean(productForm.inStock), createdAt: editingProduct ? editingProduct.createdAt : Date.now() };
 
     setProducts((prev) => {
       const exists = prev.some((item) => item.id === prodId);
-      return exists
-        ? prev.map((item) => (item.id === prodId ? itemData : item))
-        : [itemData, ...prev];
+      return exists ? prev.map((item) => (item.id === prodId ? itemData : item)) : [itemData, ...prev];
     });
     setIsProductFormOpen(false);
 
     if (user && db) {
       try {
-        const pDoc = doc(
-          db,
-          'artifacts',
-          appId,
-          'public',
-          'data',
-          productsColName,
-          prodId
-        );
+        const pDoc = doc(db, 'artifacts', appId, 'public', 'data', productsColName, prodId);
         await setDoc(pDoc, itemData);
       } catch (err) {}
     }
-    showToast(
-      editingProduct ? 'تم تحديث بيانات الجهاز' : 'تمت إضافة الجهاز إلى المتجر'
-    );
+    showToast(editingProduct ? 'تم تحديث بيانات الجهاز' : 'تمت إضافة الجهاز إلى المتجر');
   };
 
   const handleDeleteProduct = async (id) => {
     setProducts((prev) => prev.filter((p) => p.id !== id));
     if (user && db) {
       try {
-        const pDoc = doc(
-          db,
-          'artifacts',
-          appId,
-          'public',
-          'data',
-          productsColName,
-          id
-        );
+        const pDoc = doc(db, 'artifacts', appId, 'public', 'data', productsColName, id);
         await deleteDoc(pDoc);
       } catch (err) {}
     }
@@ -1580,12 +942,7 @@ export default function App() {
   };
 
   const handleAddService = () => {
-    const newService = {
-      id: `s-${Date.now()}`,
-      title: 'خدمة صيانة جديدة',
-      sub: 'وصف مختصر للخدمة',
-      price: 'حسب الموديل',
-    };
+    const newService = { id: `s-${Date.now()}`, title: 'خدمة صيانة جديدة', sub: 'وصف مختصر للخدمة', price: 'حسب الموديل' };
     setServices((prev) => [...prev, newService]);
     showToast('تمت إضافة سطر خدمة جديد — عدّل البيانات ثم اضغط حفظ');
   };
@@ -1595,15 +952,7 @@ export default function App() {
     setServices(updated);
     if (user && db) {
       try {
-        const servicesRef = doc(
-          db,
-          'artifacts',
-          appId,
-          'public',
-          'data',
-          configColName,
-          'repair_services'
-        );
+        const servicesRef = doc(db, 'artifacts', appId, 'public', 'data', configColName, 'repair_services');
         await setDoc(servicesRef, { list: updated });
       } catch (err) {}
     }
@@ -1614,15 +963,7 @@ export default function App() {
     e.preventDefault();
     if (user && db) {
       try {
-        const settingsRef = doc(
-          db,
-          'artifacts',
-          appId,
-          'public',
-          'data',
-          configColName,
-          'store_settings'
-        );
+        const settingsRef = doc(db, 'artifacts', appId, 'public', 'data', configColName, 'store_settings');
         await setDoc(settingsRef, settings);
       } catch (err) {}
     }
@@ -1632,15 +973,7 @@ export default function App() {
   const handleSaveServices = async () => {
     if (user && db) {
       try {
-        const servicesRef = doc(
-          db,
-          'artifacts',
-          appId,
-          'public',
-          'data',
-          configColName,
-          'repair_services'
-        );
+        const servicesRef = doc(db, 'artifacts', appId, 'public', 'data', configColName, 'repair_services');
         await setDoc(servicesRef, { list: services });
       } catch (err) {}
     }
@@ -1648,54 +981,48 @@ export default function App() {
   };
 
   return (
-    <div
-      dir="rtl"
-      style={{ backgroundColor: STORE_CONFIG.colors.lightBg }}
-      className="min-h-screen text-[#1D1D1F] antialiased selection:bg-[#0095D9] selection:text-white overflow-x-hidden"
-    >
-      {/* Load IBM Plex Sans Arabic & Apple System Font Stack */}
+    <div dir="rtl" style={{ backgroundColor: STORE_CONFIG.colors.lightBg }} className="min-h-screen text-[#1D1D1F] antialiased selection:bg-[#0095D9] selection:text-white overflow-x-hidden">
       <style>{`
-                @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap');
-                
-                :root {
-                    --brand-blue: ${STORE_CONFIG.colors.primary};
-                    --brand-green: ${STORE_CONFIG.colors.secondary};
-                    --apple-dark: ${STORE_CONFIG.colors.darkBg};
-                    --apple-bg: ${STORE_CONFIG.colors.lightBg};
-                }
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --brand-blue: ${STORE_CONFIG.colors.primary};
+            --brand-green: ${STORE_CONFIG.colors.secondary};
+            --apple-dark: ${STORE_CONFIG.colors.darkBg};
+            --apple-bg: ${STORE_CONFIG.colors.lightBg};
+        }
 
-                body, button, input, select, textarea {
-                    font-family: 'IBM Plex Sans Arabic', -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
-                    letter-spacing: -0.01em;
-                }
+        body, button, input, select, textarea {
+            font-family: 'IBM Plex Sans Arabic', -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+            letter-spacing: -0.01em;
+        }
 
-                .apple-glass-dark {
-                    background: rgba(11, 12, 16, 0.85);
-                    backdrop-filter: saturate(180%) blur(22px);
-                    -webkit-backdrop-filter: saturate(180%) blur(22px);
-                }
+        .apple-glass-dark {
+            background: rgba(11, 12, 16, 0.85);
+            backdrop-filter: saturate(180%) blur(22px);
+            -webkit-backdrop-filter: saturate(180%) blur(22px);
+        }
 
-                .apple-card {
-                    background: #FFFFFF;
-                    border: 1px solid rgba(0, 0, 0, 0.06);
-                    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
-                    transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s cubic-bezier(0.16, 1, 0.3, 1);
-                }
+        .apple-card {
+            background: #FFFFFF;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
+            transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+        }
 
-                .apple-card:hover {
-                    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.07);
-                }
+        .apple-card:hover {
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.07);
+        }
 
-                .no-scrollbar::-webkit-scrollbar {
-                    display: none;
-                }
-                .no-scrollbar {
-                    -ms-overflow-style: none;
-                    scrollbar-width: none;
-                }
-            `}</style>
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+      `}</style>
 
-      {/* Apple-Style Floating Toast Notification */}
       {toastMessage && (
         <div className="fixed top-20 left-1/2 -translate-x-1/2 z-[100] apple-glass-dark text-white px-5 py-2.5 rounded-full shadow-2xl border border-white/15 flex items-center gap-2 text-xs font-semibold">
           <CheckCircle2 className="w-4 h-4 text-[#6CBE45] shrink-0" />
@@ -1703,76 +1030,47 @@ export default function App() {
         </div>
       )}
 
-      {/* =========================================================
-                TOP UTILITY ANNOUNCEMENT STRIP (Matching Screenshot)
-            ========================================================= */}
+      {/* Top Utility Announcement */}
       <div className="bg-[#060709] text-neutral-400 border-b border-white/[0.08] py-2.5 px-4 text-center">
         <p className="text-[11px] sm:text-xs font-medium tracking-wide max-w-4xl mx-auto truncate">
           {settings.topAnnouncement}
         </p>
       </div>
 
-      {/* =========================================================
-                SPACED-OUT STICKY HEADER (Exact Match to Screenshot Layout)
-            ========================================================= */}
+      {/* Main Header */}
       <header className="sticky top-0 z-40 apple-glass-dark border-b border-white/[0.08] text-white">
         <div className="max-w-6xl mx-auto px-5 sm:px-8 lg:px-12 py-3.5 sm:py-4 flex items-center justify-between gap-4">
-          {/* Right Side (in RTL): Brand Identity */}
           <a href="#" className="flex items-center gap-3 py-0.5">
             <AlTalebLogo size="sm" />
           </a>
 
-          {/* Center Desktop Links */}
           <nav className="hidden md:flex items-center gap-7 text-xs font-medium text-neutral-300">
             <button
               type="button"
-              onClick={() => {
-                setSheetZoom(1);
-                setShowPriceSheet(true);
-              }}
+              onClick={() => { setSheetZoom(1); setShowPriceSheet(true); }}
               className="text-[#6CBE45] hover:text-white font-bold transition flex items-center gap-1.5 cursor-pointer"
             >
               <span className="w-1.5 h-1.5 rounded-full bg-[#6CBE45] animate-ping" />
               <span>نشرة الأسعار</span>
             </button>
-            <a href="#catalog" className="hover:text-white transition">
-              كل الأجهزة
-            </a>
-            <a href="#maintenance" className="hover:text-white transition">
-              قسم الصيانة
-            </a>
-            <a href="#why-us" className="hover:text-white transition">
-              لماذا شركة الطالب
-            </a>
-            <a href="#location" className="hover:text-white transition">
-              عنوان المعرض
-            </a>
+            <a href="#catalog" className="hover:text-white transition">كل الأجهزة</a>
+            <a href="#maintenance" className="hover:text-white transition">قسم الصيانة</a>
+            <a href="#why-us" className="hover:text-white transition">لماذا شركة الطالب</a>
+            <a href="#location" className="hover:text-white transition">عنوان المعرض</a>
           </nav>
 
-          {/* Left Side (in RTL): Circular Action Controls (Currency, Wishlist Count, Menu) */}
           <div className="flex items-center gap-2.5">
-            {/* Currency SYP/USD Toggle Pill (Like EN Pill in Screenshot) */}
             <button
               onClick={() => {
                 setSettings((prev) => ({ ...prev, showSYP: !prev.showSYP }));
-                showToast(
-                  !settings.showSYP
-                    ? 'تم تفعيل عرض الليرة السورية'
-                    : 'تم الاكتفاء بعرض الدولار $'
-                );
+                showToast(!settings.showSYP ? 'تم تفعيل عرض الليرة السورية' : 'تم الاكتفاء بعرض الدولار $');
               }}
               className="h-9 px-3.5 rounded-full border border-white/15 bg-white/[0.04] hover:bg-white/10 text-[11px] font-bold text-neutral-200 transition flex items-center justify-center"
-              title="تبديل عرض الليرة السورية"
             >
               {settings.showSYP ? 'SYP' : 'USD'}
             </button>
 
-            {/* Circular Wishlist / Favorites Button with Badge Counter */}
-            <a
-              href="#catalog"
-              className="relative w-9 h-9 rounded-full border border-white/15 bg-white/[0.04] hover:bg-white/10 flex items-center justify-center text-neutral-200 transition"
-              title="الأجهزة المفضلة"
-            >
+            <a href="#catalog" className="relative w-9 h-9 rounded-full border border-white/15 bg-white/[0.04] hover:bg-white/10 flex items-center justify-center text-neutral-200 transition">
               <Heart className="w-4 h-4" />
               {favorites.length > 0 && (
                 <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[#E11D48] text-white text-[10px] font-bold flex items-center justify-center shadow-sm">
@@ -1781,62 +1079,33 @@ export default function App() {
               )}
             </a>
 
-            {/* Circular Menu Button */}
-            <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="w-9 h-9 rounded-full border border-white/15 bg-white/[0.04] hover:bg-white/10 flex items-center justify-center text-neutral-200 transition"
-              aria-label="القائمة"
-            >
-              {isMobileMenuOpen ? (
-                <X className="w-4 h-4" />
-              ) : (
-                <Menu className="w-4 h-4" />
-              )}
+            <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="w-9 h-9 rounded-full border border-white/15 bg-white/[0.04] hover:bg-white/10 flex items-center justify-center text-neutral-200 transition md:hidden">
+              {isMobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
             </button>
           </div>
         </div>
 
-        {/* Expandable Quick Navigation Drawer */}
+        {/* Mobile Navigation Drawer */}
         {isMobileMenuOpen && (
-          <div className="border-t border-white/10 bg-[#0B0C10] px-6 py-5 space-y-3">
+          <div className="border-t border-white/10 bg-[#0B0C10] px-6 py-5 space-y-3 md:hidden">
             <div className="grid grid-cols-2 sm:grid-cols-5 gap-2.5 max-w-4xl mx-auto">
               <button
                 type="button"
-                onClick={() => {
-                  setIsMobileMenuOpen(false);
-                  setSheetZoom(1);
-                  setShowPriceSheet(true);
-                }}
+                onClick={() => { setIsMobileMenuOpen(false); setSheetZoom(1); setShowPriceSheet(true); }}
                 className="bg-[#0095D9]/20 hover:bg-[#0095D9]/30 border border-[#0095D9]/40 rounded-2xl p-3 text-xs font-bold text-center text-white"
               >
                 📋 نشرة الأسعار اليومية
               </button>
-              <a
-                href="#catalog"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="bg-white/5 hover:bg-white/10 border border-white/10 rounded-2xl p-3 text-xs font-semibold text-center text-white"
-              >
+              <a href="#catalog" onClick={() => setIsMobileMenuOpen(false)} className="bg-white/5 hover:bg-white/10 border border-white/10 rounded-2xl p-3 text-xs font-semibold text-center text-white">
                 📱 كل الأجهزة ({availableProductsCount})
               </a>
-              <a
-                href="#maintenance"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="bg-white/5 hover:bg-white/10 border border-white/10 rounded-2xl p-3 text-xs font-semibold text-center text-white"
-              >
+              <a href="#maintenance" onClick={() => setIsMobileMenuOpen(false)} className="bg-white/5 hover:bg-white/10 border border-white/10 rounded-2xl p-3 text-xs font-semibold text-center text-white">
                 🛠️ قسم الصيانة
               </a>
-              <a
-                href="#why-us"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="bg-white/5 hover:bg-white/10 border border-white/10 rounded-2xl p-3 text-xs font-semibold text-center text-white"
-              >
+              <a href="#why-us" onClick={() => setIsMobileMenuOpen(false)} className="bg-white/5 hover:bg-white/10 border border-white/10 rounded-2xl p-3 text-xs font-semibold text-center text-white">
                 ⭐ لماذا شركة الطالب
               </a>
-              <a
-                href="#location"
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="bg-white/5 hover:bg-white/10 border border-white/10 rounded-2xl p-3 text-xs font-semibold text-center text-white"
-              >
+              <a href="#location" onClick={() => setIsMobileMenuOpen(false)} className="bg-white/5 hover:bg-white/10 border border-white/10 rounded-2xl p-3 text-xs font-semibold text-center text-white">
                 📍 العنوان والتواصل
               </a>
             </div>
@@ -1844,337 +1113,199 @@ export default function App() {
         )}
       </header>
 
-      {/* =========================================================
-                1. HERO SECTION (Exact Match to Screenshot_20261113_171012_Chrome.jpg)
-            ========================================================= */}
-      <section
-        style={{ backgroundColor: STORE_CONFIG.colors.darkBg }}
-        className="relative text-white pt-10 pb-14 px-4 sm:px-8 border-b border-white/10 overflow-hidden"
-      >
-        {/* Ambient Background Glows */}
+      {/* 1. HERO SECTION (Fully Responsive Side-by-Side Layout) */}
+      <section style={{ backgroundColor: STORE_CONFIG.colors.darkBg }} className="relative text-white pt-10 pb-14 px-4 sm:px-8 border-b border-white/10 overflow-hidden">
         <div className="pointer-events-none absolute top-48 left-1/2 -translate-x-1/2 w-[360px] sm:w-[500px] h-[360px] rounded-full bg-gradient-to-tr from-[#0095D9]/15 via-[#6CBE45]/10 to-rose-500/10 blur-3xl" />
 
-        <div className="max-w-4xl mx-auto relative z-10">
-          {/* Top Centered Crest + Slogan + Daily Price Pill */}
-          <div className="flex flex-col items-center text-center mb-8 space-y-4">
-            <AlTalebCrest />
+        <div className="max-w-6xl mx-auto relative z-10">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-6 mb-12">
+            
+            {/* Text & Slogan (Right Side on Desktop RTL) */}
+            <div className="flex-1 flex flex-col items-center lg:items-start text-center lg:text-right space-y-6">
+              <AlTalebCrest />
+              
+              <div className="space-y-3">
+                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight leading-snug">
+                  <span className="block mb-2">{settings.heroSloganPrefix}</span>
+                  <span className="relative inline-block pb-3 text-[#0095D9]">
+                    {settings.heroSloganHighlight}
+                    <span className="absolute bottom-0 right-0 left-0 h-[4px] rounded-full bg-gradient-to-l from-[#6CBE45] via-[#0095D9] to-[#E11D48]" />
+                  </span>
+                </h1>
+                <p className="text-neutral-400 text-sm sm:text-base lg:text-lg max-w-md lg:max-w-xl">
+                  الوجهة الأولى والمضمونة لبيع وشراء وتبديل كافة أجهزة الموبايل مع كفالة حقيقية وفحص شامل يضمن حقوقك.
+                </p>
+              </div>
 
-            <div className="space-y-1.5">
-              <h1 className="text-base sm:text-xl font-bold text-white tracking-tight">
-                <span>{settings.heroSloganPrefix} </span>
-                <span className="relative inline-block pb-1">
-                  {settings.heroSloganHighlight}
-                  <span className="absolute bottom-0 right-0 left-0 h-[3px] rounded-full bg-gradient-to-l from-[#6CBE45] via-[#0095D9] to-[#E11D48]" />
-                </span>
-              </h1>
+              <button
+                type="button"
+                onClick={() => { setSheetZoom(1); setShowPriceSheet(true); }}
+                className="inline-flex items-center justify-center gap-2.5 px-6 py-3 rounded-full bg-white/[0.08] hover:bg-white/[0.15] active:scale-95 border border-white/20 text-sm font-semibold text-neutral-200 transition shadow-md cursor-pointer"
+              >
+                <span className="w-2.5 h-2.5 rounded-full bg-white animate-pulse" />
+                <span className="text-neutral-300">أسعار اليوم:</span>
+                <span className="text-white font-bold">نشرة الأسعار</span>
+                <ArrowLeft className="w-4 h-4 text-neutral-300" />
+              </button>
             </div>
 
-            {/* Daily Price Bulletin Pill Button (Opens Interactive Price Sheet Modal) */}
-            <button
-              type="button"
-              onClick={() => {
-                setSheetZoom(1);
-                setShowPriceSheet(true);
-              }}
-              className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-white/[0.08] hover:bg-white/[0.15] active:scale-95 border border-white/20 text-xs font-semibold text-neutral-200 transition shadow-md cursor-pointer"
-            >
-              <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
-              <span className="text-neutral-300">أسعار اليوم:</span>
-              <span className="text-white font-bold">نشرة الأسعار</span>
-              <ArrowLeft className="w-3.5 h-3.5 text-neutral-300" />
-            </button>
-          </div>
+            {/* Featured Offer Card (Left Side on Desktop RTL) */}
+            {currentOffer && (
+              <div className="w-full max-w-[400px] sm:max-w-[430px] shrink-0">
+                <div className="rounded-[30px] bg-[#12141C]/95 border border-white/12 p-4 sm:p-5 shadow-[0_24px_70px_rgba(0,0,0,0.65)] space-y-4">
+                  <div className="relative aspect-[4/3] rounded-[22px] overflow-hidden bg-[#1A1D26]">
+                    <img src={currentOffer.imageUrl} alt={currentOffer.title} className="w-full h-full object-cover" />
+                    <div className="absolute top-3.5 right-3.5 w-14 h-14 rounded-full bg-black/55 backdrop-blur-md border border-white/25 flex flex-col items-center justify-center text-center leading-none shadow-lg">
+                      <span className="text-[11px] font-black text-white tracking-tight">{STORE_CONFIG.brandNameEn}</span>
+                      <span className="text-[7px] font-bold text-[#6CBE45] tracking-widest mt-0.5">STORE</span>
+                    </div>
+                  </div>
 
-          {/* =========================================================
-                        FEATURED OFFER SCRATCH CARD (Exact Match to Screenshot)
-                    ========================================================= */}
-          {currentOffer && (
-            <div className="max-w-[400px] sm:max-w-[430px] mx-auto">
-              <div className="rounded-[30px] bg-[#12141C]/95 border border-white/12 p-4 sm:p-5 shadow-[0_24px_70px_rgba(0,0,0,0.65)] space-y-4">
-                {/* Top Product Image with Circular Brand Stamp */}
-                <div className="relative aspect-[4/3] rounded-[22px] overflow-hidden bg-[#1A1D26]">
-                  <img
-                    src={currentOffer.imageUrl}
-                    alt={currentOffer.title}
-                    className="w-full h-full object-cover"
+                  <div className="flex items-center justify-between pt-1">
+                    <span className="px-3.5 py-1 rounded-full bg-[#0095D9]/15 border border-[#0095D9]/40 text-[#38BDF8] text-xs font-bold">
+                      {currentOffer.badge || 'عرض خاص'}
+                    </span>
+                    <span dir="ltr" className="text-xs font-mono font-bold text-neutral-400">
+                      № {String((currentOfferIndex % featuredOffers.length) + 1).padStart(2, '0')}/{String(featuredOffers.length).padStart(2, '0')}
+                    </span>
+                  </div>
+
+                  <div className="text-left" dir="ltr">
+                    <h2 className="text-xl sm:text-2xl font-black text-white tracking-tight uppercase line-clamp-1">
+                      {currentOffer.title}
+                    </h2>
+                  </div>
+
+                  <div className="flex items-center justify-between text-xs text-neutral-400">
+                    <span>{currentOffer.specs || 'بطارية 100% • مع كفالة'}</span>
+                    {currentOffer.oldPrice && (
+                      <div className="text-xs font-semibold text-neutral-300">
+                        <span>كان </span>
+                        <span className="line-through text-rose-400 font-bold">{settings.currencySymbol}{currentOffer.oldPrice}</span>
+                      </div>
+                    )}
+                  </div>
+
+                  <ScratchPriceCard
+                    price={currentOffer.price} sypPrice={formatSYP(currentOffer.price)} currencySymbol={settings.currencySymbol}
+                    isRevealed={Boolean(revealedOffers[currentOffer.id])}
+                    onReveal={() => setRevealedOffers((prev) => ({ ...prev, [currentOffer.id]: true }))}
                   />
 
-                  {/* Top-Right Circular Brand Stamp */}
-                  <div className="absolute top-3.5 right-3.5 w-14 h-14 rounded-full bg-black/55 backdrop-blur-md border border-white/25 flex flex-col items-center justify-center text-center leading-none shadow-lg">
-                    <span className="text-[11px] font-black text-white tracking-tight">
-                      {STORE_CONFIG.brandNameEn}
-                    </span>
-                    <span className="text-[7px] font-bold text-[#6CBE45] tracking-widest mt-0.5">
-                      STORE
-                    </span>
+                  <div className="grid grid-cols-2 gap-3 pt-1">
+                    <button
+                      onClick={() => openWhatsAppProduct(currentOffer)}
+                      className="bg-white/15 hover:bg-[#6CBE45] text-white font-bold text-xs sm:text-sm py-3 px-4 rounded-full flex items-center justify-center gap-2 transition border border-white/10"
+                    >
+                      <MessageCircle className="w-4 h-4" />
+                      <span>اسأل عن العرض</span>
+                    </button>
+                    <button
+                      onClick={() => setActiveProduct(currentOffer)}
+                      className="bg-transparent hover:bg-white/10 text-white font-semibold text-xs sm:text-sm py-3 px-4 rounded-full border border-white/20 transition"
+                    >
+                      تفاصيل الجهاز
+                    </button>
+                  </div>
+
+                  <div className="text-center pt-0.5">
+                    <button
+                      onClick={() => setRevealedOffers((prev) => ({ ...prev, [currentOffer.id]: !prev[currentOffer.id] }))}
+                      className="text-[11px] text-neutral-400 hover:text-white underline underline-offset-4 transition"
+                    >
+                      {revealedOffers[currentOffer.id] ? 'إخفاء السعر وإعادة المسح' : 'اكشف بدون مسح'}
+                    </button>
                   </div>
                 </div>
 
-                {/* Row: Special Offer Badge on Right + Slide Counter on Left */}
-                <div className="flex items-center justify-between pt-1">
-                  <span className="px-3.5 py-1 rounded-full bg-[#0095D9]/15 border border-[#0095D9]/40 text-[#38BDF8] text-xs font-bold">
-                    {currentOffer.badge || 'عرض خاص'}
-                  </span>
-                  <span
-                    dir="ltr"
-                    className="text-xs font-mono font-bold text-neutral-400"
-                  >
-                    №{' '}
-                    {String(
-                      (currentOfferIndex % featuredOffers.length) + 1
-                    ).padStart(2, '0')}
-                    /{String(featuredOffers.length).padStart(2, '0')}
-                  </span>
-                </div>
-
-                {/* Large Product Title & Specs */}
-                <div className="text-left" dir="ltr">
-                  <h2 className="text-xl sm:text-2xl font-black text-white tracking-tight uppercase line-clamp-1">
-                    {currentOffer.title}
-                  </h2>
-                </div>
-
-                <div className="flex items-center justify-between text-xs text-neutral-400">
-                  <span>{currentOffer.specs || 'بطارية 100% • مع كفالة'}</span>
-                  {currentOffer.oldPrice && (
-                    <div className="text-xs font-semibold text-neutral-300">
-                      <span>كان </span>
-                      <span className="line-through text-rose-400 font-bold">
-                        {settings.currencySymbol}
-                        {currentOffer.oldPrice}
-                      </span>
-                    </div>
-                  )}
-                </div>
-
-                {/* Interactive Scratch-to-Reveal Foil Box */}
-                <ScratchPriceCard
-                  price={currentOffer.price}
-                  sypPrice={formatSYP(currentOffer.price)}
-                  currencySymbol={settings.currencySymbol}
-                  isRevealed={Boolean(revealedOffers[currentOffer.id])}
-                  onReveal={() =>
-                    setRevealedOffers((prev) => ({
-                      ...prev,
-                      [currentOffer.id]: true,
-                    }))
-                  }
-                />
-
-                {/* Two Side-by-Side Pill Buttons ("اسأل عن العرض" + "تفاصيل الجهاز") */}
-                <div className="grid grid-cols-2 gap-3 pt-1">
+                {/* Carousel Controls */}
+                <div className="flex items-center justify-between max-w-[290px] mx-auto mt-6">
                   <button
-                    onClick={() => openWhatsAppProduct(currentOffer)}
-                    className="bg-white/15 hover:bg-[#6CBE45] text-white font-bold text-xs sm:text-sm py-3 px-4 rounded-full flex items-center justify-center gap-2 transition border border-white/10"
+                    onClick={() => setCurrentOfferIndex((prev) => (prev - 1 + featuredOffers.length) % featuredOffers.length)}
+                    className="w-10 h-10 rounded-full border border-white/15 bg-white/[0.03] hover:bg-white/10 flex items-center justify-center text-neutral-300 transition"
                   >
-                    <MessageCircle className="w-4 h-4" />
-                    <span>اسأل عن العرض</span>
+                    <ArrowRight className="w-4 h-4" />
                   </button>
-
+                  <div className="flex items-center gap-1.5">
+                    {featuredOffers.map((item, idx) => {
+                      const isActive = idx === currentOfferIndex % featuredOffers.length;
+                      return (
+                        <button key={item.id} onClick={() => setCurrentOfferIndex(idx)}
+                          className={`h-2 rounded-full transition-all ${isActive ? 'w-6 bg-[#0095D9]' : 'w-2 bg-white/25 hover:bg-white/40'}`}
+                        />
+                      );
+                    })}
+                  </div>
                   <button
-                    onClick={() => setActiveProduct(currentOffer)}
-                    className="bg-transparent hover:bg-white/10 text-white font-semibold text-xs sm:text-sm py-3 px-4 rounded-full border border-white/20 transition"
+                    onClick={() => setCurrentOfferIndex((prev) => (prev + 1) % featuredOffers.length)}
+                    className="w-10 h-10 rounded-full border border-white/15 bg-white/[0.03] hover:bg-white/10 flex items-center justify-center text-neutral-300 transition"
                   >
-                    تفاصيل الجهاز
-                  </button>
-                </div>
-
-                {/* Instant Reveal Text Link Underneath */}
-                <div className="text-center pt-0.5">
-                  <button
-                    onClick={() =>
-                      setRevealedOffers((prev) => ({
-                        ...prev,
-                        [currentOffer.id]: !prev[currentOffer.id],
-                      }))
-                    }
-                    className="text-[11px] text-neutral-400 hover:text-white underline underline-offset-4 transition"
-                  >
-                    {revealedOffers[currentOffer.id]
-                      ? 'إخفاء السعر وإعادة المسح'
-                      : 'اكشف بدون مسح'}
+                    <ArrowLeft className="w-4 h-4" />
                   </button>
                 </div>
               </div>
+            )}
+          </div>
 
-              {/* Carousel Controls Below Card (Arrows + Pagination Dots) */}
-              <div className="flex items-center justify-between max-w-[290px] mx-auto mt-6">
-                <button
-                  onClick={() =>
-                    setCurrentOfferIndex(
-                      (prev) =>
-                        (prev - 1 + featuredOffers.length) %
-                        featuredOffers.length
-                    )
-                  }
-                  className="w-10 h-10 rounded-full border border-white/15 bg-white/[0.03] hover:bg-white/10 flex items-center justify-center text-neutral-300 transition"
-                  aria-label="العرض السابق"
-                >
-                  <ArrowRight className="w-4 h-4" />
-                </button>
-
-                <div className="flex items-center gap-1.5">
-                  {featuredOffers.map((item, idx) => {
-                    const isActive =
-                      idx === currentOfferIndex % featuredOffers.length;
-                    return (
-                      <button
-                        key={item.id}
-                        onClick={() => setCurrentOfferIndex(idx)}
-                        className={`h-2 rounded-full transition-all ${
-                          isActive
-                            ? 'w-6 bg-[#0095D9]'
-                            : 'w-2 bg-white/25 hover:bg-white/40'
-                        }`}
-                        aria-label={`عرض ${idx + 1}`}
-                      />
-                    );
-                  })}
-                </div>
-
-                <button
-                  onClick={() =>
-                    setCurrentOfferIndex(
-                      (prev) => (prev + 1) % featuredOffers.length
-                    )
-                  }
-                  className="w-10 h-10 rounded-full border border-white/15 bg-white/[0.03] hover:bg-white/10 flex items-center justify-center text-neutral-300 transition"
-                  aria-label="العرض التالي"
-                >
-                  <ArrowLeft className="w-4 h-4" />
-                </button>
-              </div>
-            </div>
-          )}
-
-          {/* =========================================================
-                        LIVE STATS GRID BELOW HERO (2x2 on Mobile, 4 Cols on Desktop)
-                        Includes Live Available Products Counter
-                    ========================================================= */}
-          <div className="mt-12 pt-10 border-t border-white/10 grid grid-cols-2 sm:grid-cols-4 gap-y-8 gap-x-6 text-center max-w-3xl mx-auto">
+          {/* Stats Grid - 4 Columns Desktop */}
+          <div className="pt-10 border-t border-white/10 grid grid-cols-2 md:grid-cols-4 gap-y-8 gap-x-6 text-center max-w-5xl mx-auto">
             <div className="space-y-1">
-              <div className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-                {settings.stat1Val}
-              </div>
-              <div className="text-xs text-neutral-400 font-medium">
-                {settings.stat1Label}
-              </div>
+              <div className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">{settings.stat1Val}</div>
+              <div className="text-xs text-neutral-400 font-medium">{settings.stat1Label}</div>
             </div>
-
-            {/* LIVE DYNAMIC COUNTER FOR AVAILABLE PRODUCTS */}
             <div className="space-y-1">
               <div className="text-2xl sm:text-3xl font-extrabold text-[#6CBE45] tracking-tight flex items-center justify-center gap-1.5">
                 <span>{availableProductsCount}</span>
                 <span className="w-2 h-2 rounded-full bg-[#6CBE45] animate-ping" />
               </div>
-              <div className="text-xs text-neutral-400 font-medium">
-                جهاز متوفر الآن
-              </div>
+              <div className="text-xs text-neutral-400 font-medium">جهاز متوفر الآن</div>
             </div>
-
             <div className="space-y-1">
-              <div className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
-                {settings.stat3Val}
-              </div>
-              <div className="text-xs text-neutral-400 font-medium">
-                {settings.stat3Label}
-              </div>
+              <div className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">{settings.stat3Val}</div>
+              <div className="text-xs text-neutral-400 font-medium">{settings.stat3Label}</div>
             </div>
-
             <div className="space-y-1">
-              <div className="text-2xl sm:text-3xl font-extrabold text-[#0095D9] tracking-tight">
-                {settings.stat4Val}
-              </div>
-              <div className="text-xs text-neutral-400 font-medium">
-                {settings.stat4Label}
-              </div>
+              <div className="text-2xl sm:text-3xl font-extrabold text-[#0095D9] tracking-tight">{settings.stat4Val}</div>
+              <div className="text-xs text-neutral-400 font-medium">{settings.stat4Label}</div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* =========================================================
-                2. ALL DEVICES SECTION ("كل الأجهزة")
-                True Responsive Grid:
-                - Mobile (<640px): 2 Columns
-                - iPad / Tablet (640px - 1024px): 3 Columns
-                - Desktop (>1024px): 4 Columns
-            ========================================================= */}
-      <section
-        id="catalog"
-        className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto"
-      >
-        {/* Clean Apple-Style Section Header */}
+      {/* 2. ALL DEVICES SECTION */}
+      <section id="catalog" className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
         <div className="text-center space-y-2 mb-8">
           <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#0095D9]/10 text-[#0095D9] text-[11px] font-semibold">
             <Smartphone className="w-3.5 h-3.5" />
-            <span>
-              كتالوج المتجر المحدث ({availableProductsCount} جهاز متوفر)
-            </span>
+            <span>كتالوج المتجر المحدث ({availableProductsCount} جهاز متوفر)</span>
           </div>
-          <h2 className="text-2xl sm:text-3xl font-bold text-[#1D1D1F] tracking-tight">
-            كل الأجهزة
-          </h2>
+          <h2 className="text-2xl sm:text-3xl font-bold text-[#1D1D1F] tracking-tight">كل الأجهزة</h2>
           <p className="text-xs sm:text-sm text-neutral-500 max-w-md mx-auto font-normal">
             اختر جهازك المفضل واطلبه مباشرة عبر واتساب مع كفالة حقيقية وفحص شامل
           </p>
         </div>
 
-        {/* Filter & Search Controls Bar */}
         <div className="max-w-3xl mx-auto space-y-3.5 mb-8">
-          {/* Search + Condition Segmented Pills */}
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5">
             <div className="relative flex-1">
               <Search className="w-4 h-4 text-neutral-400 absolute right-3.5 top-1/2 -translate-y-1/2" />
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="ابحث عن جهاز (مثال: iPhone 15، S24، شاحن)..."
-                className="w-full bg-white border border-black/[0.08] rounded-full pr-10 pl-4 py-2.5 text-xs sm:text-sm text-[#1D1D1F] placeholder:text-neutral-400 outline-none focus:border-[#0095D9] transition shadow-2xs"
-              />
-              {searchQuery && (
-                <button
-                  onClick={() => setSearchQuery('')}
-                  className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-700"
-                >
-                  <X className="w-3.5 h-3.5" />
-                </button>
-              )}
+              <input type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} placeholder="ابحث عن جهاز (مثال: iPhone 15، S24، شاحن)..." className="w-full bg-white border border-black/[0.08] rounded-full pr-10 pl-4 py-2.5 text-xs sm:text-sm text-[#1D1D1F] placeholder:text-neutral-400 outline-none focus:border-[#0095D9] transition shadow-2xs" />
+              {searchQuery && (<button onClick={() => setSearchQuery('')} className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-neutral-700"><X className="w-3.5 h-3.5" /></button>)}
             </div>
-
-            {/* Apple Segmented Control for Condition */}
             <div className="bg-neutral-200/75 p-1 rounded-full flex items-center self-center sm:self-auto shrink-0">
               {['all', 'جديد', 'مستعمل'].map((cond) => (
-                <button
-                  key={cond}
-                  onClick={() => setConditionFilter(cond)}
-                  className={`px-4 py-1.5 rounded-full text-xs font-semibold transition ${
-                    conditionFilter === cond
-                      ? 'bg-white text-[#1D1D1F] shadow-xs'
-                      : 'text-neutral-600 hover:text-[#1D1D1F]'
-                  }`}
-                >
+                <button key={cond} onClick={() => setConditionFilter(cond)} className={`px-4 py-1.5 rounded-full text-xs font-semibold transition ${conditionFilter === cond ? 'bg-white text-[#1D1D1F] shadow-xs' : 'text-neutral-600 hover:text-[#1D1D1F]'}`}>
                   {cond === 'all' ? 'الكل' : cond}
                 </button>
               ))}
             </div>
           </div>
 
-          {/* Horizontal Category Pills */}
           <div className="flex items-center justify-start sm:justify-center gap-2 overflow-x-auto no-scrollbar py-1">
             {categories.map((cat) => {
               const active = selectedCategory === cat.id;
               return (
-                <button
-                  key={cat.id}
-                  onClick={() => setSelectedCategory(cat.id)}
-                  className={`px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition shrink-0 ${
-                    active
-                      ? 'bg-[#1D1D1F] text-white shadow-xs'
-                      : 'bg-white text-neutral-600 border border-black/[0.06] hover:border-black/20'
-                  }`}
-                >
+                <button key={cat.id} onClick={() => setSelectedCategory(cat.id)} className={`px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition shrink-0 ${active ? 'bg-[#1D1D1F] text-white shadow-xs' : 'bg-white text-neutral-600 border border-black/[0.06] hover:border-black/20'}`}>
                   {cat.name}
                 </button>
               );
@@ -2182,22 +1313,10 @@ export default function App() {
           </div>
         </div>
 
-        {/* Responsive Product Grid: 2 cols Mobile | 3 cols iPad (sm & md) | 4 cols Desktop (lg) */}
         {filteredProducts.length === 0 ? (
           <div className="bg-white rounded-3xl border border-black/[0.06] py-14 px-4 text-center max-w-md mx-auto">
-            <p className="text-sm font-semibold text-neutral-500 mb-3">
-              لا توجد نتائج مطابقة للبحث الحالي
-            </p>
-            <button
-              onClick={() => {
-                setSelectedCategory('all');
-                setConditionFilter('all');
-                setSearchQuery('');
-              }}
-              className="bg-[#1D1D1F] text-white text-xs font-semibold px-5 py-2.5 rounded-full"
-            >
-              عرض جميع الأجهزة
-            </button>
+            <p className="text-sm font-semibold text-neutral-500 mb-3">لا توجد نتائج مطابقة للبحث الحالي</p>
+            <button onClick={() => { setSelectedCategory('all'); setConditionFilter('all'); setSearchQuery(''); }} className="bg-[#1D1D1F] text-white text-xs font-semibold px-5 py-2.5 rounded-full">عرض جميع الأجهزة</button>
           </div>
         ) : (
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-3.5 sm:gap-5 lg:gap-6">
@@ -2205,94 +1324,25 @@ export default function App() {
               const sypFormatted = formatSYP(product.price);
               const isFav = favorites.includes(product.id);
               return (
-                <div
-                  key={product.id}
-                  onClick={() => setActiveProduct(product)}
-                  className="apple-card rounded-[20px] sm:rounded-[22px] overflow-hidden flex flex-col cursor-pointer group"
-                >
-                  {/* Clean Product Image Container */}
+                <div key={product.id} onClick={() => setActiveProduct(product)} className="apple-card rounded-[20px] sm:rounded-[22px] overflow-hidden flex flex-col cursor-pointer group">
                   <div className="relative aspect-[4/3] bg-[#F5F5F7] overflow-hidden">
-                    <img
-                      src={product.imageUrl}
-                      alt={product.title}
-                      loading="lazy"
-                      onError={(e) => {
-                        e.target.onerror = null;
-                        e.target.src =
-                          'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80';
-                      }}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
-                    />
-
-                    {/* Top-left Status Badge */}
-                    {product.badge && (
-                      <span
-                        className={`absolute top-2.5 left-2.5 text-[10px] font-semibold px-2.5 py-0.5 rounded-full backdrop-blur-md ${
-                          product.condition === 'جديد'
-                            ? 'bg-[#1D1D1F]/85 text-white'
-                            : 'bg-[#0095D9]/90 text-white'
-                        }`}
-                      >
-                        {product.badge}
-                      </span>
-                    )}
-
-                    {/* Favorite Heart Button */}
-                    <button
-                      onClick={(e) => toggleFavorite(product.id, e)}
-                      className="absolute top-2.5 right-2.5 w-7 h-7 rounded-full bg-white/80 backdrop-blur-md flex items-center justify-center text-neutral-700 hover:scale-110 transition"
-                    >
-                      <Heart
-                        className={`w-3.5 h-3.5 ${
-                          isFav ? 'fill-rose-500 text-rose-500' : ''
-                        }`}
-                      />
-                    </button>
-
-                    {!product.inStock && (
-                      <span className="absolute bottom-2.5 right-2.5 bg-rose-600 text-white text-[10px] font-semibold px-2.5 py-0.5 rounded-full">
-                        نفذت الكمية
-                      </span>
-                    )}
+                    <img src={product.imageUrl} alt={product.title} loading="lazy" onError={(e) => { e.target.onerror = null; e.target.src = 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80'; }} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out" />
+                    {product.badge && (<span className={`absolute top-2.5 left-2.5 text-[10px] font-semibold px-2.5 py-0.5 rounded-full backdrop-blur-md ${product.condition === 'جديد' ? 'bg-[#1D1D1F]/85 text-white' : 'bg-[#0095D9]/90 text-white'}`}>{product.badge}</span>)}
+                    <button onClick={(e) => toggleFavorite(product.id, e)} className="absolute top-2.5 right-2.5 w-7 h-7 rounded-full bg-white/80 backdrop-blur-md flex items-center justify-center text-neutral-700 hover:scale-110 transition"><Heart className={`w-3.5 h-3.5 ${isFav ? 'fill-rose-500 text-rose-500' : ''}`} /></button>
+                    {!product.inStock && (<span className="absolute bottom-2.5 right-2.5 bg-rose-600 text-white text-[10px] font-semibold px-2.5 py-0.5 rounded-full">نفذت الكمية</span>)}
                   </div>
-
-                  {/* Card Content Body */}
                   <div className="p-3.5 sm:p-4 flex-1 flex flex-col justify-between">
                     <div className="text-right mb-2.5">
-                      <h3 className="text-xs sm:text-[15px] font-bold text-[#1D1D1F] line-clamp-1 tracking-tight">
-                        {product.title}
-                      </h3>
-                      <p className="text-[10px] sm:text-xs text-neutral-500 line-clamp-1 mt-0.5 font-normal">
-                        {product.specs || 'مفحوص ومكفول بالكامل'}
-                      </p>
+                      <h3 className="text-xs sm:text-[15px] font-bold text-[#1D1D1F] line-clamp-1 tracking-tight">{product.title}</h3>
+                      <p className="text-[10px] sm:text-xs text-neutral-500 line-clamp-1 mt-0.5 font-normal">{product.specs || 'مفحوص ومكفول بالكامل'}</p>
                     </div>
-
-                    {/* Price & Pill Action Row */}
                     <div className="pt-2.5 border-t border-black/[0.05] flex items-end justify-between gap-1.5">
                       <div className="text-right">
-                        {product.oldPrice && (
-                          <div className="text-[10px] text-neutral-400 line-through leading-none mb-0.5">
-                            {product.oldPrice}
-                            {settings.currencySymbol}
-                          </div>
-                        )}
-                        <div className="text-sm sm:text-base font-bold text-[#1D1D1F] leading-tight">
-                          {product.price}
-                          {settings.currencySymbol}
-                        </div>
-                        {sypFormatted && (
-                          <div className="text-[9px] sm:text-[10px] text-neutral-500 font-medium mt-0.5">
-                            {sypFormatted}
-                          </div>
-                        )}
+                        {product.oldPrice && (<div className="text-[10px] text-neutral-400 line-through leading-none mb-0.5">{product.oldPrice}{settings.currencySymbol}</div>)}
+                        <div className="text-sm sm:text-base font-bold text-[#1D1D1F] leading-tight">{product.price}{settings.currencySymbol}</div>
+                        {sypFormatted && (<div className="text-[9px] sm:text-[10px] text-neutral-500 font-medium mt-0.5">{sypFormatted}</div>)}
                       </div>
-
-                      <button
-                        onClick={(e) => openWhatsAppProduct(product, e)}
-                        className="bg-[#1D1D1F] hover:bg-[#0095D9] text-white text-[10px] sm:text-xs font-semibold px-3.5 sm:px-4 py-1.5 rounded-full transition shrink-0"
-                      >
-                        طلب
-                      </button>
+                      <button onClick={(e) => openWhatsAppProduct(product, e)} className="bg-[#1D1D1F] hover:bg-[#0095D9] text-white text-[10px] sm:text-xs font-semibold px-3.5 sm:px-4 py-1.5 rounded-full transition shrink-0">طلب</button>
                     </div>
                   </div>
                 </div>
@@ -2302,221 +1352,103 @@ export default function App() {
         )}
       </section>
 
-      {/* =========================================================
-                3. MID-PAGE DARK BANNER CTA
-            ========================================================= */}
+      {/* 3. MID-PAGE DARK BANNER CTA */}
       <section className="bg-[#090A0F] text-white py-14 px-5 border-y border-white/10">
         <div className="max-w-xl mx-auto text-center space-y-4">
           <div className="w-12 h-12 rounded-2xl bg-white/10 border border-white/15 flex items-center justify-center mx-auto">
             <Smartphone className="w-6 h-6 text-[#0095D9]" />
           </div>
-          <h3 className="text-lg sm:text-2xl font-bold tracking-tight">
-            {settings.midBannerTitle}
-          </h3>
-          <p className="text-xs sm:text-sm text-neutral-400 leading-relaxed max-w-md mx-auto">
-            {settings.midBannerSub}
-          </p>
+          <h3 className="text-lg sm:text-2xl font-bold tracking-tight">{settings.midBannerTitle}</h3>
+          <p className="text-xs sm:text-sm text-neutral-400 leading-relaxed max-w-md mx-auto">{settings.midBannerSub}</p>
           <div className="pt-2">
-            <button
-              onClick={() =>
-                openWhatsAppGeneral(
-                  'مرحباً شركة الطالب، أرغب بتقييم / استبدال جهازي الحالي بجهاز أحدث.'
-                )
-              }
-              className="bg-white hover:bg-neutral-200 text-[#1D1D1F] text-xs sm:text-sm font-semibold px-7 py-3 rounded-full transition shadow-sm"
-            >
+            <button onClick={() => openWhatsAppGeneral('مرحباً شركة الطالب، أرغب بتقييم / استبدال جهازي الحالي بجهاز أحدث.')} className="bg-white hover:bg-neutral-200 text-[#1D1D1F] text-xs sm:text-sm font-semibold px-7 py-3 rounded-full transition shadow-sm">
               تواصل معنا لتقييم جهازك
             </button>
           </div>
         </div>
       </section>
 
-      {/* =========================================================
-                4. MAINTENANCE & REPAIR SECTION ("موقع صيانة عطل موبايلك")
-            ========================================================= */}
-      <section
-        id="maintenance"
-        className="py-14 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto"
-      >
+      {/* 4. MAINTENANCE SECTION */}
+      <section id="maintenance" className="py-14 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
         <div className="text-center space-y-1.5 mb-8">
-          <span className="text-[11px] font-semibold text-[#0095D9] uppercase tracking-wider">
-            مركز الصيانة المعتمد
-          </span>
-          <h2 className="text-xl sm:text-2xl font-bold text-[#1D1D1F] tracking-tight">
-            موقع صيانة عطل موبايلك
-          </h2>
-          <p className="text-xs sm:text-sm text-neutral-500">
-            صيانة فورية واحترافية لجميع أعطال الهواتف الذكية بقطع تبديل وكالة
-            مكفولة
-          </p>
+          <span className="text-[11px] font-semibold text-[#0095D9] uppercase tracking-wider">مركز الصيانة المعتمد</span>
+          <h2 className="text-xl sm:text-2xl font-bold text-[#1D1D1F] tracking-tight">موقع صيانة عطل موبايلك</h2>
+          <p className="text-xs sm:text-sm text-neutral-500">صيانة فورية واحترافية لجميع أعطال الهواتف الذكية بقطع تبديل وكالة مكفولة</p>
         </div>
 
-        {/* Responsive Grid of Repair Cards */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-6">
           {services.map((srv) => (
-            <div
-              key={srv.id}
-              onClick={() =>
-                openWhatsAppGeneral(
-                  `مرحباً شركة الطالب، أود الاستفسار عن خدمة صيانة: ${srv.title}`
-                )
-              }
-              className="apple-card rounded-2xl p-4 text-center cursor-pointer flex flex-col justify-between"
-            >
-              <div className="w-8 h-8 rounded-full bg-[#F5F5F7] flex items-center justify-center mx-auto mb-2.5 text-[#0095D9]">
-                <Wrench className="w-4 h-4" />
-              </div>
+            <div key={srv.id} onClick={() => openWhatsAppGeneral(`مرحباً شركة الطالب، أود الاستفسار عن خدمة صيانة: ${srv.title}`)} className="apple-card rounded-2xl p-4 text-center cursor-pointer flex flex-col justify-between">
+              <div className="w-8 h-8 rounded-full bg-[#F5F5F7] flex items-center justify-center mx-auto mb-2.5 text-[#0095D9]"><Wrench className="w-4 h-4" /></div>
               <div>
-                <div className="text-xs sm:text-sm font-bold text-[#1D1D1F] mb-0.5">
-                  {srv.title}
-                </div>
-                <div className="text-[10px] sm:text-xs text-neutral-500 line-clamp-1 mb-2.5">
-                  {srv.sub}
-                </div>
+                <div className="text-xs sm:text-sm font-bold text-[#1D1D1F] mb-0.5">{srv.title}</div>
+                <div className="text-[10px] sm:text-xs text-neutral-500 line-clamp-1 mb-2.5">{srv.sub}</div>
               </div>
-              <div className="text-[11px] font-semibold text-[#6CBE45] bg-[#6CBE45]/10 rounded-full py-1 px-2">
-                {srv.price}
-              </div>
+              <div className="text-[11px] font-semibold text-[#6CBE45] bg-[#6CBE45]/10 rounded-full py-1 px-2">{srv.price}</div>
             </div>
           ))}
         </div>
 
-        {/* Clean Summary Box below Repair Grid */}
         <div className="apple-card rounded-3xl p-5 sm:p-7 max-w-2xl mx-auto space-y-4">
           <div className="flex items-center justify-between">
-            <span className="text-xs sm:text-sm font-bold text-[#1D1D1F]">
-              ضمانات قسم الصيانة في شركة الطالب:
-            </span>
-            <span className="text-[11px] font-semibold text-[#0095D9] bg-[#0095D9]/10 px-3 py-0.5 rounded-full">
-              فحص مجاني
-            </span>
+            <span className="text-xs sm:text-sm font-bold text-[#1D1D1F]">ضمانات قسم الصيانة في شركة الطالب:</span>
+            <span className="text-[11px] font-semibold text-[#0095D9] bg-[#0095D9]/10 px-3 py-0.5 rounded-full">فحص مجاني</span>
           </div>
-
           <ul className="text-xs text-neutral-600 space-y-2.5 pr-1">
-            <li className="flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#6CBE45] shrink-0" />
-              <span>
-                تشخيص العطل مجاناً وبشكل فوري أمام الزبون بأحدث أجهزة الفحص.
-              </span>
-            </li>
-            <li className="flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#0095D9] shrink-0" />
-              <span>
-                تركيب شاشات وبطاريات وكالة أصلية مع نقل التروتون والحفاظ على
-                البيانات.
-              </span>
-            </li>
-            <li className="flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#1D1D1F] shrink-0" />
-              <span>
-                كفالة حقيقية على كافة أعمال الصيانة الهاردوير والسوفتوير.
-              </span>
-            </li>
+            <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-[#6CBE45] shrink-0" /><span>تشخيص العطل مجاناً وبشكل فوري أمام الزبون بأحدث أجهزة الفحص.</span></li>
+            <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-[#0095D9] shrink-0" /><span>تركيب شاشات وبطاريات وكالة أصلية مع نقل التروتون والحفاظ على البيانات.</span></li>
+            <li className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-[#1D1D1F] shrink-0" /><span>كفالة حقيقية على كافة أعمال الصيانة الهاردوير والسوفتوير.</span></li>
           </ul>
-
-          <button
-            onClick={() =>
-              openWhatsAppGeneral(
-                'مرحباً شركة الطالب، أرغب بحجز موعد صيانة / استشارة فنية لجهازي.'
-              )
-            }
-            className="w-full bg-[#1D1D1F] hover:bg-[#0095D9] text-white text-xs sm:text-sm font-semibold py-3.5 rounded-full transition"
-          >
-            احجز موعد صيانة فورية عبر واتساب
-          </button>
+          <button onClick={() => openWhatsAppGeneral('مرحباً شركة الطالب، أرغب بحجز موعد صيانة / استشارة فنية لجهازي.')} className="w-full bg-[#1D1D1F] hover:bg-[#0095D9] text-white text-xs sm:text-sm font-semibold py-3.5 rounded-full transition">احجز موعد صيانة فورية عبر واتساب</button>
         </div>
       </section>
 
-      {/* =========================================================
-                5. WHY CHOOSE US ("لماذا يختارنا العملاء؟")
-            ========================================================= */}
-      <section
-        id="why-us"
-        className="bg-[#090A0F] text-white py-14 sm:py-16 px-5 border-t border-white/10"
-      >
-        <div className="max-w-4xl mx-auto">
+      {/* 5. WHY CHOOSE US (4 Columns on Desktop) */}
+      <section id="why-us" className="bg-[#090A0F] text-white py-14 sm:py-16 px-5 border-t border-white/10">
+        <div className="max-w-5xl mx-auto">
           <div className="text-center space-y-2 mb-9">
             <div className="w-10 h-10 rounded-2xl bg-white/10 border border-white/15 flex items-center justify-center mx-auto">
               <Award className="w-5 h-5 text-[#6CBE45]" />
             </div>
-            <h2 className="text-xl sm:text-2xl font-bold tracking-tight">
-              لماذا يختارنا العملاء؟
-            </h2>
-            <p className="text-xs sm:text-sm text-neutral-400">
-              معايير جودة صارمة تجعل شركة الطالب للإتصالات خيارك الأول
-            </p>
+            <h2 className="text-xl sm:text-2xl font-bold tracking-tight">لماذا يختارنا العملاء؟</h2>
+            <p className="text-xs sm:text-sm text-neutral-400">معايير جودة صارمة تجعل شركة الطالب للإتصالات خيارك الأول</p>
           </div>
 
-          <div className="grid grid-cols-2 gap-3.5 sm:gap-5">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-5">
             <div className="bg-white/[0.04] border border-white/10 rounded-2xl p-4 sm:p-6 text-right space-y-2">
               <ShieldCheck className="w-5 h-5 text-[#6CBE45] mb-1" />
-              <h3 className="text-xs sm:text-base font-bold text-white">
-                كفالة حقيقية وفحص دقيق
-              </h3>
-              <p className="text-[11px] sm:text-xs text-neutral-400 leading-relaxed">
-                جميع الأجهزة المستعملة تخضع لفحص شامل من 25 نقطة لضمان خلوها من
-                أي عيب مخفي.
-              </p>
+              <h3 className="text-xs sm:text-base font-bold text-white">كفالة حقيقية وفحص دقيق</h3>
+              <p className="text-[11px] sm:text-xs text-neutral-400 leading-relaxed">جميع الأجهزة المستعملة تخضع لفحص شامل من 25 نقطة لضمان خلوها من أي عيب مخفي.</p>
             </div>
-
             <div className="bg-white/[0.04] border border-white/10 rounded-2xl p-4 sm:p-6 text-right space-y-2">
               <Zap className="w-5 h-5 text-[#0095D9] mb-1" />
-              <h3 className="text-xs sm:text-base font-bold text-white">
-                أقوى العروض والهدايا
-              </h3>
-              <p className="text-[11px] sm:text-xs text-neutral-400 leading-relaxed">
-                عروض يومية ومسابقات مستمرة لمتابعينا على قناة الواتساب مع هدايا
-                قيمة.
-              </p>
+              <h3 className="text-xs sm:text-base font-bold text-white">أقوى العروض والهدايا</h3>
+              <p className="text-[11px] sm:text-xs text-neutral-400 leading-relaxed">عروض يومية ومسابقات مستمرة لمتابعينا على قناة الواتساب مع هدايا قيمة.</p>
             </div>
-
             <div className="bg-white/[0.04] border border-white/10 rounded-2xl p-4 sm:p-6 text-right space-y-2">
               <Cpu className="w-5 h-5 text-[#0095D9] mb-1" />
-              <h3 className="text-xs sm:text-base font-bold text-white">
-                صيانة احترافية متكاملة
-              </h3>
-              <p className="text-[11px] sm:text-xs text-neutral-400 leading-relaxed">
-                كادر فني مختص بصيانة أجهزة أبل والأندرويد بأحدث المعدات وقطع
-                التبديل الأصلية.
-              </p>
+              <h3 className="text-xs sm:text-base font-bold text-white">صيانة احترافية متكاملة</h3>
+              <p className="text-[11px] sm:text-xs text-neutral-400 leading-relaxed">كادر فني مختص بصيانة أجهزة أبل والأندرويد بأحدث المعدات وقطع التبديل الأصلية.</p>
             </div>
-
             <div className="bg-white/[0.04] border border-white/10 rounded-2xl p-4 sm:p-6 text-right space-y-2">
               <MessageCircle className="w-5 h-5 text-[#6CBE45] mb-1" />
-              <h3 className="text-xs sm:text-base font-bold text-white">
-                خدمة ما بعد البيع
-              </h3>
-              <p className="text-[11px] sm:text-xs text-neutral-400 leading-relaxed">
-                نقل البيانات مجاناً وإنشاء الحسابات مع متابعة ودعم فني متواصل
-                عبر واتساب.
-              </p>
+              <h3 className="text-xs sm:text-base font-bold text-white">خدمة ما بعد البيع</h3>
+              <p className="text-[11px] sm:text-xs text-neutral-400 leading-relaxed">نقل البيانات مجاناً وإنشاء الحسابات مع متابعة ودعم فني متواصل عبر واتساب.</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* =========================================================
-                6. STORE LOCATION & SHOWROOM SECTION
-            ========================================================= */}
-      <section
-        id="location"
-        className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto"
-      >
+      {/* 6. STORE LOCATION */}
+      <section id="location" className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto">
         <div className="text-center space-y-1.5 mb-7">
-          <span className="text-[11px] text-[#0095D9] font-semibold">
-            العنوان وأوقات الدوام
-          </span>
-          <h2 className="text-xl sm:text-2xl font-bold text-[#1D1D1F] tracking-tight">
-            {settings.locationTitle}
-          </h2>
+          <span className="text-[11px] text-[#0095D9] font-semibold">العنوان وأوقات الدوام</span>
+          <h2 className="text-xl sm:text-2xl font-bold text-[#1D1D1F] tracking-tight">{settings.locationTitle}</h2>
         </div>
 
         <div className="apple-card rounded-[28px] overflow-hidden">
           <div className="p-6 sm:p-8 space-y-5 text-right">
-            <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed">
-              {settings.locationDesc}
-            </p>
-
+            <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed">{settings.locationDesc}</p>
             <div className="space-y-2.5 text-xs text-[#1D1D1F] bg-[#F5F5F7] p-4 sm:p-5 rounded-2xl">
               <div className="flex items-center gap-2.5 font-semibold">
                 <MapPin className="w-4 h-4 text-[#0095D9] shrink-0" />
@@ -2527,231 +1459,96 @@ export default function App() {
                 <span>{settings.workingHours}</span>
               </div>
             </div>
-
-            <div className="flex items-center gap-3 pt-1">
-              <button
-                onClick={() =>
-                  openWhatsAppGeneral(
-                    'مرحباً شركة الطالب، أود الاستفسار عن عنوان المعرض وأوقات الدوام.'
-                  )
-                }
-                className="flex-1 bg-[#6CBE45] hover:bg-[#5da83a] text-white text-xs sm:text-sm font-semibold py-3 px-4 rounded-full flex items-center justify-center gap-1.5 transition shadow-xs"
-              >
+            <div className="flex flex-col sm:flex-row items-center gap-3 pt-1">
+              <button onClick={() => openWhatsAppGeneral('مرحباً شركة الطالب، أود الاستفسار عن عنوان المعرض وأوقات الدوام.')} className="w-full sm:flex-1 bg-[#6CBE45] hover:bg-[#5da83a] text-white text-xs sm:text-sm font-semibold py-3 px-4 rounded-full flex items-center justify-center gap-1.5 transition shadow-xs">
                 <MessageCircle className="w-4 h-4" />
                 <span>تواصل عبر واتساب</span>
               </button>
-
-              <a
-                href={settings.whatsappChannel}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex-1 bg-[#1D1D1F] hover:bg-[#0095D9] text-white text-xs sm:text-sm font-semibold py-3 px-4 rounded-full flex items-center justify-center gap-1.5 transition text-center"
-              >
+              <a href={settings.whatsappChannel} target="_blank" rel="noopener noreferrer" className="w-full sm:flex-1 bg-[#1D1D1F] hover:bg-[#0095D9] text-white text-xs sm:text-sm font-semibold py-3 px-4 rounded-full flex items-center justify-center gap-1.5 transition text-center">
                 <span>متابعة قناة الواتساب</span>
               </a>
             </div>
           </div>
-
           <div className="aspect-[16/9] bg-neutral-100">
-            <img
-              src={settings.showroomImage}
-              alt="معرض شركة الطالب للإتصالات"
-              className="w-full h-full object-cover"
-            />
+            <img src={settings.showroomImage} alt="معرض شركة الطالب للإتصالات" className="w-full h-full object-cover" />
           </div>
         </div>
       </section>
 
-      {/* =========================================================
-                7. GENEROUSLY SPACED DARK FOOTER + HIDDEN ADMIN DOT TRIGGER
-            ========================================================= */}
+      {/* 7. FOOTER */}
       <footer className="bg-[#07080C] text-white pt-16 pb-24 px-6 sm:px-10 lg:px-14 mt-8 border-t border-white/10">
         <div className="max-w-5xl mx-auto space-y-12">
-          {/* Top Footer Columns with Breathing Room */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10 text-right">
             <div className="space-y-4">
               <AlTalebLogo size="md" />
               <p className="text-xs sm:text-sm text-neutral-400 leading-relaxed max-w-sm">
-                {settings.storeName} — وجهتك الموثوقة لبيع وشراء وتبديل كافة
-                أجهزة الموبايل الجديدة والمستعملة المكفولة مع خدمة صيانة
-                احترافية.
+                {settings.storeName} — وجهتك الموثوقة لبيع وشراء وتبديل كافة أجهزة الموبايل الجديدة والمستعملة المكفولة مع خدمة صيانة احترافية.
               </p>
             </div>
-
             <div className="space-y-3">
-              <h4 className="text-xs font-bold text-white uppercase tracking-wider">
-                روابط سريعة
-              </h4>
+              <h4 className="text-xs font-bold text-white uppercase tracking-wider">روابط سريعة</h4>
               <ul className="space-y-2.5 text-xs text-neutral-400">
-                <li>
-                  <a href="#catalog" className="hover:text-white transition">
-                    كل الأجهزة ({availableProductsCount} جهاز متوفر)
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#maintenance"
-                    className="hover:text-white transition"
-                  >
-                    مركز صيانة الموبايل
-                  </a>
-                </li>
-                <li>
-                  <a href="#why-us" className="hover:text-white transition">
-                    لماذا شركة الطالب للإتصالات
-                  </a>
-                </li>
-                <li>
-                  <a href="#location" className="hover:text-white transition">
-                    عنوان المعرض وأوقات الدوام
-                  </a>
-                </li>
+                <li><a href="#catalog" className="hover:text-white transition">كل الأجهزة ({availableProductsCount} جهاز متوفر)</a></li>
+                <li><a href="#maintenance" className="hover:text-white transition">مركز صيانة الموبايل</a></li>
+                <li><a href="#why-us" className="hover:text-white transition">لماذا شركة الطالب للإتصالات</a></li>
+                <li><a href="#location" className="hover:text-white transition">عنوان المعرض وأوقات الدوام</a></li>
               </ul>
             </div>
-
             <div className="space-y-3">
-              <h4 className="text-xs font-bold text-white uppercase tracking-wider">
-                تواصل مباشر
-              </h4>
-              <p className="text-xs text-neutral-400 leading-relaxed">
-                {settings.addressLine1}
-              </p>
-              <p className="text-xs text-neutral-500">
-                {settings.workingHours}
-              </p>
+              <h4 className="text-xs font-bold text-white uppercase tracking-wider">تواصل مباشر</h4>
+              <p className="text-xs text-neutral-400 leading-relaxed">{settings.addressLine1}</p>
+              <p className="text-xs text-neutral-500">{settings.workingHours}</p>
               <div className="pt-2 flex items-center gap-2.5">
-                <button
-                  onClick={() => openWhatsAppGeneral()}
-                  className="bg-white/10 hover:bg-[#6CBE45] text-white text-xs font-semibold px-4 py-2 rounded-full transition"
-                >
-                  مراسلة واتساب
-                </button>
-                <a
-                  href={settings.whatsappChannel}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-white/5 hover:bg-white/15 border border-white/10 text-neutral-300 text-xs font-semibold px-4 py-2 rounded-full transition"
-                >
-                  قناة العروض
-                </a>
+                <button onClick={() => openWhatsAppGeneral()} className="bg-white/10 hover:bg-[#6CBE45] text-white text-xs font-semibold px-4 py-2 rounded-full transition">مراسلة واتساب</button>
+                <a href={settings.whatsappChannel} target="_blank" rel="noopener noreferrer" className="bg-white/5 hover:bg-white/15 border border-white/10 text-neutral-300 text-xs font-semibold px-4 py-2 rounded-full transition">قناة العروض</a>
               </div>
             </div>
           </div>
-
-          {/* Bottom Copyright Bar with Ample Padding & Hidden Admin Dot */}
           <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
-            <span>
-              جميع الحقوق محفوظة © {new Date().getFullYear()}{' '}
-              {settings.storeName}
-            </span>
+            <span>جميع الحقوق محفوظة © {new Date().getFullYear()} {settings.storeName}</span>
             <span className="hidden sm:inline text-neutral-700">•</span>
             <span className="text-neutral-400 font-mono text-[11px]" dir="ltr">
-              Designed by{' '}
-              <span className="text-neutral-200 font-semibold">
-                Abdualrhman Taffour
-              </span>
+              Designed by <span className="text-neutral-200 font-semibold">Abdualrhman Taffour</span>
             </span>
-
             <div className="flex items-center gap-3">
               <span>دائماً وأبداً شعارنا: ثقتكم تهمنا</span>
-              {/* Discreet Hidden Admin Dot at the end of the website */}
               <button
-                onClick={() => {
-                  setIsAdminAuthenticated(false);
-                  setIsAdminDashboardOpen(false);
-                  setPasswordInput('');
-                  setLoginError('');
-                  setIsAdminLoginOpen(true);
-                }}
+                onClick={() => { setIsAdminAuthenticated(false); setIsAdminDashboardOpen(false); setPasswordInput(''); setLoginError(''); setIsAdminLoginOpen(true); }}
                 className="text-neutral-700 hover:text-neutral-400 px-2.5 py-1 rounded transition select-none"
                 title="•"
-              >
-                •
-              </button>
+              >•</button>
             </div>
           </div>
         </div>
       </footer>
 
-      {/* Floating WhatsApp Button (Bottom Left) */}
-      <button
-        onClick={() => openWhatsAppGeneral()}
-        className="fixed bottom-6 left-6 z-40 w-13 h-13 rounded-full bg-[#25D366] hover:bg-[#20bd5a] text-white shadow-2xl flex items-center justify-center transition active:scale-90"
-        aria-label="تواصل واتساب"
-      >
+      <button onClick={() => openWhatsAppGeneral()} className="fixed bottom-6 left-6 z-40 w-13 h-13 rounded-full bg-[#25D366] hover:bg-[#20bd5a] text-white shadow-2xl flex items-center justify-center transition active:scale-90" aria-label="تواصل واتساب">
         <MessageCircle className="w-6 h-6 fill-white" />
       </button>
 
-      {/* =========================================================
-                APPLE-STYLE PRODUCT DETAILS SHEET MODAL
-            ========================================================= */}
+      {/* PRODUCT DETAILS MODAL */}
       {activeProduct && (
-        <div
-          className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4"
-          onClick={() => setActiveProduct(null)}
-        >
-          <div
-            className="bg-white w-full sm:max-w-lg rounded-t-[28px] sm:rounded-[28px] overflow-hidden shadow-2xl max-h-[90vh] overflow-y-auto"
-            onClick={(e) => e.stopPropagation()}
-          >
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4" onClick={() => setActiveProduct(null)}>
+          <div className="bg-white w-full sm:max-w-lg rounded-t-[28px] sm:rounded-[28px] overflow-hidden shadow-2xl max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
             <div className="relative aspect-[4/3] bg-[#F5F5F7]">
-              <img
-                src={activeProduct.imageUrl}
-                alt={activeProduct.title}
-                className="w-full h-full object-cover"
-              />
-              <button
-                onClick={() => setActiveProduct(null)}
-                className="absolute top-3.5 left-3.5 w-8 h-8 rounded-full apple-glass-dark text-white flex items-center justify-center"
-              >
-                <X className="w-4 h-4" />
-              </button>
-              {activeProduct.badge && (
-                <span className="absolute top-3.5 right-3.5 bg-[#1D1D1F]/90 text-white text-xs font-semibold px-3 py-1 rounded-full">
-                  {activeProduct.badge}
-                </span>
-              )}
+              <img src={activeProduct.imageUrl} alt={activeProduct.title} className="w-full h-full object-cover" />
+              <button onClick={() => setActiveProduct(null)} className="absolute top-3.5 left-3.5 w-8 h-8 rounded-full apple-glass-dark text-white flex items-center justify-center"><X className="w-4 h-4" /></button>
+              {activeProduct.badge && (<span className="absolute top-3.5 right-3.5 bg-[#1D1D1F]/90 text-white text-xs font-semibold px-3 py-1 rounded-full">{activeProduct.badge}</span>)}
             </div>
-
             <div className="p-5 sm:p-6 space-y-4 text-right">
               <div className="flex items-start justify-between gap-3">
                 <div>
-                  <h3 className="text-lg sm:text-xl font-bold text-[#1D1D1F]">
-                    {activeProduct.title}
-                  </h3>
-                  <p className="text-xs sm:text-sm text-neutral-500 mt-0.5">
-                    {activeProduct.specs}
-                  </p>
+                  <h3 className="text-lg sm:text-xl font-bold text-[#1D1D1F]">{activeProduct.title}</h3>
+                  <p className="text-xs sm:text-sm text-neutral-500 mt-0.5">{activeProduct.specs}</p>
                 </div>
                 <div className="text-left shrink-0">
-                  {activeProduct.oldPrice && (
-                    <div className="text-xs text-neutral-400 line-through">
-                      {activeProduct.oldPrice}
-                      {settings.currencySymbol}
-                    </div>
-                  )}
-                  <div className="text-xl font-bold text-[#0095D9]">
-                    {activeProduct.price}
-                    {settings.currencySymbol}
-                  </div>
-                  {formatSYP(activeProduct.price) && (
-                    <div className="text-[11px] text-neutral-500 font-medium">
-                      {formatSYP(activeProduct.price)}
-                    </div>
-                  )}
+                  {activeProduct.oldPrice && (<div className="text-xs text-neutral-400 line-through">{activeProduct.oldPrice}{settings.currencySymbol}</div>)}
+                  <div className="text-xl font-bold text-[#0095D9]">{activeProduct.price}{settings.currencySymbol}</div>
+                  {formatSYP(activeProduct.price) && (<div className="text-[11px] text-neutral-500 font-medium">{formatSYP(activeProduct.price)}</div>)}
                 </div>
               </div>
-
-              {activeProduct.description && (
-                <p className="text-xs sm:text-sm text-neutral-600 bg-[#F5F5F7] p-4 rounded-2xl leading-relaxed">
-                  {activeProduct.description}
-                </p>
-              )}
-
-              <button
-                onClick={() => openWhatsAppProduct(activeProduct)}
-                className="w-full bg-[#1D1D1F] hover:bg-[#0095D9] text-white font-semibold text-xs sm:text-sm py-3.5 rounded-full flex items-center justify-center gap-2 shadow-md transition"
-              >
+              {activeProduct.description && (<p className="text-xs sm:text-sm text-neutral-600 bg-[#F5F5F7] p-4 rounded-2xl leading-relaxed">{activeProduct.description}</p>)}
+              <button onClick={() => openWhatsAppProduct(activeProduct)} className="w-full bg-[#1D1D1F] hover:bg-[#0095D9] text-white font-semibold text-xs sm:text-sm py-3.5 rounded-full flex items-center justify-center gap-2 shadow-md transition">
                 <MessageCircle className="w-4 h-4 text-[#6CBE45]" />
                 <span>اطلب الجهاز الآن عبر واتساب</span>
               </button>
@@ -2760,186 +1557,63 @@ export default function App() {
         </div>
       )}
 
-      {/* =========================================================
-                ADMIN LOGIN MODAL
-            ========================================================= */}
+      {/* ADMIN LOGIN MODAL */}
       {isAdminLoginOpen && (
-        <div
-          className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4"
-          onClick={() => setIsAdminLoginOpen(false)}
-        >
-          <div
-            className="bg-white w-full max-w-xs rounded-3xl p-5 shadow-2xl border border-black/5"
-            onClick={(e) => e.stopPropagation()}
-          >
+        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4" onClick={() => setIsAdminLoginOpen(false)}>
+          <div className="bg-white w-full max-w-xs rounded-3xl p-5 shadow-2xl border border-black/5" onClick={(e) => e.stopPropagation()}>
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-sm font-bold text-[#1D1D1F]">
-                دخول لوحة التحكم
-              </h3>
-              <button
-                onClick={() => setIsAdminLoginOpen(false)}
-                className="p-1 rounded-full bg-neutral-100 text-neutral-500"
-              >
-                <X className="w-4 h-4" />
-              </button>
+              <h3 className="text-sm font-bold text-[#1D1D1F]">دخول لوحة التحكم</h3>
+              <button onClick={() => setIsAdminLoginOpen(false)} className="p-1 rounded-full bg-neutral-100 text-neutral-500"><X className="w-4 h-4" /></button>
             </div>
             <form onSubmit={handleAdminLogin} className="space-y-3">
-              <input
-                type="password"
-                value={passwordInput}
-                onChange={(e) => setPasswordInput(e.target.value)}
-                placeholder="كلمة المرور (admin)"
-                autoFocus
-                className="w-full rounded-xl border border-neutral-300 px-3.5 py-2 text-xs outline-none focus:border-[#0095D9]"
-              />
-              {loginError && (
-                <p className="text-[11px] text-rose-600 font-semibold">
-                  {loginError}
-                </p>
-              )}
-              <button
-                type="submit"
-                className="w-full bg-[#1D1D1F] hover:bg-[#0095D9] text-white font-semibold text-xs py-2.5 rounded-xl transition"
-              >
-                دخول
-              </button>
+              <input type="password" value={passwordInput} onChange={(e) => setPasswordInput(e.target.value)} placeholder="كلمة المرور (admin)" autoFocus className="w-full rounded-xl border border-neutral-300 px-3.5 py-2 text-xs outline-none focus:border-[#0095D9]" />
+              {loginError && (<p className="text-[11px] text-rose-600 font-semibold">{loginError}</p>)}
+              <button type="submit" className="w-full bg-[#1D1D1F] hover:bg-[#0095D9] text-white font-semibold text-xs py-2.5 rounded-xl transition">دخول</button>
             </form>
           </div>
         </div>
       )}
 
-      {/* =========================================================
-                FULL ADMIN DASHBOARD
-            ========================================================= */}
+      {/* ADMIN DASHBOARD */}
       {isAdminDashboardOpen && isAdminAuthenticated && (
         <div className="fixed inset-0 z-50 bg-[#F5F5F7] overflow-y-auto">
           <div className="sticky top-0 z-20 apple-glass-dark text-white px-5 py-3.5 flex items-center justify-between border-b border-white/10">
             <div className="flex items-center gap-2">
               <Settings className="w-4 h-4 text-[#6CBE45]" />
-              <span className="text-xs sm:text-sm font-bold">
-                لوحة تحكم {settings.storeName}
-              </span>
+              <span className="text-xs sm:text-sm font-bold">لوحة تحكم {settings.storeName}</span>
             </div>
             <div className="flex items-center gap-2">
-              <button
-                onClick={copyAdminUrl}
-                className="bg-white/10 hover:bg-white/20 text-[#6CBE45] text-[11px] font-semibold px-3 py-1.5 rounded-full flex items-center gap-1"
-              >
-                <Copy className="w-3 h-3" />
-                <span>نسخ رابط الإدارة</span>
-              </button>
-              <button
-                onClick={() => {
-                  setIsAdminDashboardOpen(false);
-                  setIsAdminAuthenticated(false);
-                  setPasswordInput('');
-                  setLoginError('');
-                  if (window.location.hash === '#admin') {
-                    window.history.pushState(
-                      '',
-                      document.title,
-                      window.location.pathname
-                    );
-                  }
-                }}
-                className="bg-white text-[#1D1D1F] text-[11px] font-bold px-3.5 py-1.5 rounded-full flex items-center gap-1"
-              >
-                <Eye className="w-3 h-3" />
-                <span>معاينة الموقع</span>
-              </button>
+              <button onClick={copyAdminUrl} className="bg-white/10 hover:bg-white/20 text-[#6CBE45] text-[11px] font-semibold px-3 py-1.5 rounded-full flex items-center gap-1"><Copy className="w-3 h-3" /><span>نسخ رابط الإدارة</span></button>
+              <button onClick={() => { setIsAdminDashboardOpen(false); setIsAdminAuthenticated(false); setPasswordInput(''); setLoginError(''); if (window.location.hash === '#admin') { window.history.pushState('', document.title, window.location.pathname); } }} className="bg-white text-[#1D1D1F] text-[11px] font-bold px-3.5 py-1.5 rounded-full flex items-center gap-1"><Eye className="w-3 h-3" /><span>معاينة الموقع</span></button>
             </div>
           </div>
-
           <div className="max-w-3xl mx-auto p-4 sm:p-6 space-y-4">
             <div className="grid grid-cols-3 gap-1.5 bg-white p-1.5 rounded-2xl border border-black/[0.06]">
-              <button
-                onClick={() => setAdminTab('products')}
-                className={`py-2 rounded-xl text-xs font-bold transition ${
-                  adminTab === 'products'
-                    ? 'bg-[#1D1D1F] text-white'
-                    : 'text-neutral-600'
-                }`}
-              >
-                الأجهزة ({products.length})
-              </button>
-              <button
-                onClick={() => setAdminTab('services')}
-                className={`py-2 rounded-xl text-xs font-bold transition ${
-                  adminTab === 'services'
-                    ? 'bg-[#1D1D1F] text-white'
-                    : 'text-neutral-600'
-                }`}
-              >
-                خدمات الصيانة ({services.length})
-              </button>
-              <button
-                onClick={() => setAdminTab('settings')}
-                className={`py-2 rounded-xl text-xs font-bold transition ${
-                  adminTab === 'settings'
-                    ? 'bg-[#1D1D1F] text-white'
-                    : 'text-neutral-600'
-                }`}
-              >
-                الإعدادات والصرف
-              </button>
+              <button onClick={() => setAdminTab('products')} className={`py-2 rounded-xl text-xs font-bold transition ${adminTab === 'products' ? 'bg-[#1D1D1F] text-white' : 'text-neutral-600'}`}>الأجهزة ({products.length})</button>
+              <button onClick={() => setAdminTab('services')} className={`py-2 rounded-xl text-xs font-bold transition ${adminTab === 'services' ? 'bg-[#1D1D1F] text-white' : 'text-neutral-600'}`}>خدمات الصيانة ({services.length})</button>
+              <button onClick={() => setAdminTab('settings')} className={`py-2 rounded-xl text-xs font-bold transition ${adminTab === 'settings' ? 'bg-[#1D1D1F] text-white' : 'text-neutral-600'}`}>الإعدادات والصرف</button>
             </div>
 
-            {/* TAB 1: PRODUCTS MANAGEMENT */}
             {adminTab === 'products' && (
               <div className="space-y-3">
                 <div className="flex items-center gap-2">
-                  <button
-                    onClick={openAddProduct}
-                    className="w-full bg-[#0095D9] hover:bg-[#007bb5] text-white font-bold text-xs py-3 rounded-2xl flex items-center justify-center gap-2 shadow-xs transition"
-                  >
-                    <Plus className="w-4 h-4" />
-                    <span>إضافة جهاز أو عرض خاص جديد</span>
-                  </button>
+                  <button onClick={openAddProduct} className="w-full bg-[#0095D9] hover:bg-[#007bb5] text-white font-bold text-xs py-3 rounded-2xl flex items-center justify-center gap-2 shadow-xs transition"><Plus className="w-4 h-4" /><span>إضافة جهاز أو عرض خاص جديد</span></button>
                 </div>
-
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                   {products.map((prod) => (
-                    <div
-                      key={prod.id}
-                      className="bg-white p-3 rounded-2xl border border-black/[0.06] flex items-center gap-3"
-                    >
-                      <img
-                        src={prod.imageUrl}
-                        alt={prod.title}
-                        className="w-16 h-16 rounded-xl object-cover bg-[#F5F5F7] shrink-0"
-                      />
+                    <div key={prod.id} className="bg-white p-3 rounded-2xl border border-black/[0.06] flex items-center gap-3">
+                      <img src={prod.imageUrl} alt={prod.title} className="w-16 h-16 rounded-xl object-cover bg-[#F5F5F7] shrink-0" />
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-1.5">
-                          <span className="text-xs font-bold text-[#1D1D1F] truncate">
-                            {prod.title}
-                          </span>
-                          {prod.isFeaturedOffer && (
-                            <span className="text-[9px] font-bold bg-[#0095D9]/15 text-[#0095D9] px-2 py-0.5 rounded-full shrink-0">
-                              سلايدر البداية
-                            </span>
-                          )}
+                          <span className="text-xs font-bold text-[#1D1D1F] truncate">{prod.title}</span>
+                          {prod.isFeaturedOffer && (<span className="text-[9px] font-bold bg-[#0095D9]/15 text-[#0095D9] px-2 py-0.5 rounded-full shrink-0">سلايدر البداية</span>)}
                         </div>
-                        <div className="text-[10px] text-neutral-500 truncate">
-                          {prod.specs}
-                        </div>
-                        <div className="text-xs font-bold text-[#0095D9] mt-0.5">
-                          {prod.price}
-                          {settings.currencySymbol}
-                        </div>
+                        <div className="text-[10px] text-neutral-500 truncate">{prod.specs}</div>
+                        <div className="text-xs font-bold text-[#0095D9] mt-0.5">{prod.price}{settings.currencySymbol}</div>
                       </div>
                       <div className="flex flex-col gap-1.5">
-                        <button
-                          onClick={() => openEditProduct(prod)}
-                          className="p-2 rounded-xl bg-neutral-100 hover:bg-neutral-200 text-[#1D1D1F]"
-                        >
-                          <Edit3 className="w-3.5 h-3.5" />
-                        </button>
-                        <button
-                          onClick={() => handleDeleteProduct(prod.id)}
-                          className="p-2 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-600"
-                        >
-                          <Trash2 className="w-3.5 h-3.5" />
-                        </button>
+                        <button onClick={() => openEditProduct(prod)} className="p-2 rounded-xl bg-neutral-100 hover:bg-neutral-200 text-[#1D1D1F]"><Edit3 className="w-3.5 h-3.5" /></button>
+                        <button onClick={() => handleDeleteProduct(prod.id)} className="p-2 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-600"><Trash2 className="w-3.5 h-3.5" /></button>
                       </div>
                     </div>
                   ))}
@@ -2947,511 +1621,161 @@ export default function App() {
               </div>
             )}
 
-            {/* TAB 2: REPAIR SERVICES */}
             {adminTab === 'services' && (
               <div className="bg-white p-4 sm:p-5 rounded-3xl border border-black/[0.06] space-y-3.5">
                 <div className="flex items-center justify-between gap-2">
-                  <h3 className="text-xs font-bold text-[#1D1D1F]">
-                    تعديل أو إضافة خدمات الصيانة ({services.length}):
-                  </h3>
-                  <button
-                    type="button"
-                    onClick={handleAddService}
-                    className="bg-[#0095D9] hover:bg-[#007bb5] text-white font-bold text-[11px] px-3.5 py-2 rounded-xl flex items-center gap-1.5 transition shrink-0"
-                  >
-                    <Plus className="w-3.5 h-3.5" />
-                    <span>إضافة خدمة صيانة جديدة</span>
-                  </button>
+                  <h3 className="text-xs font-bold text-[#1D1D1F]">تعديل أو إضافة خدمات الصيانة ({services.length}):</h3>
+                  <button type="button" onClick={handleAddService} className="bg-[#0095D9] hover:bg-[#007bb5] text-white font-bold text-[11px] px-3.5 py-2 rounded-xl flex items-center gap-1.5 transition shrink-0"><Plus className="w-3.5 h-3.5" /><span>إضافة خدمة صيانة جديدة</span></button>
                 </div>
-
                 {services.length === 0 ? (
-                  <div className="text-center py-8 bg-[#F5F5F7] rounded-2xl text-xs text-neutral-500">
-                    لا توجد خدمات صيانة حالياً. اضغط على "إضافة خدمة صيانة
-                    جديدة" للبدء.
-                  </div>
+                  <div className="text-center py-8 bg-[#F5F5F7] rounded-2xl text-xs text-neutral-500">لا توجد خدمات صيانة حالياً. اضغط على "إضافة خدمة صيانة جديدة" للبدء.</div>
                 ) : (
                   <div className="space-y-2.5">
                     {services.map((srv, idx) => (
-                      <div
-                        key={srv.id}
-                        className="flex items-center gap-2 bg-[#F5F5F7] p-2.5 rounded-2xl"
-                      >
+                      <div key={srv.id} className="flex items-center gap-2 bg-[#F5F5F7] p-2.5 rounded-2xl">
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 flex-1">
-                          <input
-                            type="text"
-                            value={srv.title}
-                            onChange={(e) => {
-                              const updated = [...services];
-                              updated[idx] = {
-                                ...updated[idx],
-                                title: e.target.value,
-                              };
-                              setServices(updated);
-                            }}
-                            placeholder="اسم الخدمة"
-                            className="bg-white rounded-xl border border-black/10 px-3 py-2 text-xs font-semibold outline-none focus:border-[#0095D9]"
-                          />
-                          <input
-                            type="text"
-                            value={srv.sub}
-                            onChange={(e) => {
-                              const updated = [...services];
-                              updated[idx] = {
-                                ...updated[idx],
-                                sub: e.target.value,
-                              };
-                              setServices(updated);
-                            }}
-                            placeholder="الوصف المختصر"
-                            className="bg-white rounded-xl border border-black/10 px-3 py-2 text-xs outline-none focus:border-[#0095D9]"
-                          />
-                          <input
-                            type="text"
-                            value={srv.price}
-                            onChange={(e) => {
-                              const updated = [...services];
-                              updated[idx] = {
-                                ...updated[idx],
-                                price: e.target.value,
-                              };
-                              setServices(updated);
-                            }}
-                            placeholder="السعر / التكلفة"
-                            className="bg-white rounded-xl border border-black/10 px-3 py-2 text-xs font-bold text-[#6CBE45] outline-none focus:border-[#0095D9]"
-                          />
+                          <input type="text" value={srv.title} onChange={(e) => { const updated = [...services]; updated[idx] = { ...updated[idx], title: e.target.value }; setServices(updated); }} placeholder="اسم الخدمة" className="bg-white rounded-xl border border-black/10 px-3 py-2 text-xs font-semibold outline-none focus:border-[#0095D9]" />
+                          <input type="text" value={srv.sub} onChange={(e) => { const updated = [...services]; updated[idx] = { ...updated[idx], sub: e.target.value }; setServices(updated); }} placeholder="الوصف المختصر" className="bg-white rounded-xl border border-black/10 px-3 py-2 text-xs outline-none focus:border-[#0095D9]" />
+                          <input type="text" value={srv.price} onChange={(e) => { const updated = [...services]; updated[idx] = { ...updated[idx], price: e.target.value }; setServices(updated); }} placeholder="السعر / التكلفة" className="bg-white rounded-xl border border-black/10 px-3 py-2 text-xs font-bold text-[#6CBE45] outline-none focus:border-[#0095D9]" />
                         </div>
-                        <button
-                          type="button"
-                          onClick={() => handleDeleteService(srv.id)}
-                          className="p-2.5 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-600 transition shrink-0"
-                          title="حذف الخدمة"
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </button>
+                        <button type="button" onClick={() => handleDeleteService(srv.id)} className="p-2.5 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-600 transition shrink-0" title="حذف الخدمة"><Trash2 className="w-4 h-4" /></button>
                       </div>
                     ))}
                   </div>
                 )}
-
-                <button
-                  type="button"
-                  onClick={handleSaveServices}
-                  className="w-full bg-[#1D1D1F] hover:bg-[#0095D9] text-white font-bold text-xs py-3 rounded-xl transition"
-                >
-                  حفظ تعديلات قسم الصيانة
-                </button>
+                <button type="button" onClick={handleSaveServices} className="w-full bg-[#1D1D1F] hover:bg-[#0095D9] text-white font-bold text-xs py-3 rounded-xl transition">حفظ تعديلات قسم الصيانة</button>
               </div>
             )}
 
-            {/* TAB 3: STORE SETTINGS & SYP EXCHANGE RATE */}
             {adminTab === 'settings' && (
-              <form
-                onSubmit={handleSaveSettings}
-                className="bg-white p-5 rounded-3xl border border-black/[0.06] space-y-4"
-              >
+              <form onSubmit={handleSaveSettings} className="bg-white p-5 rounded-3xl border border-black/[0.06] space-y-4">
                 <div className="bg-[#F5F5F7] p-4 rounded-2xl space-y-3">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold text-[#1D1D1F]">
-                      حاسبة الليرة السورية التلقائية
-                    </span>
+                    <span className="text-xs font-bold text-[#1D1D1F]">حاسبة الليرة السورية التلقائية</span>
                     <label className="inline-flex items-center gap-1.5 cursor-pointer text-xs font-semibold">
-                      <input
-                        type="checkbox"
-                        checked={settings.showSYP}
-                        onChange={(e) =>
-                          setSettings({
-                            ...settings,
-                            showSYP: e.target.checked,
-                          })
-                        }
-                        className="rounded accent-[#0095D9]"
-                      />
+                      <input type="checkbox" checked={settings.showSYP} onChange={(e) => setSettings({ ...settings, showSYP: e.target.checked })} className="rounded accent-[#0095D9]" />
                       <span>إظهار السعر بالليرة تحت الدولار</span>
                     </label>
                   </div>
                   <div className="grid grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-[10px] font-semibold text-neutral-600 mb-1">
-                        سعر صرف الدولار مقابل الليرة:
-                      </label>
-                      <input
-                        type="number"
-                        value={settings.exchangeRateSYP}
-                        onChange={(e) =>
-                          setSettings({
-                            ...settings,
-                            exchangeRateSYP: Number(e.target.value),
-                          })
-                        }
-                        className="w-full bg-white rounded-xl border border-neutral-300 px-3 py-2 text-xs font-bold outline-none focus:border-[#0095D9]"
-                      />
+                      <label className="block text-[10px] font-semibold text-neutral-600 mb-1">سعر صرف الدولار مقابل الليرة:</label>
+                      <input type="number" value={settings.exchangeRateSYP} onChange={(e) => setSettings({ ...settings, exchangeRateSYP: Number(e.target.value) })} className="w-full bg-white rounded-xl border border-neutral-300 px-3 py-2 text-xs font-bold outline-none focus:border-[#0095D9]" />
                     </div>
                     <div>
-                      <label className="block text-[10px] font-semibold text-neutral-600 mb-1">
-                        رمز العملة الأساسية:
-                      </label>
-                      <input
-                        type="text"
-                        value={settings.currencySymbol}
-                        onChange={(e) =>
-                          setSettings({
-                            ...settings,
-                            currencySymbol: e.target.value,
-                          })
-                        }
-                        className="w-full bg-white rounded-xl border border-neutral-300 px-3 py-2 text-xs font-bold outline-none focus:border-[#0095D9]"
-                      />
+                      <label className="block text-[10px] font-semibold text-neutral-600 mb-1">رمز العملة الأساسية:</label>
+                      <input type="text" value={settings.currencySymbol} onChange={(e) => setSettings({ ...settings, currencySymbol: e.target.value })} className="w-full bg-white rounded-xl border border-neutral-300 px-3 py-2 text-xs font-bold outline-none focus:border-[#0095D9]" />
                     </div>
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
                   <div>
-                    <label className="block text-[11px] font-bold text-neutral-700 mb-1">
-                      رقم الواتساب لاستقبال الطلبات (مع الرمز الدولي بدون +):
-                    </label>
-                    <input
-                      type="text"
-                      dir="ltr"
-                      placeholder="963942000000"
-                      value={settings.whatsappNumber}
-                      onChange={(e) =>
-                        setSettings({
-                          ...settings,
-                          whatsappNumber: e.target.value,
-                        })
-                      }
-                      className="w-full rounded-xl border border-neutral-300 px-3 py-2.5 text-xs font-mono text-left outline-none focus:border-[#0095D9]"
-                    />
+                    <label className="block text-[11px] font-bold text-neutral-700 mb-1">رقم الواتساب لاستقبال الطلبات (مع الرمز الدولي بدون +):</label>
+                    <input type="text" dir="ltr" placeholder="963942000000" value={settings.whatsappNumber} onChange={(e) => setSettings({ ...settings, whatsappNumber: e.target.value })} className="w-full rounded-xl border border-neutral-300 px-3 py-2.5 text-xs font-mono text-left outline-none focus:border-[#0095D9]" />
                   </div>
-
                   <div>
-                    <label className="block text-[11px] font-bold text-neutral-700 mb-1">
-                      رابط قناة الواتساب:
-                    </label>
-                    <input
-                      type="url"
-                      dir="ltr"
-                      value={settings.whatsappChannel}
-                      onChange={(e) =>
-                        setSettings({
-                          ...settings,
-                          whatsappChannel: e.target.value,
-                        })
-                      }
-                      className="w-full rounded-xl border border-neutral-300 px-3 py-2.5 text-xs font-mono text-left outline-none focus:border-[#0095D9]"
-                    />
+                    <label className="block text-[11px] font-bold text-neutral-700 mb-1">رابط قناة الواتساب:</label>
+                    <input type="url" dir="ltr" value={settings.whatsappChannel} onChange={(e) => setSettings({ ...settings, whatsappChannel: e.target.value })} className="w-full rounded-xl border border-neutral-300 px-3 py-2.5 text-xs font-mono text-left outline-none focus:border-[#0095D9]" />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
                   <div>
-                    <label className="block text-[11px] font-bold text-neutral-700 mb-1">
-                      رقم قسم المبيعات (يظهر في نشرة الأسعار):
-                    </label>
-                    <input
-                      type="text"
-                      dir="ltr"
-                      placeholder="0935 240 669"
-                      value={settings.salesPhone || ''}
-                      onChange={(e) =>
-                        setSettings({ ...settings, salesPhone: e.target.value })
-                      }
-                      className="w-full rounded-xl border border-neutral-300 px-3 py-2.5 text-xs font-mono text-left outline-none focus:border-[#0095D9]"
-                    />
+                    <label className="block text-[11px] font-bold text-neutral-700 mb-1">رقم قسم المبيعات (يظهر في نشرة الأسعار):</label>
+                    <input type="text" dir="ltr" placeholder="0935 240 669" value={settings.salesPhone || ''} onChange={(e) => setSettings({ ...settings, salesPhone: e.target.value })} className="w-full rounded-xl border border-neutral-300 px-3 py-2.5 text-xs font-mono text-left outline-none focus:border-[#0095D9]" />
                   </div>
-
                   <div>
-                    <label className="block text-[11px] font-bold text-neutral-700 mb-1">
-                      رقم قسم الصيانة (يظهر في نشرة الأسعار):
-                    </label>
-                    <input
-                      type="text"
-                      dir="ltr"
-                      placeholder="0986 895 611"
-                      value={settings.repairPhone || ''}
-                      onChange={(e) =>
-                        setSettings({
-                          ...settings,
-                          repairPhone: e.target.value,
-                        })
-                      }
-                      className="w-full rounded-xl border border-neutral-300 px-3 py-2.5 text-xs font-mono text-left outline-none focus:border-[#0095D9]"
-                    />
+                    <label className="block text-[11px] font-bold text-neutral-700 mb-1">رقم قسم الصيانة (يظهر في نشرة الأسعار):</label>
+                    <input type="text" dir="ltr" placeholder="0986 895 611" value={settings.repairPhone || ''} onChange={(e) => setSettings({ ...settings, repairPhone: e.target.value })} className="w-full rounded-xl border border-neutral-300 px-3 py-2.5 text-xs font-mono text-left outline-none focus:border-[#0095D9]" />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-bold text-neutral-700 mb-1">
-                    كلمة مرور الإدارة:
-                  </label>
-                  <input
-                    type="text"
-                    dir="ltr"
-                    value={settings.adminPassword}
-                    onChange={(e) =>
-                      setSettings({
-                        ...settings,
-                        adminPassword: e.target.value,
-                      })
-                    }
-                    className="w-full rounded-xl border border-neutral-300 px-3 py-2.5 text-xs font-mono text-left outline-none focus:border-[#0095D9]"
-                  />
+                  <label className="block text-[11px] font-bold text-neutral-700 mb-1">كلمة مرور الإدارة:</label>
+                  <input type="text" dir="ltr" value={settings.adminPassword} onChange={(e) => setSettings({ ...settings, adminPassword: e.target.value })} className="w-full rounded-xl border border-neutral-300 px-3 py-2.5 text-xs font-mono text-left outline-none focus:border-[#0095D9]" />
                 </div>
-
-                <button
-                  type="submit"
-                  className="w-full bg-[#1D1D1F] hover:bg-[#0095D9] text-white font-bold text-xs py-3 rounded-xl transition"
-                >
-                  حفظ جميع الإعدادات
-                </button>
+                <button type="submit" className="w-full bg-[#1D1D1F] hover:bg-[#0095D9] text-white font-bold text-xs py-3 rounded-xl transition">حفظ جميع الإعدادات</button>
               </form>
             )}
           </div>
         </div>
       )}
 
-      {/* =========================================================
-                ADD / EDIT PRODUCT MODAL
-            ========================================================= */}
+      {/* ADD / EDIT PRODUCT MODAL */}
       {isProductFormOpen && (
-        <div
-          className="fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4"
-          onClick={() => setIsProductFormOpen(false)}
-        >
-          <div
-            className="bg-white w-full sm:max-w-md rounded-t-3xl sm:rounded-3xl p-5 max-h-[92vh] overflow-y-auto"
-            onClick={(e) => e.stopPropagation()}
-          >
+        <div className="fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4" onClick={() => setIsProductFormOpen(false)}>
+          <div className="bg-white w-full sm:max-w-md rounded-t-3xl sm:rounded-3xl p-5 max-h-[92vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
             <div className="flex items-center justify-between mb-4 border-b border-neutral-100 pb-2.5">
-              <h3 className="text-sm font-bold text-[#1D1D1F]">
-                {editingProduct ? 'تعديل بيانات الجهاز' : 'إضافة جهاز جديد'}
-              </h3>
-              <button
-                onClick={() => setIsProductFormOpen(false)}
-                className="p-1 rounded-full bg-neutral-100"
-              >
-                <X className="w-4 h-4" />
-              </button>
+              <h3 className="text-sm font-bold text-[#1D1D1F]">{editingProduct ? 'تعديل بيانات الجهاز' : 'إضافة جهاز جديد'}</h3>
+              <button onClick={() => setIsProductFormOpen(false)} className="p-1 rounded-full bg-neutral-100"><X className="w-4 h-4" /></button>
             </div>
-
             <form onSubmit={handleSaveProduct} className="space-y-3">
               <div>
-                <label className="block text-[11px] font-bold text-neutral-700 mb-1">
-                  اسم الجهاز *
-                </label>
-                <input
-                  type="text"
-                  required
-                  value={productForm.title}
-                  onChange={(e) =>
-                    setProductForm({ ...productForm, title: e.target.value })
-                  }
-                  placeholder="مثال: IPHONE 16 PRO MAX 256GB"
-                  className="w-full rounded-xl border border-neutral-300 px-3 py-2 text-xs"
-                />
+                <label className="block text-[11px] font-bold text-neutral-700 mb-1">اسم الجهاز *</label>
+                <input type="text" required value={productForm.title} onChange={(e) => setProductForm({ ...productForm, title: e.target.value })} placeholder="مثال: IPHONE 16 PRO MAX 256GB" className="w-full rounded-xl border border-neutral-300 px-3 py-2 text-xs" />
               </div>
-
               <div className="grid grid-cols-2 gap-2.5">
                 <div>
-                  <label className="block text-[11px] font-bold text-neutral-700 mb-1">
-                    القسم
-                  </label>
-                  <select
-                    value={productForm.category}
-                    onChange={(e) =>
-                      setProductForm({
-                        ...productForm,
-                        category: e.target.value,
-                      })
-                    }
-                    className="w-full rounded-xl border border-neutral-300 px-3 py-2 text-xs bg-white"
-                  >
-                    {categories
-                      .filter((c) => c.id !== 'all')
-                      .map((c) => (
-                        <option key={c.id} value={c.id}>
-                          {c.name}
-                        </option>
-                      ))}
+                  <label className="block text-[11px] font-bold text-neutral-700 mb-1">القسم</label>
+                  <select value={productForm.category} onChange={(e) => setProductForm({ ...productForm, category: e.target.value })} className="w-full rounded-xl border border-neutral-300 px-3 py-2 text-xs bg-white">
+                    {categories.filter((c) => c.id !== 'all').map((c) => (<option key={c.id} value={c.id}>{c.name}</option>))}
                   </select>
                 </div>
                 <div>
-                  <label className="block text-[11px] font-bold text-neutral-700 mb-1">
-                    الحالة
-                  </label>
-                  <select
-                    value={productForm.condition}
-                    onChange={(e) =>
-                      setProductForm({
-                        ...productForm,
-                        condition: e.target.value,
-                      })
-                    }
-                    className="w-full rounded-xl border border-neutral-300 px-3 py-2 text-xs bg-white"
-                  >
+                  <label className="block text-[11px] font-bold text-neutral-700 mb-1">الحالة</label>
+                  <select value={productForm.condition} onChange={(e) => setProductForm({ ...productForm, condition: e.target.value })} className="w-full rounded-xl border border-neutral-300 px-3 py-2 text-xs bg-white">
                     <option value="جديد">جديد</option>
                     <option value="مستعمل">مستعمل</option>
                   </select>
                 </div>
               </div>
-
               <div className="grid grid-cols-2 gap-2.5">
                 <div>
-                  <label className="block text-[11px] font-bold text-neutral-700 mb-1">
-                    السعر بالدولار *
-                  </label>
-                  <input
-                    type="number"
-                    required
-                    value={productForm.price}
-                    onChange={(e) =>
-                      setProductForm({ ...productForm, price: e.target.value })
-                    }
-                    placeholder="965"
-                    className="w-full rounded-xl border border-neutral-300 px-3 py-2 text-xs"
-                  />
+                  <label className="block text-[11px] font-bold text-neutral-700 mb-1">السعر بالدولار *</label>
+                  <input type="number" required value={productForm.price} onChange={(e) => setProductForm({ ...productForm, price: e.target.value })} placeholder="965" className="w-full rounded-xl border border-neutral-300 px-3 py-2 text-xs" />
                 </div>
                 <div>
-                  <label className="block text-[11px] font-bold text-neutral-700 mb-1">
-                    السعر السابق (كان $)
-                  </label>
-                  <input
-                    type="number"
-                    value={productForm.oldPrice}
-                    onChange={(e) =>
-                      setProductForm({
-                        ...productForm,
-                        oldPrice: e.target.value,
-                      })
-                    }
-                    placeholder="1030"
-                    className="w-full rounded-xl border border-neutral-300 px-3 py-2 text-xs"
-                  />
+                  <label className="block text-[11px] font-bold text-neutral-700 mb-1">السعر السابق (كان $)</label>
+                  <input type="number" value={productForm.oldPrice} onChange={(e) => setProductForm({ ...productForm, oldPrice: e.target.value })} placeholder="1030" className="w-full rounded-xl border border-neutral-300 px-3 py-2 text-xs" />
                 </div>
               </div>
-
               <div className="grid grid-cols-2 gap-2.5">
                 <div>
-                  <label className="block text-[11px] font-bold text-neutral-700 mb-1">
-                    المواصفات (البطارية والكفالة)
-                  </label>
-                  <input
-                    type="text"
-                    value={productForm.specs}
-                    onChange={(e) =>
-                      setProductForm({ ...productForm, specs: e.target.value })
-                    }
-                    placeholder="بطارية 100% • مع كفالة"
-                    className="w-full rounded-xl border border-neutral-300 px-3 py-2 text-xs"
-                  />
+                  <label className="block text-[11px] font-bold text-neutral-700 mb-1">المواصفات (البطارية والكفالة)</label>
+                  <input type="text" value={productForm.specs} onChange={(e) => setProductForm({ ...productForm, specs: e.target.value })} placeholder="بطارية 100% • مع كفالة" className="w-full rounded-xl border border-neutral-300 px-3 py-2 text-xs" />
                 </div>
                 <div>
-                  <label className="block text-[11px] font-bold text-neutral-700 mb-1">
-                    شارة البطاقة
-                  </label>
-                  <input
-                    type="text"
-                    value={productForm.badge}
-                    onChange={(e) =>
-                      setProductForm({ ...productForm, badge: e.target.value })
-                    }
-                    placeholder="عرض خاص / مستعمل نظيف"
-                    className="w-full rounded-xl border border-neutral-300 px-3 py-2 text-xs"
-                  />
+                  <label className="block text-[11px] font-bold text-neutral-700 mb-1">شارة البطاقة</label>
+                  <input type="text" value={productForm.badge} onChange={(e) => setProductForm({ ...productForm, badge: e.target.value })} placeholder="عرض خاص / مستعمل نظيف" className="w-full rounded-xl border border-neutral-300 px-3 py-2 text-xs" />
                 </div>
               </div>
-
-              {/* Checkboxes for Hero Scratch Offer & InStock */}
               <div className="bg-[#F5F5F7] p-3 rounded-2xl space-y-2">
                 <label className="flex items-center gap-2 cursor-pointer text-xs font-bold text-[#1D1D1F]">
-                  <input
-                    type="checkbox"
-                    checked={productForm.isFeaturedOffer}
-                    onChange={(e) =>
-                      setProductForm({
-                        ...productForm,
-                        isFeaturedOffer: e.target.checked,
-                      })
-                    }
-                    className="rounded accent-[#0095D9]"
-                  />
+                  <input type="checkbox" checked={productForm.isFeaturedOffer} onChange={(e) => setProductForm({ ...productForm, isFeaturedOffer: e.target.checked })} className="rounded accent-[#0095D9]" />
                   <span>إظهار في سلايدر "امسح واكشف السعر" بأعلى الموقع</span>
                 </label>
                 <label className="flex items-center gap-2 cursor-pointer text-xs font-semibold text-neutral-700">
-                  <input
-                    type="checkbox"
-                    checked={productForm.inStock}
-                    onChange={(e) =>
-                      setProductForm({
-                        ...productForm,
-                        inStock: e.target.checked,
-                      })
-                    }
-                    className="rounded accent-[#6CBE45]"
-                  />
-                  <span>
-                    الجهاز متوفر حالياً (يدخل في عداد الأجهزة المتوفرة)
-                  </span>
+                  <input type="checkbox" checked={productForm.inStock} onChange={(e) => setProductForm({ ...productForm, inStock: e.target.checked })} className="rounded accent-[#6CBE45]" />
+                  <span>الجهاز متوفر حالياً (يدخل في عداد الأجهزة المتوفرة)</span>
                 </label>
               </div>
-
-              {/* Upload Photo */}
               <div className="bg-[#F5F5F7] p-3 rounded-2xl space-y-2">
-                <label className="block text-[11px] font-bold text-neutral-700">
-                  صورة الجهاز:
-                </label>
+                <label className="block text-[11px] font-bold text-neutral-700">صورة الجهاز:</label>
                 <div className="flex items-center gap-2">
                   <label className="flex-1 cursor-pointer bg-white border border-neutral-300 rounded-xl py-2 px-3 text-xs font-semibold flex items-center justify-center gap-1.5">
-                    <Upload className="w-3.5 h-3.5 text-[#0095D9]" />
-                    <span>رفع صورة من الجوال</span>
-                    <input
-                      type="file"
-                      accept="image/*"
-                      onChange={handleImageUpload}
-                      className="hidden"
-                    />
+                    <Upload className="w-3.5 h-3.5 text-[#0095D9]" /><span>رفع صورة من الجوال</span>
+                    <input type="file" accept="image/*" onChange={handleImageUpload} className="hidden" />
                   </label>
-                  {productForm.imageUrl && (
-                    <img
-                      src={productForm.imageUrl}
-                      alt="preview"
-                      className="w-10 h-10 rounded-lg object-cover border"
-                    />
-                  )}
+                  {productForm.imageUrl && (<img src={productForm.imageUrl} alt="preview" className="w-10 h-10 rounded-lg object-cover border" />)}
                 </div>
-                <input
-                  type="text"
-                  value={productForm.imageUrl}
-                  onChange={(e) =>
-                    setProductForm({ ...productForm, imageUrl: e.target.value })
-                  }
-                  placeholder="أو ألصق رابط صورة مباشر..."
-                  className="w-full bg-white rounded-xl border border-neutral-200 px-2.5 py-1.5 text-[11px]"
-                />
+                <input type="text" value={productForm.imageUrl} onChange={(e) => setProductForm({ ...productForm, imageUrl: e.target.value })} placeholder="أو ألصق رابط صورة مباشر..." className="w-full bg-white rounded-xl border border-neutral-200 px-2.5 py-1.5 text-[11px]" />
               </div>
-
               <div>
-                <label className="block text-[11px] font-bold text-neutral-700 mb-1">
-                  وصف إضافي
-                </label>
-                <textarea
-                  rows={2}
-                  value={productForm.description}
-                  onChange={(e) =>
-                    setProductForm({
-                      ...productForm,
-                      description: e.target.value,
-                    })
-                  }
-                  className="w-full rounded-xl border border-neutral-300 p-2.5 text-xs"
-                />
+                <label className="block text-[11px] font-bold text-neutral-700 mb-1">وصف إضافي</label>
+                <textarea rows={2} value={productForm.description} onChange={(e) => setProductForm({ ...productForm, description: e.target.value })} className="w-full rounded-xl border border-neutral-300 p-2.5 text-xs" />
               </div>
-
-              <button
-                type="submit"
-                className="w-full bg-[#1D1D1F] hover:bg-[#0095D9] text-white font-bold text-xs py-3 rounded-xl transition"
-              >
+              <button type="submit" className="w-full bg-[#1D1D1F] hover:bg-[#0095D9] text-white font-bold text-xs py-3 rounded-xl transition">
                 {editingProduct ? 'حفظ التعديلات' : 'إضافة الجهاز'}
               </button>
             </form>
@@ -3459,242 +1783,81 @@ export default function App() {
         </div>
       )}
 
-      {/* =========================================================
-                DAILY PRICE BULLETIN MODAL ("نشرة الأسعار" - Exact Match to IMG_2514.jpg)
-            ========================================================= */}
+      {/* DAILY PRICE BULLETIN MODAL */}
       {showPriceSheet && (
-        <div
-          className="fixed inset-0 z-[70] bg-black/85 backdrop-blur-md flex items-center justify-center p-2 sm:p-4"
-          onClick={() => setShowPriceSheet(false)}
-        >
-          <div
-            className="bg-[#16171B] border border-white/15 rounded-[28px] w-full max-w-[680px] overflow-hidden shadow-[0_25px_90px_rgba(0,0,0,0.85)] flex flex-col max-h-[94vh]"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {/* Modal Top Bar: Close Button on Left + Title on Right */}
+        <div className="fixed inset-0 z-[70] bg-black/85 backdrop-blur-md flex items-center justify-center p-2 sm:p-4" onClick={() => setShowPriceSheet(false)}>
+          <div className="bg-[#16171B] border border-white/15 rounded-[28px] w-full max-w-[680px] overflow-hidden shadow-[0_25px_90px_rgba(0,0,0,0.85)] flex flex-col max-h-[94vh]" onClick={(e) => e.stopPropagation()}>
             <div className="flex items-center justify-between px-5 py-3.5 border-b border-white/10 bg-[#18191E]">
               <div className="text-right">
-                <p className="text-[11px] text-neutral-400 font-medium">
-                  أسعار اليوم:
-                </p>
-                <h3 className="text-lg sm:text-xl font-extrabold text-white tracking-tight">
-                  نشرة الأسعار
-                </h3>
+                <p className="text-[11px] text-neutral-400 font-medium">أسعار اليوم:</p>
+                <h3 className="text-lg sm:text-xl font-extrabold text-white tracking-tight">نشرة الأسعار</h3>
               </div>
-
-              <button
-                type="button"
-                onClick={() => setShowPriceSheet(false)}
-                className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 text-neutral-200 flex items-center justify-center transition"
-                aria-label="إغلاق"
-              >
-                <X className="w-4 h-4" />
-              </button>
+              <button type="button" onClick={() => setShowPriceSheet(false)} className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 text-neutral-200 flex items-center justify-center transition" aria-label="إغلاق"><X className="w-4 h-4" /></button>
             </div>
-
-            {/* Interactive Zoomable Poster Viewport */}
             <div className="relative flex-1 overflow-auto bg-[#0B0C0E] p-3 sm:p-5 select-none">
-              <div
-                style={{
-                  transform: `scale(${sheetZoom})`,
-                  transformOrigin: 'top center',
-                }}
-                className="bg-gradient-to-b from-[#111318] via-[#0B0C10] to-[#08090C] border border-white/10 rounded-2xl p-4 sm:p-6 text-white shadow-2xl transition-transform duration-200 min-w-[540px] sm:min-w-0"
-              >
-                {/* Poster Header: Brand Logo on Left + Large Title & Date on Right */}
+              <div style={{ transform: `scale(${sheetZoom})`, transformOrigin: 'top center', }} className="bg-gradient-to-b from-[#111318] via-[#0B0C10] to-[#08090C] border border-white/10 rounded-2xl p-4 sm:p-6 text-white shadow-2xl transition-transform duration-200 min-w-[540px] sm:min-w-0">
                 <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-4">
                   <div className="text-right">
-                    <h2 className="text-2xl sm:text-4xl font-black text-white tracking-tight">
-                      نشرة الأسعار
-                    </h2>
-                    <p className="text-xs sm:text-sm text-neutral-400 mt-1 font-medium">
-                      {todayArabicDate}
-                    </p>
+                    <h2 className="text-2xl sm:text-4xl font-black text-white tracking-tight">نشرة الأسعار</h2>
+                    <p className="text-xs sm:text-sm text-neutral-400 mt-1 font-medium">{todayArabicDate}</p>
                   </div>
-
-                  <div dir="ltr" className="flex flex-col items-center">
-                    <AlTalebLogo size="sm" />
-                  </div>
+                  <div dir="ltr" className="flex flex-col items-center"><AlTalebLogo size="sm" /></div>
                 </div>
-
-                {/* 3-Column Ordered Price Bulletin Grid
-                                    Order: 1. IPHONE -> 2. SAMSUNG -> 3. XIAOMI -> 4. INFINIX -> 5. HONOR -> 6. TECNO -> 7. أخرى -> 8. إكسسوارات
-                                    Displayed in 3 columns from Right (Column 1) -> Middle (Column 2) -> Left (Column 3) */}
-                <div
-                  className="grid grid-cols-3 gap-3 sm:gap-4 text-[10px] sm:text-[11px]"
-                  dir="ltr"
-                >
-                  {[
-                    priceSheetData.col3,
-                    priceSheetData.col2,
-                    priceSheetData.col1,
-                  ].map((colRows, colIndex) => (
-                    <div
-                      key={colIndex}
-                      className={`space-y-1.5 ${
-                        colIndex < 2 ? 'border-r border-white/10 pr-2.5' : ''
-                      }`}
-                    >
+                <div className="grid grid-cols-3 gap-3 sm:gap-4 text-[10px] sm:text-[11px]" dir="ltr">
+                  {[priceSheetData.col3, priceSheetData.col2, priceSheetData.col1].map((colRows, colIndex) => (
+                    <div key={colIndex} className={`space-y-1.5 ${colIndex < 2 ? 'border-r border-white/10 pr-2.5' : ''}`}>
                       {colRows.map((row) => {
                         if (row.type === 'header') {
                           return (
                             <div key={row.id} className="pt-1.5 first:pt-0">
-                              <div className="inline-block px-3 py-0.5 rounded-full border border-white/30 bg-white/[0.07] text-[9px] font-extrabold text-white tracking-wider uppercase">
-                                {row.label}
-                              </div>
+                              <div className="inline-block px-3 py-0.5 rounded-full border border-white/30 bg-white/[0.07] text-[9px] font-extrabold text-white tracking-wider uppercase">{row.label}</div>
                             </div>
                           );
                         }
                         const item = row.product;
                         const meta = parseDeviceMeta(item);
                         return (
-                          <div
-                            key={row.id}
-                            onClick={() => {
-                              setShowPriceSheet(false);
-                              setActiveProduct(item);
-                            }}
-                            className="flex items-center justify-between gap-1 py-1 border-b border-white/[0.06] hover:bg-white/[0.04] px-1 rounded cursor-pointer transition"
-                          >
-                            <span className="font-bold text-white truncate max-w-[72px] sm:max-w-[85px]">
-                              {meta.shortName}
-                            </span>
+                          <div key={row.id} onClick={() => { setShowPriceSheet(false); setActiveProduct(item); }} className="flex items-center justify-between gap-1 py-1 border-b border-white/[0.06] hover:bg-white/[0.04] px-1 rounded cursor-pointer transition">
+                            <span className="font-bold text-white truncate max-w-[72px] sm:max-w-[85px]">{meta.shortName}</span>
                             <span className="flex items-center gap-1 text-[9px] text-neutral-400 shrink-0">
                               <span>{meta.storage}</span>
-                              <span className="px-1 py-0.2 rounded bg-[#6CBE45]/20 text-[#6CBE45] font-bold text-[8px]">
-                                {meta.battery}
-                              </span>
+                              <span className="px-1 py-0.2 rounded bg-[#6CBE45]/20 text-[#6CBE45] font-bold text-[8px]">{meta.battery}</span>
                             </span>
-                            <span className="font-extrabold text-white shrink-0">
-                              {settings.currencySymbol}
-                              {item.price}
-                            </span>
+                            <span className="font-extrabold text-white shrink-0">{settings.currencySymbol}{item.price}</span>
                           </div>
                         );
                       })}
                     </div>
                   ))}
                 </div>
-
-                {/* Poster Footer: "واتس حصراً", Sales & Maintenance Phones, Slogan & Address */}
                 <div className="mt-6 pt-4 border-t border-white/10 text-center space-y-3">
-                  <div>
-                    <span className="inline-block px-5 py-1 rounded-full border border-white/25 bg-white/[0.04] text-xs font-bold text-white shadow-sm">
-                      واتس حصراً
-                    </span>
-                  </div>
-
+                  <div><span className="inline-block px-5 py-1 rounded-full border border-white/25 bg-white/[0.04] text-xs font-bold text-white shadow-sm">واتس حصراً</span></div>
                   <div className="grid grid-cols-2 max-w-md mx-auto pt-1 divide-x divide-x-reverse divide-white/15">
-                    <div className="px-3">
-                      <p className="text-[11px] text-neutral-400 mb-0.5">
-                        قسم المبيعات
-                      </p>
-                      <p
-                        dir="ltr"
-                        className="text-sm sm:text-lg font-black text-white font-mono tracking-wider"
-                      >
-                        {settings.salesPhone || '0935 240 669'}
-                      </p>
-                    </div>
-                    <div className="px-3">
-                      <p className="text-[11px] text-neutral-400 mb-0.5">
-                        قسم الصيانة
-                      </p>
-                      <p
-                        dir="ltr"
-                        className="text-sm sm:text-lg font-black text-white font-mono tracking-wider"
-                      >
-                        {settings.repairPhone || '0986 895 611'}
-                      </p>
-                    </div>
+                    <div className="px-3"><p className="text-[11px] text-neutral-400 mb-0.5">قسم المبيعات</p><p dir="ltr" className="text-sm sm:text-lg font-black text-white font-mono tracking-wider">{settings.salesPhone || '0935 240 669'}</p></div>
+                    <div className="px-3"><p className="text-[11px] text-neutral-400 mb-0.5">قسم الصيانة</p><p dir="ltr" className="text-sm sm:text-lg font-black text-white font-mono tracking-wider">{settings.repairPhone || '0986 895 611'}</p></div>
                   </div>
-
                   <div className="space-y-1 pt-1 text-[11px] text-neutral-300">
-                    <p className="font-semibold">
-                      {STORE_CONFIG.brandNameAr} • {STORE_CONFIG.slogan}
-                    </p>
-                    <p className="text-neutral-400 text-[10px]">
-                      <strong className="text-white">العنوان:</strong>{' '}
-                      {settings.addressLine1}
-                    </p>
-                    <p className="text-neutral-500 text-[10px] pt-0.5">
-                      الأسعار قابلة للتغيير • ما في حجز، يلي بيسبق بياكل فستق
-                    </p>
+                    <p className="font-semibold">{STORE_CONFIG.brandNameAr} • {STORE_CONFIG.slogan}</p>
+                    <p className="text-neutral-400 text-[10px]"><strong className="text-white">العنوان:</strong> {settings.addressLine1}</p>
+                    <p className="text-neutral-500 text-[10px] pt-0.5">الأسعار قابلة للتغيير • ما في حجز، يلي بيسبق بياكل فستق</p>
                   </div>
                 </div>
               </div>
-
-              {/* Floating Zoom Controls (+ / -) at Bottom-Left of Poster */}
               <div className="sticky bottom-2 left-2 flex items-center gap-2 mt-3 w-fit bg-black/70 backdrop-blur-md p-1 rounded-full border border-white/15">
-                <button
-                  type="button"
-                  onClick={() =>
-                    setSheetZoom((z) => Math.min(1.6, +(z + 0.15).toFixed(2)))
-                  }
-                  className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center font-bold transition"
-                  title="تكبير"
-                >
-                  <Plus className="w-4 h-4" />
-                </button>
-                <button
-                  type="button"
-                  onClick={() =>
-                    setSheetZoom((z) => Math.max(0.75, +(z - 0.15).toFixed(2)))
-                  }
-                  className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center font-bold transition"
-                  title="تصغير"
-                >
-                  <span className="text-base leading-none font-bold">−</span>
-                </button>
+                <button type="button" onClick={() => setSheetZoom((z) => Math.min(1.6, +(z + 0.15).toFixed(2)))} className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center font-bold transition" title="تكبير"><Plus className="w-4 h-4" /></button>
+                <button type="button" onClick={() => setSheetZoom((z) => Math.max(0.75, +(z - 0.15).toFixed(2)))} className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center font-bold transition" title="تصغير"><span className="text-base leading-none font-bold">−</span></button>
               </div>
             </div>
-
-            {/* Bottom Action Bar: 3 Pill Buttons ("حفظ الصورة", "مشاركة", "اسأل على واتساب") */}
             <div className="grid grid-cols-3 gap-2.5 p-3.5 bg-[#18191E] border-t border-white/10">
-              <button
-                type="button"
-                disabled={isGeneratingImage}
-                onClick={handleDownloadPriceSheetImage}
-                className="py-3 px-3 rounded-full bg-white hover:bg-neutral-200 text-[#1D1D1F] font-extrabold text-xs sm:text-sm flex items-center justify-center gap-1.5 transition shadow-md cursor-pointer disabled:opacity-60"
-              >
+              <button type="button" disabled={isGeneratingImage} onClick={handleDownloadPriceSheetImage} className="py-3 px-3 rounded-full bg-white hover:bg-neutral-200 text-[#1D1D1F] font-extrabold text-xs sm:text-sm flex items-center justify-center gap-1.5 transition shadow-md cursor-pointer disabled:opacity-60">
                 <Download className="w-4 h-4 shrink-0" />
-                <span>
-                  {isGeneratingImage ? 'جارٍ الحفظ...' : 'حفظ الصورة'}
-                </span>
+                <span>{isGeneratingImage ? 'جارٍ الحفظ...' : 'حفظ الصورة'}</span>
               </button>
-
-              <button
-                type="button"
-                onClick={async () => {
-                  const shareData = {
-                    title: `نشرة أسعار ${settings.storeName}`,
-                    text: `نشرة أسعار الأجهزة المحدثة من ${settings.storeName} (${todayArabicDate})`,
-                    url: window.location.href,
-                  };
-                  if (navigator.share) {
-                    try {
-                      await navigator.share(shareData);
-                    } catch (e) {}
-                  } else if (navigator.clipboard) {
-                    navigator.clipboard.writeText(window.location.href);
-                    showToast('تم نسخ رابط نشرة الأسعار للمشاركة');
-                  }
-                }}
-                className="py-3 px-3 rounded-full bg-white/[0.08] hover:bg-white/[0.15] border border-white/15 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-1.5 transition cursor-pointer"
-              >
+              <button type="button" onClick={async () => { const shareData = { title: `نشرة أسعار ${settings.storeName}`, text: `نشرة أسعار الأجهزة المحدثة من ${settings.storeName} (${todayArabicDate})`, url: window.location.href, }; if (navigator.share) { try { await navigator.share(shareData); } catch (e) {} } else if (navigator.clipboard) { navigator.clipboard.writeText(window.location.href); showToast('تم نسخ رابط نشرة الأسعار للمشاركة'); } }} className="py-3 px-3 rounded-full bg-white/[0.08] hover:bg-white/[0.15] border border-white/15 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-1.5 transition cursor-pointer">
                 <Share2 className="w-4 h-4 shrink-0" />
                 <span>مشاركة</span>
               </button>
-
-              <button
-                type="button"
-                onClick={() =>
-                  openWhatsAppGeneral(
-                    `السلام عليكم ${settings.storeName} 👋، أود الاستفسار عن نشرة أسعار اليوم (${todayArabicDate}).`
-                  )
-                }
-                className="py-3 px-3 rounded-full bg-[#25D366] hover:bg-[#20bd5a] text-white font-extrabold text-xs sm:text-sm flex items-center justify-center gap-1.5 transition shadow-md cursor-pointer"
-              >
+              <button type="button" onClick={() => openWhatsAppGeneral(`السلام عليكم ${settings.storeName} 👋، أود الاستفسار عن نشرة أسعار اليوم (${todayArabicDate}).`)} className="py-3 px-3 rounded-full bg-[#25D366] hover:bg-[#20bd5a] text-white font-extrabold text-xs sm:text-sm flex items-center justify-center gap-1.5 transition shadow-md cursor-pointer">
                 <MessageCircle className="w-4 h-4 shrink-0" />
                 <span>اسأل على واتساب</span>
               </button>
@@ -3705,4 +1868,3 @@ export default function App() {
     </div>
   );
 }
-// نهاية المكون App
