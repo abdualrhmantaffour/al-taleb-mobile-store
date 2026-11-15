@@ -1114,27 +1114,27 @@ export default function App() {
       </header>
 
       {/* 1. HERO SECTION (Fully Responsive Side-by-Side Layout) */}
-{/* 1. HERO SECTION (Fully Responsive Side-by-Side Layout) */}
-<section style={{ backgroundColor: STORE_CONFIG.colors.darkBg }} className="relative text-white pt-10 pb-14 px-4 sm:px-8 border-b border-white/10 overflow-hidden">
-        <div className="pointer-events-none absolute top-48 left-1/2 -translate-x-1/2 w-[360px] sm:w-[500px] h-[360px] rounded-full bg-gradient-to-tr from-[#0095D9]/15 via-[#6CBE45]/10 to-rose-500/10 blur-3xl" />
+      <section style={{ backgroundColor: STORE_CONFIG.colors.darkBg }} className="relative text-white pt-10 pb-14 px-4 sm:px-8 border-b border-white/10 overflow-hidden">
+        {/* إضاءة خلفية متمركزة */}
+        <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[360px] sm:w-[600px] h-[360px] rounded-full bg-gradient-to-tr from-[#0095D9]/15 via-[#6CBE45]/10 to-rose-500/10 blur-3xl" />
 
         <div className="max-w-6xl mx-auto relative z-10">
-          {/* حاوية الـ Flex: تم إضافة lg:flex-row-reverse لتصحيح التموضع على الشاشات الكبيرة */}
-          <div className="flex flex-col lg:flex-row-reverse items-center justify-between gap-10 lg:gap-6 mb-12">
+          {/* حاوية متوازنة يميناً ويساراً مع توسيط عمودي */}
+          <div className="flex flex-col lg:flex-row items-center justify-center gap-10 lg:gap-16">
             
-            {/* Text & Slogan (Right Side on Desktop RTL) */}
-            <div className="flex-1 flex flex-col items-center lg:items-start text-center lg:text-right space-y-6 w-full">
+            {/* قسم النصوص (يظهر يميناً على الشاشات الكبيرة) */}
+            <div className="flex-1 flex flex-col items-center lg:items-start text-center lg:text-right space-y-6">
               <AlTalebCrest />
               
-              <div className="space-y-3">
-                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight leading-snug">
-                  <span className="block mb-2">{settings.heroSloganPrefix}</span>
+              <div className="space-y-4">
+                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight">
+                  <span className="block mb-3">{settings.heroSloganPrefix}</span>
                   <span className="relative inline-block pb-3 text-[#0095D9]">
                     {settings.heroSloganHighlight}
                     <span className="absolute bottom-0 right-0 left-0 h-[4px] rounded-full bg-gradient-to-l from-[#6CBE45] via-[#0095D9] to-[#E11D48]" />
                   </span>
                 </h1>
-                <p className="text-neutral-400 text-sm sm:text-base lg:text-lg max-w-md lg:max-w-xl mx-auto lg:mx-0">
+                <p className="text-neutral-400 text-sm sm:text-base lg:text-lg max-w-md lg:max-w-lg mx-auto lg:mx-0 leading-relaxed">
                   الوجهة الأولى والمضمونة لبيع وشراء وتبديل كافة أجهزة الموبايل مع كفالة حقيقية وفحص شامل يضمن حقوقك.
                 </p>
               </div>
@@ -1142,18 +1142,18 @@ export default function App() {
               <button
                 type="button"
                 onClick={() => { setSheetZoom(1); setShowPriceSheet(true); }}
-                className="inline-flex items-center justify-center gap-2.5 px-6 py-3 rounded-full bg-white/[0.08] hover:bg-white/[0.15] active:scale-95 border border-white/20 text-sm font-semibold text-neutral-200 transition shadow-md cursor-pointer mx-auto lg:mx-0"
+                className="inline-flex items-center justify-center gap-3 px-7 py-3.5 rounded-full bg-white/[0.08] hover:bg-white/[0.15] active:scale-95 border border-white/20 text-sm font-bold text-neutral-200 transition shadow-lg mt-2 mx-auto lg:mx-0"
               >
                 <span className="w-2.5 h-2.5 rounded-full bg-white animate-pulse" />
                 <span className="text-neutral-300">أسعار اليوم:</span>
-                <span className="text-white font-bold">نشرة الأسعار</span>
+                <span className="text-white">نشرة الأسعار</span>
                 <ArrowLeft className="w-4 h-4 text-neutral-300" />
               </button>
             </div>
 
-            {/* Featured Offer Card (Left Side on Desktop RTL) */}
+            {/* بطاقة العرض (تظهر يساراً على الشاشات الكبيرة) */}
             {currentOffer && (
-              <div className="w-full max-w-[400px] sm:max-w-[430px] shrink-0 mx-auto lg:mx-0">
+              <div className="w-full max-w-[400px] sm:max-w-[420px] shrink-0">
                 <div className="rounded-[30px] bg-[#12141C]/95 border border-white/12 p-4 sm:p-5 shadow-[0_24px_70px_rgba(0,0,0,0.65)] space-y-4">
                   <div className="relative aspect-[4/3] rounded-[22px] overflow-hidden bg-[#1A1D26]">
                     <img src={currentOffer.imageUrl} alt={currentOffer.title} className="w-full h-full object-cover" />
@@ -1220,7 +1220,7 @@ export default function App() {
                   </div>
                 </div>
 
-                {/* Carousel Controls */}
+                {/* أزرار السلايدر */}
                 <div className="flex items-center justify-between max-w-[290px] mx-auto mt-6">
                   <button
                     onClick={() => setCurrentOfferIndex((prev) => (prev - 1 + featuredOffers.length) % featuredOffers.length)}
@@ -1249,8 +1249,8 @@ export default function App() {
             )}
           </div>
 
-          {/* Stats Grid - 4 Columns Desktop */}
-          <div className="pt-10 border-t border-white/10 grid grid-cols-2 md:grid-cols-4 gap-y-8 gap-x-6 text-center max-w-5xl mx-auto">
+          {/* قسم الإحصائيات أسفل الهيرو */}
+          <div className="pt-10 mt-10 border-t border-white/10 grid grid-cols-2 md:grid-cols-4 gap-y-8 gap-x-6 text-center max-w-5xl mx-auto">
             <div className="space-y-1">
               <div className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">{settings.stat1Val}</div>
               <div className="text-xs text-neutral-400 font-medium">{settings.stat1Label}</div>
@@ -1273,7 +1273,7 @@ export default function App() {
           </div>
         </div>
       </section>
-      
+
       {/* 2. ALL DEVICES SECTION */}
       <section id="catalog" className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
         <div className="text-center space-y-2 mb-8">
