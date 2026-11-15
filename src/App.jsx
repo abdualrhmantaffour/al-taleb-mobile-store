@@ -1114,14 +1114,16 @@ export default function App() {
       </header>
 
       {/* 1. HERO SECTION (Fully Responsive Side-by-Side Layout) */}
-      <section style={{ backgroundColor: STORE_CONFIG.colors.darkBg }} className="relative text-white pt-10 pb-14 px-4 sm:px-8 border-b border-white/10 overflow-hidden">
+{/* 1. HERO SECTION (Fully Responsive Side-by-Side Layout) */}
+<section style={{ backgroundColor: STORE_CONFIG.colors.darkBg }} className="relative text-white pt-10 pb-14 px-4 sm:px-8 border-b border-white/10 overflow-hidden">
         <div className="pointer-events-none absolute top-48 left-1/2 -translate-x-1/2 w-[360px] sm:w-[500px] h-[360px] rounded-full bg-gradient-to-tr from-[#0095D9]/15 via-[#6CBE45]/10 to-rose-500/10 blur-3xl" />
 
         <div className="max-w-6xl mx-auto relative z-10">
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-6 mb-12">
+          {/* حاوية الـ Flex: تم إضافة lg:flex-row-reverse لتصحيح التموضع على الشاشات الكبيرة */}
+          <div className="flex flex-col lg:flex-row-reverse items-center justify-between gap-10 lg:gap-6 mb-12">
             
             {/* Text & Slogan (Right Side on Desktop RTL) */}
-            <div className="flex-1 flex flex-col items-center lg:items-start text-center lg:text-right space-y-6">
+            <div className="flex-1 flex flex-col items-center lg:items-start text-center lg:text-right space-y-6 w-full">
               <AlTalebCrest />
               
               <div className="space-y-3">
@@ -1132,7 +1134,7 @@ export default function App() {
                     <span className="absolute bottom-0 right-0 left-0 h-[4px] rounded-full bg-gradient-to-l from-[#6CBE45] via-[#0095D9] to-[#E11D48]" />
                   </span>
                 </h1>
-                <p className="text-neutral-400 text-sm sm:text-base lg:text-lg max-w-md lg:max-w-xl">
+                <p className="text-neutral-400 text-sm sm:text-base lg:text-lg max-w-md lg:max-w-xl mx-auto lg:mx-0">
                   الوجهة الأولى والمضمونة لبيع وشراء وتبديل كافة أجهزة الموبايل مع كفالة حقيقية وفحص شامل يضمن حقوقك.
                 </p>
               </div>
@@ -1140,7 +1142,7 @@ export default function App() {
               <button
                 type="button"
                 onClick={() => { setSheetZoom(1); setShowPriceSheet(true); }}
-                className="inline-flex items-center justify-center gap-2.5 px-6 py-3 rounded-full bg-white/[0.08] hover:bg-white/[0.15] active:scale-95 border border-white/20 text-sm font-semibold text-neutral-200 transition shadow-md cursor-pointer"
+                className="inline-flex items-center justify-center gap-2.5 px-6 py-3 rounded-full bg-white/[0.08] hover:bg-white/[0.15] active:scale-95 border border-white/20 text-sm font-semibold text-neutral-200 transition shadow-md cursor-pointer mx-auto lg:mx-0"
               >
                 <span className="w-2.5 h-2.5 rounded-full bg-white animate-pulse" />
                 <span className="text-neutral-300">أسعار اليوم:</span>
@@ -1151,7 +1153,7 @@ export default function App() {
 
             {/* Featured Offer Card (Left Side on Desktop RTL) */}
             {currentOffer && (
-              <div className="w-full max-w-[400px] sm:max-w-[430px] shrink-0">
+              <div className="w-full max-w-[400px] sm:max-w-[430px] shrink-0 mx-auto lg:mx-0">
                 <div className="rounded-[30px] bg-[#12141C]/95 border border-white/12 p-4 sm:p-5 shadow-[0_24px_70px_rgba(0,0,0,0.65)] space-y-4">
                   <div className="relative aspect-[4/3] rounded-[22px] overflow-hidden bg-[#1A1D26]">
                     <img src={currentOffer.imageUrl} alt={currentOffer.title} className="w-full h-full object-cover" />
@@ -1271,7 +1273,7 @@ export default function App() {
           </div>
         </div>
       </section>
-
+      
       {/* 2. ALL DEVICES SECTION */}
       <section id="catalog" className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
         <div className="text-center space-y-2 mb-8">
