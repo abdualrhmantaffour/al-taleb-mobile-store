@@ -716,14 +716,24 @@ export default function App() {
       ctx.font = '500 16px "IBM Plex Sans Arabic", sans-serif';
       ctx.fillText('الأسعار قابلة للتغيير • ما في حجز، يلي بيسبق بياكل فستق', width / 2, footerTop + 245);
 
-      const dataUrl = canvas.toDataURL('image/png');
-      const link = document.createElement('a');
-      link.download = `price-sheet-${new Date().toISOString().slice(0, 10)}.png`;
-      link.href = dataUrl;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      showToast('تم حفظ صورة نشرة الأسعار بجودة عالية');
+      // Download PNG - متوافق مع الآيباد وكل الأجهزة
+      canvas.toBlob((blob) => {
+        if (!blob) {
+          showToast('حدث خطأ أثناء حفظ الصورة');
+          return;
+        }
+        const blobUrl = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.download = `price-sheet-${new Date().toISOString().slice(0, 10)}.png`;
+        link.href = blobUrl;
+        link.target = '_blank';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        setTimeout(() => URL.revokeObjectURL(blobUrl), 2000);
+        showToast('تم حفظ صورة نشرة الأسعار بجودة عالية');
+      }, 'image/png');
+
     } catch (err) {
       showToast('حدث خطأ أثناء حفظ الصورة');
     } finally {
