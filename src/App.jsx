@@ -1568,7 +1568,7 @@ export default function App() {
               <button onClick={() => setIsAdminLoginOpen(false)} className="p-1 rounded-full bg-neutral-100 text-neutral-500"><X className="w-4 h-4" /></button>
             </div>
             <form onSubmit={handleAdminLogin} className="space-y-3">
-              <input type="password" value={passwordInput} onChange={(e) => setPasswordInput(e.target.value)} placeholder="كلمة المرور (admin)" autoFocus className="w-full rounded-xl border border-neutral-300 px-3.5 py-2 text-xs outline-none focus:border-[#0095D9]" />
+              <input type="password" value={passwordInput} onChange={(e) => setPasswordInput(e.target.value)} placeholder=" " autoFocus className="w-full rounded-xl border border-neutral-300 px-3.5 py-2 text-xs outline-none focus:border-[#0095D9]" />
               {loginError && (<p className="text-[11px] text-rose-600 font-semibold">{loginError}</p>)}
               <button type="submit" className="w-full bg-[#1D1D1F] hover:bg-[#0095D9] text-white font-semibold text-xs py-2.5 rounded-xl transition">دخول</button>
             </form>
