@@ -482,7 +482,8 @@ export default function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [activeProduct, setActiveProduct] = useState(null);
 
-  const [isAdminLoginOpen, setIsAdminLoginOpen] = useState(false);
+  // تم تفعيل الدخول المباشر عن طريق الرابط السري فقط
+  const [isAdminLoginOpen, setIsAdminLoginOpen] = useState(window.location.hash === '#altaleb-dashboard');
   const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(false);
   const [isAdminDashboardOpen, setIsAdminDashboardOpen] = useState(false);
   const [passwordInput, setPasswordInput] = useState('');
@@ -762,9 +763,10 @@ export default function App() {
     setFavorites((prev) => prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]);
   };
 
+  // تعديل ربط لوحة التحكم بالرابط السري الجديد
   useEffect(() => {
     const handleHash = () => {
-      if (window.location.hash === '#admin' || window.location.search.includes('admin=1')) {
+      if (window.location.hash === '#altaleb-dashboard') {
         setIsAdminDashboardOpen(false);
         setIsAdminAuthenticated(false);
         setIsAdminLoginOpen(true);
@@ -883,14 +885,15 @@ export default function App() {
     }
   };
 
+  // تعديل وظيفة الزر لنسخ الرابط الجديد
   const copyAdminUrl = () => {
     const base = window.location.href.split('#')[0].split('?')[0];
-    const url = `${base}#admin`;
+    const url = `${base}#altaleb-dashboard`;
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(url);
     }
-    window.location.hash = 'admin';
-    showToast('تم نسخ رابط لوحة التحكم المباشر (#admin)');
+    window.location.hash = 'altaleb-dashboard';
+    showToast('تم نسخ رابط لوحة التحكم السري (#altaleb-dashboard)');
   };
 
   const handleImageUpload = (e) => {
@@ -1525,6 +1528,8 @@ export default function App() {
               </div>
             </div>
           </div>
+          
+          {/* تم تعديل الفوتر لإزالة الزر (النقطة) نهائياً */}
           <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
             <span>جميع الحقوق محفوظة © {new Date().getFullYear()} {settings.storeName}</span>
             <span className="hidden sm:inline text-neutral-700">•</span>
@@ -1533,11 +1538,6 @@ export default function App() {
             </span>
             <div className="flex items-center gap-3">
               <span>دائماً وأبداً شعارنا: ثقتكم تهمنا</span>
-              <button
-                onClick={() => { setIsAdminAuthenticated(false); setIsAdminDashboardOpen(false); setPasswordInput(''); setLoginError(''); setIsAdminLoginOpen(true); }}
-                className="text-neutral-700 hover:text-neutral-400 px-2.5 py-1 rounded transition select-none"
-                title="•"
-              >•</button>
             </div>
           </div>
         </div>
@@ -1605,7 +1605,7 @@ export default function App() {
             </div>
             <div className="flex items-center gap-2">
               <button onClick={copyAdminUrl} className="bg-white/10 hover:bg-white/20 text-[#6CBE45] text-[11px] font-semibold px-3 py-1.5 rounded-full flex items-center gap-1"><Copy className="w-3 h-3" /><span>نسخ رابط الإدارة</span></button>
-              <button onClick={() => { setIsAdminDashboardOpen(false); setIsAdminAuthenticated(false); setPasswordInput(''); setLoginError(''); if (window.location.hash === '#admin') { window.history.pushState('', document.title, window.location.pathname); } }} className="bg-white text-[#1D1D1F] text-[11px] font-bold px-3.5 py-1.5 rounded-full flex items-center gap-1"><Eye className="w-3 h-3" /><span>معاينة الموقع</span></button>
+              <button onClick={() => { setIsAdminDashboardOpen(false); setIsAdminAuthenticated(false); setPasswordInput(''); setLoginError(''); if (window.location.hash === '#altaleb-dashboard') { window.history.pushState('', document.title, window.location.pathname); } }} className="bg-white text-[#1D1D1F] text-[11px] font-bold px-3.5 py-1.5 rounded-full flex items-center gap-1"><Eye className="w-3 h-3" /><span>معاينة الموقع</span></button>
             </div>
           </div>
           <div className="max-w-3xl mx-auto p-4 sm:p-6 space-y-4">
