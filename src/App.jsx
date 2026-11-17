@@ -64,7 +64,7 @@ const STORE_CONFIG = {
   storeAddress: 'الفرع الرئيسي - الشارع العام - شركة الطالب للإتصالات',
   workHours: 'يومياً من 10:00 صباحاً حتى 10:00 مساءً',
   showroomImage:
-    'https://images.unsplash.com/photo-1556656793-08538906a9f8?auto=format&fit=crop&w=1200&q=85',
+    'https://unsplash.com/photos/smartphone-smartwatch-and-wireless-earbuds-YLNMXzXk8zs',
 
   instagramFollowers: '125K',
   instagramLabel: 'متابع على إنستغرام والقناة',
