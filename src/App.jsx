@@ -468,6 +468,7 @@ export default function App() {
   const [currentOfferIndex, setCurrentOfferIndex] = useState(0);
   const [revealedOffers, setRevealedOffers] = useState({});
   const [favorites, setFavorites] = useState(['p-1', 'p-2']);
+  const [isFavoritesOpen, setIsFavoritesOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const [showPriceSheet, setShowPriceSheet] = useState(false);
@@ -1092,14 +1093,15 @@ export default function App() {
               {settings.showSYP ? 'SYP' : 'USD'}
             </button>
 
-            <a href="#catalog" className="relative w-9 h-9 rounded-full border border-white/15 bg-white/[0.04] hover:bg-white/10 flex items-center justify-center text-neutral-200 transition">
+            <button onClick={() => setIsFavoritesOpen(true)} className="relative w-9 h-9 rounded-full border border-white/15 bg-white/[0.04] hover:bg-white/10 flex items-center justify-center text-neutral-200 transition cursor-pointer">
               <Heart className="w-4 h-4" />
               {favorites.length > 0 && (
                 <span className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-[#E11D48] text-white text-[10px] font-bold flex items-center justify-center shadow-sm">
                   {favorites.length}
                 </span>
               )}
-            </a>
+            </button>
+
 
             <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="w-9 h-9 rounded-full border border-white/15 bg-white/[0.04] hover:bg-white/10 flex items-center justify-center text-neutral-200 transition md:hidden">
               {isMobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
@@ -1574,6 +1576,62 @@ export default function App() {
                 <span>اطلب الجهاز الآن عبر واتساب</span>
               </button>
             </div>
+          </div>
+        </div>
+      )}
+
+    {/* FAVORITES MODAL */}
+      {isFavoritesOpen && (
+        <div className="fixed inset-0 z-[55] bg-black/60 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4" onClick={() => setIsFavoritesOpen(false)}>
+          <div className="bg-white w-full sm:max-w-md rounded-t-[28px] sm:rounded-3xl p-5 max-h-[85vh] overflow-y-auto shadow-2xl" onClick={(e) => e.stopPropagation()}>
+            <div className="flex items-center justify-between mb-4 border-b border-black/[0.05] pb-3">
+              <div className="flex items-center gap-2.5">
+                <div className="w-8 h-8 rounded-full bg-rose-50 flex items-center justify-center">
+                  <Heart className="w-4 h-4 text-rose-500 fill-rose-500" />
+                </div>
+                <h3 className="text-base font-bold text-[#1D1D1F]">قائمة المفضلة</h3>
+              </div>
+              <button onClick={() => setIsFavoritesOpen(false)} className="p-1.5 rounded-full bg-neutral-100 hover:bg-neutral-200 text-neutral-600 transition">
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+            
+            {favorites.length === 0 ? (
+              <div className="py-10 text-center flex flex-col items-center">
+                <Heart className="w-10 h-10 text-neutral-200 mb-3" />
+                <p className="text-sm font-semibold text-neutral-500">قائمة المفضلة فارغة</p>
+                <p className="text-xs text-neutral-400 mt-1">قم بإضافة الأجهزة التي تعجبك هنا للرجوع إليها لاحقاً</p>
+                <button onClick={() => setIsFavoritesOpen(false)} className="mt-5 bg-[#1D1D1F] text-white px-5 py-2.5 rounded-full text-xs font-bold transition hover:bg-[#0095D9]">تصفح الأجهزة</button>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {favorites.map((favId) => {
+                  const prod = products.find(p => p.id === favId);
+                  if (!prod) return null;
+                  return (
+                    <div key={prod.id} className="flex items-center gap-3 bg-[#F5F5F7] p-2.5 rounded-2xl border border-black/[0.04]">
+                      <img src={prod.imageUrl} alt={prod.title} className="w-16 h-16 rounded-xl object-cover bg-white shrink-0 cursor-pointer" onClick={() => { setIsFavoritesOpen(false); setActiveProduct(prod); }} />
+                      <div className="flex-1 min-w-0 cursor-pointer" onClick={() => { setIsFavoritesOpen(false); setActiveProduct(prod); }}>
+                        <h4 className="text-xs font-bold text-[#1D1D1F] truncate">{prod.title}</h4>
+                        <p className="text-[10px] text-neutral-500 truncate mt-0.5">{prod.specs}</p>
+                        <div className="flex items-center gap-1 mt-1">
+                          <span className="text-xs font-bold text-[#0095D9]">{prod.price}{settings.currencySymbol}</span>
+                          {formatSYP(prod.price) && <span className="text-[9px] text-neutral-400 font-medium">({formatSYP(prod.price)})</span>}
+                        </div>
+                      </div>
+                      <div className="flex flex-col gap-1.5 shrink-0">
+                        <button onClick={(e) => openWhatsAppProduct(prod, e)} className="w-8 h-8 rounded-full bg-[#25D366] hover:bg-[#20bd5a] text-white flex items-center justify-center transition shadow-sm" title="طلب عبر واتساب">
+                          <MessageCircle className="w-4 h-4" />
+                        </button>
+                        <button onClick={(e) => toggleFavorite(prod.id, e)} className="w-8 h-8 rounded-full bg-rose-50 hover:bg-rose-100 text-rose-500 flex items-center justify-center transition" title="إزالة من المفضلة">
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
         </div>
       )}
