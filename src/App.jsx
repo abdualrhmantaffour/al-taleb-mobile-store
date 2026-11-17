@@ -31,6 +31,9 @@ import {
   ZoomIn,
   ZoomOut,
 } from 'lucide-react';
+import { initializeApp } from "firebase/app";
+import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "firebase/auth";
+import { getFirestore, collection, doc, onSnapshot, setDoc, deleteDoc } from "firebase/firestore";
 
 // ============================================================================
 // إعدادات المتجر المركزية (WHITE-LABEL STORE_CONFIG)
@@ -78,19 +81,22 @@ const STORE_CONFIG = {
 
 // --- Firebase Initialization ---
 let app, auth, db;
-const appId =
-  typeof __app_id !== 'undefined' ? __app_id : 'altaleb-mobile-store-hig';
+const appId = 'altaleb-mobile-store'; 
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBLA-1QcTr2oKT-5uVy9Kl28Wv9u6XyXrk",
+  authDomain: "al-taleb-mobile-store.firebaseapp.com",
+  projectId: "al-taleb-mobile-store",
+  storageBucket: "al-taleb-mobile-store.firebasestorage.app",
+  messagingSenderId: "765958809693",
+  appId: "1:765958809693:web:5d78ec52d5c3105c1d85b4",
+  measurementId: "G-EJCEVFSDMF"
+};
 
 try {
-  const firebaseConfig =
-    typeof __firebase_config !== 'undefined'
-      ? JSON.parse(__firebase_config)
-      : null;
-  if (firebaseConfig && firebaseConfig.apiKey) {
-    app = initializeApp(firebaseConfig);
-    auth = getAuth(app);
-    db = getFirestore(app);
-  }
+  app = initializeApp(firebaseConfig);
+  auth = getAuth(app);
+  db = getFirestore(app);
 } catch (e) {
   console.warn('Firebase fallback mode:', e);
 }
