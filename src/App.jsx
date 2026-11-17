@@ -433,13 +433,13 @@ const DEFAULT_PRODUCTS = [
   { id: 'p-3', title: 'IPHONE 14 PRO MAX 256GB', category: 'iphone', specs: 'بطارية 92% • بنفسجي غامق • مع كفالة', price: 815, oldPrice: 870, badge: 'عرض خاص', condition: 'مستعمل', isFeaturedOffer: true, imageUrl: 'https://images.unsplash.com/photo-1663499482523-1c0c1bae4ce1?auto=format&fit=crop&w=800&q=85', description: 'جهاز وكالة بالكامل، شاشة وبورد وبطارية أصلية 100%، مرفق مع لصقة حماية وكفر MagSafe هدية.', inStock: true, createdAt: 1710000014000 },
   { id: 'p-5', title: 'IPHONE 13 PRO 128GB', category: 'iphone', specs: 'بطارية 89% • أزرق سييرا • مع كفالة', price: 585, oldPrice: 630, badge: 'مستعمل نظيف', condition: 'مستعمل', isFeaturedOffer: false, imageUrl: 'https://images.unsplash.com/photo-1632661674596-df8be070a5c5?auto=format&fit=crop&w=800&q=85', description: 'حالة الوكالة بدون أي ملاحظة، شاشة 120Hz، مفحوص بالكامل على الكمبيوتر مع كفالة محل.', inStock: true, createdAt: 1710000013000 },
   { id: 'p-11', title: 'IPHONE 12 PRO MAX 256GB', category: 'iphone', specs: 'بطارية 87% • أزرق • مع كفالة', price: 510, oldPrice: 545, badge: 'مستعمل نظيف', condition: 'مستعمل', isFeaturedOffer: false, imageUrl: 'https://images.unsplash.com/photo-1603921326210-6edd2d60ca68?auto=format&fit=crop&w=800&q=85', description: 'نظافة عالية جداً، جميع القطع أصلية، فيس آيدي وتروتون شغال 100%.', inStock: true, createdAt: 1710000012000 },
-  { id: 'p-4', title: 'GALAXY S24 ULTRA 512GB', category: 'samsung', specs: 'بطارية 100% • رام 12GB • تيتانيوم رمادي', price: 995, oldPrice: 1080, badge: 'عرض خاص', condition: 'جديد', isFeaturedOffer: true, imageUrl: 'https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?auto=format&fit=crop&w=800&q=85', description: 'النسخة الرسمية شريحتين، معالج Snapdragon 8 Gen 3، يدعم ميزات الذكاء الاصطناعي بالكامل.', inStock: true, createdAt: 1710000011000 },
-  { id: 'p-13', title: 'GALAXY S23 ULTRA 256GB', category: 'samsung', specs: 'بطارية 95% • رام 12GB • أخضر زيتي', price: 685, oldPrice: 730, badge: 'مستعمل نظيف', condition: 'مستعمل', isFeaturedOffer: false, imageUrl: 'https://images.unsplash.com/photo-1678911820864-e2c567c655d7?auto=format&fit=crop&w=800&q=85', description: 'جهاز نظيف جداً كالجديد مع القلم الأصلي وكفالة شاملة من شركة الطالب.', inStock: true, createdAt: 1710000010000 },
-  { id: 'p-6', title: 'REDMI NOTE 13 PRO+ 512GB', category: 'xiaomi', specs: 'بطارية 100% • رام 12GB • شحن 120W', price: 315, oldPrice: 340, badge: 'جديد', condition: 'جديد', isFeaturedOffer: false, imageUrl: 'https://images.unsplash.com/photo-1598327105666-5b89351aff97?auto=format&fit=crop&w=800&q=85', description: 'شاشة منحنية AMOLED 120Hz، كاميرا 200MP، مع الشاحن الصاروخي 120 واط داخل العلبة.', inStock: true, createdAt: 1710000009000 },
-  { id: 'p-14', title: 'INFINIX NOTE 40 PRO 256GB', category: 'infinix', specs: 'بطارية 100% • شحن MagCharge • كفالة سنة', price: 225, oldPrice: 250, badge: 'جديد', condition: 'جديد', isFeaturedOffer: false, imageUrl: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=85', description: 'شاشة أموليد منحنية مع شاحن لاسلكي مغناطيسي مرفق داخل العلبة.', inStock: true, createdAt: 1710000008000 },
-  { id: 'p-15', title: 'HONOR X9B 5G 256GB', category: 'honor', specs: 'بطارية 100% • 5800mAh • شاشة ضد الكسر', price: 265, oldPrice: 290, badge: 'جديد', condition: 'جديد', isFeaturedOffer: false, imageUrl: 'https://images.unsplash.com/photo-1580910051074-3eb694886505?auto=format&fit=crop&w=800&q=85', description: 'أقوى شاشة مقاومة للصدمات مع بطارية عملاقة تدوم حتى 3 أيام متواصلة.', inStock: true, createdAt: 1710000007000 },
-  { id: 'p-16', title: 'TECNO CAMON 30 256GB', category: 'tecno', specs: 'بطارية 100% • رام 8+8GB • شحن 70W', price: 195, oldPrice: 215, badge: 'جديد', condition: 'جديد', isFeaturedOffer: false, imageUrl: 'https://images.unsplash.com/photo-1567581935884-3349723552ca?auto=format&fit=crop&w=800&q=85', description: 'تصميم أنيق وكاميرا احترافية للتصوير الليلي مع شحن سريع جداً.', inStock: true, createdAt: 1710000006000 },
-  { id: 'p-7', title: 'APPLE WATCH ULTRA 2', category: 'other', specs: 'بطارية 100% • 49mm تيتانيوم • GPS', price: 690, oldPrice: 740, badge: 'أصلي', condition: 'جديد', isFeaturedOffer: false, imageUrl: 'https://images.unsplash.com/photo-1434493789847-2f02dc6ca35d?auto=format&fit=crop&w=800&q=85', description: 'ساعة أبل ألترا الجيل الثاني الأصلية، هيكل تيتانيوم مقاوم للصدمات والماء مع بطارية تدوم طويلاً.', inStock: true, createdAt: 1710000005000 },
+  { id: 'p-4', title: 'GALAXY S24 ULTRA 512GB', category: 'samsung', specs: 'رام 12GB • تيتانيوم رمادي • كفالة شاملة', price: 995, oldPrice: 1080, badge: 'عرض خاص', condition: 'جديد', isFeaturedOffer: true, imageUrl: 'https://images.unsplash.com/photo-1610945415295-d9bbf067e59c?auto=format&fit=crop&w=800&q=85', description: 'النسخة الرسمية شريحتين، معالج Snapdragon 8 Gen 3، يدعم ميزات الذكاء الاصطناعي بالكامل.', inStock: true, createdAt: 1710000011000 },
+  { id: 'p-13', title: 'GALAXY S23 ULTRA 256GB', category: 'samsung', specs: 'رام 12GB • أخضر زيتي • مع كفالة', price: 685, oldPrice: 730, badge: 'مستعمل نظيف', condition: 'مستعمل', isFeaturedOffer: false, imageUrl: 'https://images.unsplash.com/photo-1678911820864-e2c567c655d7?auto=format&fit=crop&w=800&q=85', description: 'جهاز نظيف جداً كالجديد مع القلم الأصلي وكفالة شاملة من شركة الطالب.', inStock: true, createdAt: 1710000010000 },
+  { id: 'p-6', title: 'REDMI NOTE 13 PRO+ 512GB', category: 'xiaomi', specs: 'رام 12GB • شحن 120W • كفالة سنة', price: 315, oldPrice: 340, badge: 'جديد', condition: 'جديد', isFeaturedOffer: false, imageUrl: 'https://images.unsplash.com/photo-1598327105666-5b89351aff97?auto=format&fit=crop&w=800&q=85', description: 'شاشة منحنية AMOLED 120Hz، كاميرا 200MP، مع الشاحن الصاروخي 120 واط داخل العلبة.', inStock: true, createdAt: 1710000009000 },
+  { id: 'p-14', title: 'INFINIX NOTE 40 PRO 256GB', category: 'infinix', specs: 'شحن MagCharge • كفالة سنة', price: 225, oldPrice: 250, badge: 'جديد', condition: 'جديد', isFeaturedOffer: false, imageUrl: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=85', description: 'شاشة أموليد منحنية مع شاحن لاسلكي مغناطيسي مرفق داخل العلبة.', inStock: true, createdAt: 1710000008000 },
+  { id: 'p-15', title: 'HONOR X9B 5G 256GB', category: 'honor', specs: 'بطارية 5800mAh • شاشة ضد الكسر', price: 265, oldPrice: 290, badge: 'جديد', condition: 'جديد', isFeaturedOffer: false, imageUrl: 'https://images.unsplash.com/photo-1580910051074-3eb694886505?auto=format&fit=crop&w=800&q=85', description: 'أقوى شاشة مقاومة للصدمات مع بطارية عملاقة تدوم حتى 3 أيام متواصلة.', inStock: true, createdAt: 1710000007000 },
+  { id: 'p-16', title: 'TECNO CAMON 30 256GB', category: 'tecno', specs: 'رام 8+8GB • شحن 70W', price: 195, oldPrice: 215, badge: 'جديد', condition: 'جديد', isFeaturedOffer: false, imageUrl: 'https://images.unsplash.com/photo-1567581935884-3349723552ca?auto=format&fit=crop&w=800&q=85', description: 'تصميم أنيق وكاميرا احترافية للتصوير الليلي مع شحن سريع جداً.', inStock: true, createdAt: 1710000006000 },
+  { id: 'p-7', title: 'APPLE WATCH ULTRA 2', category: 'other', specs: '49mm تيتانيوم • GPS • أصلية', price: 690, oldPrice: 740, badge: 'أصلي', condition: 'جديد', isFeaturedOffer: false, imageUrl: 'https://images.unsplash.com/photo-1434493789847-2f02dc6ca35d?auto=format&fit=crop&w=800&q=85', description: 'ساعة أبل ألترا الجيل الثاني الأصلية، هيكل تيتانيوم مقاوم للصدمات والماء مع بطارية تدوم طويلاً.', inStock: true, createdAt: 1710000005000 },
   { id: 'p-8', title: 'AIRPODS PRO 2 USB-C', category: 'accessories', specs: 'أصلية وكالة • عزل ضوضاء ذكي', price: 210, oldPrice: 235, badge: 'جديد', condition: 'جديد', isFeaturedOffer: false, imageUrl: 'https://images.unsplash.com/photo-1600294037681-c80b4cb5b434?auto=format&fit=crop&w=800&q=85', description: 'سماعة أبل الأصلية بمنفذ Type-C، صوت محيطي وعزل ضوضاء مضاعف مع كفالة حقيقية.', inStock: true, createdAt: 1710000004000 },
   { id: 'p-9', title: 'APPLE 20W CHARGER', category: 'accessories', specs: 'رأس شاحن Type-C وكالة • كفالة سنة', price: 20, oldPrice: 25, badge: 'أصلي 100%', condition: 'جديد', isFeaturedOffer: false, imageUrl: 'https://images.unsplash.com/photo-1583863788434-e58a36330cf0?auto=format&fit=crop&w=800&q=85', description: 'شاحن أبل الأصلي يحمي بطارية جهازك من التلف ويشحن حتى 50% خلال 30 دقيقة فقط.', inStock: true, createdAt: 1710000003000 },
   { id: 'p-10', title: 'ANKER MAGGO 10000', category: 'accessories', specs: 'شحن لاسلكي Qi2 • مع ستاند مدمج', price: 45, oldPrice: 55, badge: 'جديد', condition: 'جديد', isFeaturedOffer: false, imageUrl: 'https://images.unsplash.com/photo-1609592424361-91f8bdf9b3e1?auto=format&fit=crop&w=800&q=85', description: 'بطارية مغناطيسية لاسلكية سريعة مع شاشة ذكية لعرض النسبة المتبقية ومنفذ Type-C.', inStock: true, createdAt: 1710000002000 },
@@ -483,7 +483,6 @@ export default function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [activeProduct, setActiveProduct] = useState(null);
 
-  // تم تفعيل الدخول المباشر عن طريق الرابط السري فقط
   const [isAdminLoginOpen, setIsAdminLoginOpen] = useState(window.location.hash === '#altaleb-dashboard');
   const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(false);
   const [isAdminDashboardOpen, setIsAdminDashboardOpen] = useState(false);
@@ -495,7 +494,7 @@ export default function App() {
   const [isProductFormOpen, setIsProductFormOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
   const [productForm, setProductForm] = useState({
-    title: '', category: 'iphone', specs: '', price: '', oldPrice: '',
+    title: '', category: 'iphone', specs: '', battery: '', price: '', oldPrice: '',
     badge: 'عرض خاص', condition: 'جديد', isFeaturedOffer: false, imageUrl: '', description: '', inStock: true,
   });
 
@@ -517,11 +516,21 @@ export default function App() {
   const parseDeviceMeta = (prod) => {
     const combined = `${prod.title || ''} ${prod.specs || ''}`;
     const storageMatch = combined.match(/(\d+\s*(?:GB|TB))/i);
-    const batteryMatch = combined.match(/(?:بطارية\s*)?(\d{2,3})%/);
     const storage = storageMatch ? storageMatch[1].replace(/\s+/g, '').toUpperCase() : prod.condition === 'جديد' ? 'NEW' : '256GB';
-    const battery = batteryMatch ? `${batteryMatch[1]}%` : prod.condition === 'جديد' ? 'NEW' : '95%';
+
+    let battery = null;
+    const isIphone = prod.category === 'iphone' || combined.toLowerCase().includes('iphone') || combined.includes('آيفون') || combined.includes('ايفون');
+    if (isIphone) {
+      const batteryMatch = combined.match(/(?:بطارية\s*)?(\d{2,3})%/);
+      if (prod.condition === 'جديد') {
+        battery = '100%';
+      } else if (batteryMatch) {
+        battery = `${batteryMatch[1]}%`;
+      }
+    }
+
     const shortName = (prod.title || '').replace(/^(IPHONE|SAMSUNG|GALAXY|XIAOMI|REDMI|INFINIX|HONOR|TECNO)\s*/i, '').replace(/(\d+\s*(?:GB|TB))/gi, '').trim();
-    return { shortName: shortName || prod.title, storage, battery, isNew: prod.condition === 'جديد' || battery === '100%' || battery === 'NEW', };
+    return { shortName: shortName || prod.title, storage, battery, isNew: prod.condition === 'جديد' || battery === '100%' };
   };
 
   const resolveProductOrderedCategory = (prod) => {
@@ -663,7 +672,7 @@ export default function App() {
             ctx.textAlign = 'center';
             ctx.fillStyle = '#9CA3AF';
             ctx.font = '600 12px "IBM Plex Sans Arabic", sans-serif';
-            ctx.fillText(`${meta.storage} • ${meta.battery}`, colLeftX + colWidth * 0.56, y);
+            ctx.fillText(`${meta.storage}${meta.battery ? ` • ${meta.battery}` : ''}`, colLeftX + colWidth * 0.56, y);
             ctx.textAlign = 'right';
             ctx.fillStyle = '#FFFFFF';
             ctx.font = '800 17px "IBM Plex Sans Arabic", sans-serif';
@@ -727,7 +736,6 @@ export default function App() {
       ctx.font = '500 16px "IBM Plex Sans Arabic", sans-serif';
       ctx.fillText('الأسعار قابلة للتغيير • ما في حجز، يلي بيسبق بياكل فستق', width / 2, footerTop + 245);
 
-      // Download PNG - متوافق مع الآيباد وكل الأجهزة
       canvas.toBlob((blob) => {
         if (!blob) {
           showToast('حدث خطأ أثناء حفظ الصورة');
@@ -764,7 +772,6 @@ export default function App() {
     setFavorites((prev) => prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]);
   };
 
-  // تعديل ربط لوحة التحكم بالرابط السري الجديد
   useEffect(() => {
     const handleHash = () => {
       if (window.location.hash === '#altaleb-dashboard') {
@@ -886,7 +893,6 @@ export default function App() {
     }
   };
 
-  // تعديل وظيفة الزر لنسخ الرابط الجديد
   const copyAdminUrl = () => {
     const base = window.location.href.split('#')[0].split('?')[0];
     const url = `${base}#altaleb-dashboard`;
@@ -922,21 +928,39 @@ export default function App() {
 
   const openAddProduct = () => {
     setEditingProduct(null);
-    setProductForm({ title: '', category: 'iphone', specs: '', price: '', oldPrice: '', badge: 'عرض خاص', condition: 'جديد', isFeaturedOffer: false, imageUrl: '', description: '', inStock: true });
+    setProductForm({ title: '', category: 'iphone', specs: '', battery: '', price: '', oldPrice: '', badge: 'عرض خاص', condition: 'جديد', isFeaturedOffer: false, imageUrl: '', description: '', inStock: true });
     setIsProductFormOpen(true);
   };
 
   const openEditProduct = (prod) => {
     setEditingProduct(prod);
-    setProductForm({ title: prod.title || '', category: prod.category || 'iphone', specs: prod.specs || '', price: prod.price ?? '', oldPrice: prod.oldPrice ?? '', badge: prod.badge || '', condition: prod.condition || 'جديد', isFeaturedOffer: Boolean(prod.isFeaturedOffer), imageUrl: prod.imageUrl || '', description: prod.description || '', inStock: prod.inStock ?? true });
+    let bat = '';
+    let sp = prod.specs || '';
+    const isIphone = prod.category === 'iphone' || (prod.title || '').toLowerCase().includes('iphone');
+    if (isIphone && sp.includes('بطارية')) {
+      const m = sp.match(/بطارية\s*(\d{2,3})%/);
+      if (m) bat = m[1];
+      sp = sp.replace(/بطارية\s*\d{2,3}%\s*•?\s*/, '').replace(/^•\s*/, '').trim();
+    }
+    setProductForm({ title: prod.title || '', category: prod.category || 'iphone', specs: sp, battery: bat, price: prod.price ?? '', oldPrice: prod.oldPrice ?? '', badge: prod.badge || '', condition: prod.condition || 'جديد', isFeaturedOffer: Boolean(prod.isFeaturedOffer), imageUrl: prod.imageUrl || '', description: prod.description || '', inStock: prod.inStock ?? true });
     setIsProductFormOpen(true);
   };
 
   const handleSaveProduct = async (e) => {
     e.preventDefault();
     if (!productForm.title.trim()) return;
+
+    let finalSpecs = productForm.specs.trim();
+    if (productForm.category === 'iphone') {
+      if (productForm.condition === 'جديد') {
+        finalSpecs = finalSpecs ? `بطارية 100% • ${finalSpecs}` : 'بطارية 100%';
+      } else if (productForm.battery) {
+        finalSpecs = finalSpecs ? `بطارية ${productForm.battery}% • ${finalSpecs}` : `بطارية ${productForm.battery}%`;
+      }
+    }
+
     const prodId = editingProduct ? editingProduct.id : `p-${Date.now()}`;
-    const itemData = { id: prodId, title: productForm.title.trim(), category: productForm.category, specs: productForm.specs.trim(), price: Number(productForm.price) || 0, oldPrice: productForm.oldPrice ? Number(productForm.oldPrice) : null, badge: productForm.badge.trim(), condition: productForm.condition, isFeaturedOffer: Boolean(productForm.isFeaturedOffer), imageUrl: productForm.imageUrl.trim() || 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=85', description: productForm.description.trim(), inStock: Boolean(productForm.inStock), createdAt: editingProduct ? editingProduct.createdAt : Date.now() };
+    const itemData = { id: prodId, title: productForm.title.trim(), category: productForm.category, specs: finalSpecs, price: Number(productForm.price) || 0, oldPrice: productForm.oldPrice ? Number(productForm.oldPrice) : null, badge: productForm.badge.trim(), condition: productForm.condition, isFeaturedOffer: Boolean(productForm.isFeaturedOffer), imageUrl: productForm.imageUrl.trim() || 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=800&q=85', description: productForm.description.trim(), inStock: Boolean(productForm.inStock), createdAt: editingProduct ? editingProduct.createdAt : Date.now() };
 
     setProducts((prev) => {
       const exists = prev.some((item) => item.id === prodId);
@@ -1102,7 +1126,6 @@ export default function App() {
               )}
             </button>
 
-
             <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="w-9 h-9 rounded-full border border-white/15 bg-white/[0.04] hover:bg-white/10 flex items-center justify-center text-neutral-200 transition md:hidden">
               {isMobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
             </button>
@@ -1137,16 +1160,12 @@ export default function App() {
         )}
       </header>
 
-      {/* 1. HERO SECTION (Fully Responsive Side-by-Side Layout) */}
+      {/* 1. HERO SECTION */}
       <section style={{ backgroundColor: STORE_CONFIG.colors.darkBg }} className="relative text-white pt-10 pb-14 px-4 sm:px-8 border-b border-white/10 overflow-hidden">
-        {/* إضاءة خلفية متمركزة */}
         <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[360px] sm:w-[600px] h-[360px] rounded-full bg-gradient-to-tr from-[#0095D9]/15 via-[#6CBE45]/10 to-rose-500/10 blur-3xl" />
 
         <div className="max-w-6xl mx-auto relative z-10">
-          {/* حاوية متوازنة يميناً ويساراً مع توسيط عمودي */}
           <div className="flex flex-col lg:flex-row items-center justify-center gap-10 lg:gap-16">
-            
-            {/* قسم النصوص (يظهر يميناً على الشاشات الكبيرة) */}
             <div className="flex-1 flex flex-col items-center lg:items-start text-center lg:text-right space-y-6">
               <AlTalebCrest />
               
@@ -1175,7 +1194,6 @@ export default function App() {
               </button>
             </div>
 
-            {/* بطاقة العرض (تظهر يساراً على الشاشات الكبيرة) */}
             {currentOffer && (
               <div className="w-full max-w-[400px] sm:max-w-[420px] shrink-0">
                 <div className="rounded-[30px] bg-[#12141C]/95 border border-white/12 p-4 sm:p-5 shadow-[0_24px_70px_rgba(0,0,0,0.65)] space-y-4">
@@ -1203,7 +1221,7 @@ export default function App() {
                   </div>
 
                   <div className="flex items-center justify-between text-xs text-neutral-400">
-                    <span>{currentOffer.specs || 'بطارية 100% • مع كفالة'}</span>
+                    <span>{currentOffer.specs || 'مفحوص ومكفول بالكامل'}</span>
                     {currentOffer.oldPrice && (
                       <div className="text-xs font-semibold text-neutral-300">
                         <span>كان </span>
@@ -1244,7 +1262,6 @@ export default function App() {
                   </div>
                 </div>
 
-                {/* أزرار السلايدر */}
                 <div className="flex items-center justify-between max-w-[290px] mx-auto mt-6">
                   <button
                     onClick={() => setCurrentOfferIndex((prev) => (prev - 1 + featuredOffers.length) % featuredOffers.length)}
@@ -1273,7 +1290,6 @@ export default function App() {
             )}
           </div>
 
-          {/* قسم الإحصائيات أسفل الهيرو */}
           <div className="pt-10 mt-10 border-t border-white/10 grid grid-cols-2 md:grid-cols-4 gap-y-8 gap-x-6 text-center max-w-5xl mx-auto">
             <div className="space-y-1">
               <div className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">{settings.stat1Val}</div>
@@ -1429,7 +1445,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* 5. WHY CHOOSE US (4 Columns on Desktop) */}
+      {/* 5. WHY CHOOSE US */}
       <section id="why-us" className="bg-[#090A0F] text-white py-14 sm:py-16 px-5 border-t border-white/10">
         <div className="max-w-5xl mx-auto">
           <div className="text-center space-y-2 mb-9">
@@ -1531,7 +1547,6 @@ export default function App() {
             </div>
           </div>
           
-          {/* تم تعديل الفوتر لإزالة الزر (النقطة) نهائياً */}
           <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
             <span>جميع الحقوق محفوظة © {new Date().getFullYear()} {settings.storeName}</span>
             <span className="hidden sm:inline text-neutral-700">•</span>
@@ -1580,7 +1595,7 @@ export default function App() {
         </div>
       )}
 
-    {/* FAVORITES MODAL */}
+      {/* FAVORITES MODAL */}
       {isFavoritesOpen && (
         <div className="fixed inset-0 z-[55] bg-black/60 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4" onClick={() => setIsFavoritesOpen(false)}>
           <div className="bg-white w-full sm:max-w-md rounded-t-[28px] sm:rounded-3xl p-5 max-h-[85vh] overflow-y-auto shadow-2xl" onClick={(e) => e.stopPropagation()}>
@@ -1820,14 +1835,20 @@ export default function App() {
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-2.5">
-                <div>
-                  <label className="block text-[11px] font-bold text-neutral-700 mb-1">المواصفات (البطارية والكفالة)</label>
-                  <input type="text" value={productForm.specs} onChange={(e) => setProductForm({ ...productForm, specs: e.target.value })} placeholder="بطارية 100% • مع كفالة" className="w-full rounded-xl border border-neutral-300 px-3 py-2 text-xs" />
+                <div className={productForm.category === 'iphone' && productForm.condition === 'مستعمل' ? 'col-span-1' : 'col-span-2'}>
+                  <label className="block text-[11px] font-bold text-neutral-700 mb-1">المواصفات (اللون، الذاكرة، الكفالة)</label>
+                  <input type="text" value={productForm.specs} onChange={(e) => setProductForm({ ...productForm, specs: e.target.value })} placeholder="مثال: تيتانيوم طبيعي • مع كفالة" className="w-full rounded-xl border border-neutral-300 px-3 py-2 text-xs" />
                 </div>
-                <div>
-                  <label className="block text-[11px] font-bold text-neutral-700 mb-1">شارة البطاقة</label>
-                  <input type="text" value={productForm.badge} onChange={(e) => setProductForm({ ...productForm, badge: e.target.value })} placeholder="عرض خاص / مستعمل نظيف" className="w-full rounded-xl border border-neutral-300 px-3 py-2 text-xs" />
-                </div>
+                {productForm.category === 'iphone' && productForm.condition === 'مستعمل' && (
+                  <div>
+                    <label className="block text-[11px] font-bold text-rose-600 mb-1">نسبة البطارية %</label>
+                    <input type="number" max="100" min="50" value={productForm.battery} onChange={(e) => setProductForm({ ...productForm, battery: e.target.value })} placeholder="مثال: 95" className="w-full rounded-xl border border-rose-300 px-3 py-2 text-xs focus:border-rose-500 outline-none" />
+                  </div>
+                )}
+              </div>
+              <div>
+                <label className="block text-[11px] font-bold text-neutral-700 mb-1">شارة البطاقة (الزاوية العلوية للصورة)</label>
+                <input type="text" value={productForm.badge} onChange={(e) => setProductForm({ ...productForm, badge: e.target.value })} placeholder="عرض خاص / مستعمل نظيف" className="w-full rounded-xl border border-neutral-300 px-3 py-2 text-xs" />
               </div>
               <div className="bg-[#F5F5F7] p-3 rounded-2xl space-y-2">
                 <label className="flex items-center gap-2 cursor-pointer text-xs font-bold text-[#1D1D1F]">
@@ -1862,12 +1883,12 @@ export default function App() {
         </div>
       )}
 
-{/* DAILY PRICE BULLETIN MODAL */}
-{showPriceSheet && (
+      {/* DAILY PRICE BULLETIN MODAL */}
+      {showPriceSheet && (
         <div
           className="fixed inset-0 z-[70] bg-black/85 backdrop-blur-md flex items-center justify-center p-2 sm:p-4"
           onClick={() => setShowPriceSheet(false)}
-          style={{ touchAction: 'none' }} // يمنع زووم المتصفح الافتراضي لكامل الشاشة
+          style={{ touchAction: 'none' }}
         >
           <div
             className="bg-[#16171B] border border-white/15 rounded-[28px] w-full max-w-[680px] overflow-hidden shadow-[0_25px_90px_rgba(0,0,0,0.85)] flex flex-col max-h-[94vh]"
@@ -1883,7 +1904,7 @@ export default function App() {
             
             <div 
               className="relative flex-1 overflow-auto bg-[#0B0C0E] p-3 sm:p-5 select-none"
-              style={{ touchAction: 'pan-x pan-y' }} // يسمح بالتمرير ويمنع الزووم الأصلي
+              style={{ touchAction: 'pan-x pan-y' }}
               onTouchStart={(e) => {
                 if (e.touches.length === 2) {
                   const dist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
@@ -1897,7 +1918,6 @@ export default function App() {
                   const scale = dist / pinchStartDistRef.current;
                   const newZoom = Math.min(Math.max(pinchInitialZoomRef.current * scale, 0.5), 2.5);
                   
-                  // تحريك العنصر مباشرة بدون انتظار React لمنع التعليق والبطء (60fps)
                   if (posterRef.current) {
                     posterRef.current.style.transform = `scale(${newZoom})`;
                   }
@@ -1906,7 +1926,6 @@ export default function App() {
               onTouchEnd={(e) => {
                 if (e.touches.length < 2 && pinchStartDistRef.current) {
                   pinchStartDistRef.current = null;
-                  // تحديث الـ State بعد إفلات الأصابع
                   if (posterRef.current) {
                     const finalZoom = parseFloat(posterRef.current.style.transform.replace(/[^\d.-]/g, ''));
                     if (!isNaN(finalZoom)) setSheetZoom(finalZoom);
@@ -1917,7 +1936,6 @@ export default function App() {
               <div 
                 ref={posterRef}
                 style={{ transform: `scale(${sheetZoom})`, transformOrigin: 'top center' }} 
-                // تم إزالة transition-transform duration-200 لأنها تسبب التقطيع مع اللمس المستمر
                 className="bg-gradient-to-b from-[#111318] via-[#0B0C10] to-[#08090C] border border-white/10 rounded-2xl p-4 sm:p-6 text-white shadow-2xl min-w-[540px] sm:min-w-0"
               >
                 <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-4">
@@ -1946,7 +1964,9 @@ export default function App() {
                             <span className="font-bold text-white truncate max-w-[72px] sm:max-w-[85px]">{meta.shortName}</span>
                             <span className="flex items-center gap-1 text-[9px] text-neutral-400 shrink-0">
                               <span>{meta.storage}</span>
-                              <span className="px-1 py-0.2 rounded bg-[#6CBE45]/20 text-[#6CBE45] font-bold text-[8px]">{meta.battery}</span>
+                              {meta.battery && (
+                                <span className="px-1 py-0.2 rounded bg-[#6CBE45]/20 text-[#6CBE45] font-bold text-[8px]">{meta.battery}</span>
+                              )}
                             </span>
                             <span className="font-extrabold text-white shrink-0">{settings.currencySymbol}{item.price}</span>
                           </div>
