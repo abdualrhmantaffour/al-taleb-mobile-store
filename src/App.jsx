@@ -66,8 +66,8 @@ const STORE_CONFIG = {
   showroomImage:
     'https://unsplash.com/photos/smartphone-smartwatch-and-wireless-earbuds-YLNMXzXk8zs',
 
-  instagramFollowers: '125K',
-  instagramLabel: 'متابع على إنستغرام والقناة',
+  instagramFollowers: '442K',
+  instagramLabel: 'متابع على وسائل التواصل الاجتماعي',
   warrantyPeriod: 'شهر',
   warrantyLabel: 'كفالة حقيقية بعد المبيع',
   buyBackPolicy: 'مدى الحياة',
