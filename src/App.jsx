@@ -472,6 +472,8 @@ export default function App() {
 
   const [showPriceSheet, setShowPriceSheet] = useState(false);
   const [sheetZoom, setSheetZoom] = useState(1);
+  const pinchStartDistRef = useRef(null);
+  const pinchInitialZoomRef = useRef(1);
   const [isGeneratingImage, setIsGeneratingImage] = useState(false);
 
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -1812,7 +1814,27 @@ export default function App() {
               </div>
               <button type="button" onClick={() => setShowPriceSheet(false)} className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 text-neutral-200 flex items-center justify-center transition" aria-label="إغلاق"><X className="w-4 h-4" /></button>
             </div>
-            <div className="relative flex-1 overflow-auto bg-[#0B0C0E] p-3 sm:p-5 select-none">
+            <div 
+              className="relative flex-1 overflow-auto bg-[#0B0C0E] p-3 sm:p-5 select-none"
+              onTouchStart={(e) => {
+                if (e.touches.length === 2) {
+                  const dist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
+                  pinchStartDistRef.current = dist;
+                  pinchInitialZoomRef.current = sheetZoom;
+                }
+              }}
+              onTouchMove={(e) => {
+                if (e.touches.length === 2 && pinchStartDistRef.current) {
+                  const dist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
+                  const scale = dist / pinchStartDistRef.current;
+                  // تقييد الزووم بين 0.5 (تصغير) و 2.5 (تكبير)
+                  setSheetZoom(Math.min(Math.max(pinchInitialZoomRef.current * scale, 0.5), 2.5));
+                }
+              }}
+              onTouchEnd={(e) => {
+                if (e.touches.length < 2) pinchStartDistRef.current = null;
+              }}
+            >
               <div style={{ transform: `scale(${sheetZoom})`, transformOrigin: 'top center', }} className="bg-gradient-to-b from-[#111318] via-[#0B0C10] to-[#08090C] border border-white/10 rounded-2xl p-4 sm:p-6 text-white shadow-2xl transition-transform duration-200 min-w-[540px] sm:min-w-0">
                 <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-4">
                   <div className="text-right">
