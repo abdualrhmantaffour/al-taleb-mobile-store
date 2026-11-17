@@ -474,6 +474,7 @@ export default function App() {
   const [sheetZoom, setSheetZoom] = useState(1);
   const pinchStartDistRef = useRef(null);
   const pinchInitialZoomRef = useRef(1);
+  const posterRef = useRef(null);
   const [isGeneratingImage, setIsGeneratingImage] = useState(false);
 
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -1803,10 +1804,17 @@ export default function App() {
         </div>
       )}
 
-      {/* DAILY PRICE BULLETIN MODAL */}
-      {showPriceSheet && (
-        <div className="fixed inset-0 z-[70] bg-black/85 backdrop-blur-md flex items-center justify-center p-2 sm:p-4" onClick={() => setShowPriceSheet(false)}>
-          <div className="bg-[#16171B] border border-white/15 rounded-[28px] w-full max-w-[680px] overflow-hidden shadow-[0_25px_90px_rgba(0,0,0,0.85)] flex flex-col max-h-[94vh]" onClick={(e) => e.stopPropagation()}>
+{/* DAILY PRICE BULLETIN MODAL */}
+{showPriceSheet && (
+        <div
+          className="fixed inset-0 z-[70] bg-black/85 backdrop-blur-md flex items-center justify-center p-2 sm:p-4"
+          onClick={() => setShowPriceSheet(false)}
+          style={{ touchAction: 'none' }} // يمنع زووم المتصفح الافتراضي لكامل الشاشة
+        >
+          <div
+            className="bg-[#16171B] border border-white/15 rounded-[28px] w-full max-w-[680px] overflow-hidden shadow-[0_25px_90px_rgba(0,0,0,0.85)] flex flex-col max-h-[94vh]"
+            onClick={(e) => e.stopPropagation()}
+          >
             <div className="flex items-center justify-between px-5 py-3.5 border-b border-white/10 bg-[#18191E]">
               <div className="text-right">
                 <p className="text-[11px] text-neutral-400 font-medium">أسعار اليوم:</p>
@@ -1814,8 +1822,10 @@ export default function App() {
               </div>
               <button type="button" onClick={() => setShowPriceSheet(false)} className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 text-neutral-200 flex items-center justify-center transition" aria-label="إغلاق"><X className="w-4 h-4" /></button>
             </div>
+            
             <div 
               className="relative flex-1 overflow-auto bg-[#0B0C0E] p-3 sm:p-5 select-none"
+              style={{ touchAction: 'pan-x pan-y' }} // يسمح بالتمرير ويمنع الزووم الأصلي
               onTouchStart={(e) => {
                 if (e.touches.length === 2) {
                   const dist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
@@ -1827,15 +1837,31 @@ export default function App() {
                 if (e.touches.length === 2 && pinchStartDistRef.current) {
                   const dist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
                   const scale = dist / pinchStartDistRef.current;
-                  // تقييد الزووم بين 0.5 (تصغير) و 2.5 (تكبير)
-                  setSheetZoom(Math.min(Math.max(pinchInitialZoomRef.current * scale, 0.5), 2.5));
+                  const newZoom = Math.min(Math.max(pinchInitialZoomRef.current * scale, 0.5), 2.5);
+                  
+                  // تحريك العنصر مباشرة بدون انتظار React لمنع التعليق والبطء (60fps)
+                  if (posterRef.current) {
+                    posterRef.current.style.transform = `scale(${newZoom})`;
+                  }
                 }
               }}
               onTouchEnd={(e) => {
-                if (e.touches.length < 2) pinchStartDistRef.current = null;
+                if (e.touches.length < 2 && pinchStartDistRef.current) {
+                  pinchStartDistRef.current = null;
+                  // تحديث الـ State بعد إفلات الأصابع
+                  if (posterRef.current) {
+                    const finalZoom = parseFloat(posterRef.current.style.transform.replace(/[^\d.-]/g, ''));
+                    if (!isNaN(finalZoom)) setSheetZoom(finalZoom);
+                  }
+                }
               }}
             >
-              <div style={{ transform: `scale(${sheetZoom})`, transformOrigin: 'top center', }} className="bg-gradient-to-b from-[#111318] via-[#0B0C10] to-[#08090C] border border-white/10 rounded-2xl p-4 sm:p-6 text-white shadow-2xl transition-transform duration-200 min-w-[540px] sm:min-w-0">
+              <div 
+                ref={posterRef}
+                style={{ transform: `scale(${sheetZoom})`, transformOrigin: 'top center' }} 
+                // تم إزالة transition-transform duration-200 لأنها تسبب التقطيع مع اللمس المستمر
+                className="bg-gradient-to-b from-[#111318] via-[#0B0C10] to-[#08090C] border border-white/10 rounded-2xl p-4 sm:p-6 text-white shadow-2xl min-w-[540px] sm:min-w-0"
+              >
                 <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-4">
                   <div className="text-right">
                     <h2 className="text-2xl sm:text-4xl font-black text-white tracking-tight">نشرة الأسعار</h2>
@@ -1843,6 +1869,7 @@ export default function App() {
                   </div>
                   <div dir="ltr" className="flex flex-col items-center"><AlTalebLogo size="sm" /></div>
                 </div>
+                
                 <div className="grid grid-cols-3 gap-3 sm:gap-4 text-[10px] sm:text-[11px]" dir="ltr">
                   {[priceSheetData.col3, priceSheetData.col2, priceSheetData.col1].map((colRows, colIndex) => (
                     <div key={colIndex} className={`space-y-1.5 ${colIndex < 2 ? 'border-r border-white/10 pr-2.5' : ''}`}>
@@ -1870,6 +1897,7 @@ export default function App() {
                     </div>
                   ))}
                 </div>
+
                 <div className="mt-6 pt-4 border-t border-white/10 text-center space-y-3">
                   <div><span className="inline-block px-5 py-1 rounded-full border border-white/25 bg-white/[0.04] text-xs font-bold text-white shadow-sm">واتس حصراً</span></div>
                   <div className="grid grid-cols-2 max-w-md mx-auto pt-1 divide-x divide-x-reverse divide-white/15">
@@ -1883,11 +1911,13 @@ export default function App() {
                   </div>
                 </div>
               </div>
+
               <div className="sticky bottom-2 left-2 flex items-center gap-2 mt-3 w-fit bg-black/70 backdrop-blur-md p-1 rounded-full border border-white/15">
                 <button type="button" onClick={() => setSheetZoom((z) => Math.min(1.6, +(z + 0.15).toFixed(2)))} className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center font-bold transition" title="تكبير"><Plus className="w-4 h-4" /></button>
                 <button type="button" onClick={() => setSheetZoom((z) => Math.max(0.75, +(z - 0.15).toFixed(2)))} className="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center font-bold transition" title="تصغير"><span className="text-base leading-none font-bold">−</span></button>
               </div>
             </div>
+
             <div className="grid grid-cols-3 gap-2.5 p-3.5 bg-[#18191E] border-t border-white/10">
               <button type="button" disabled={isGeneratingImage} onClick={handleDownloadPriceSheetImage} className="py-3 px-3 rounded-full bg-white hover:bg-neutral-200 text-[#1D1D1F] font-extrabold text-xs sm:text-sm flex items-center justify-center gap-1.5 transition shadow-md cursor-pointer disabled:opacity-60">
                 <Download className="w-4 h-4 shrink-0" />
