@@ -61,7 +61,7 @@ const STORE_CONFIG = {
   defaultSalesPhone: '0935 240 669',
   defaultRepairPhone: '0986 895 611',
   defaultChannelUrl: 'https://www.whatsapp.com/channel/0029VaCMm90KbYMJyac2v10R',
-  storeAddress: 'الفرع الرئيسي - الشارع العام - شركة الطالب للإتصالات',
+  storeAddress: 'الفرع الرئيسي - شارع الجامع الكبير - جانب معجنات الحرية',
   workHours: 'يومياً من 10:00 صباحاً حتى 10:00 مساءً',
   showroomImage:
     'https://unsplash.com/photos/smartphone-smartwatch-and-wireless-earbuds-YLNMXzXk8zs',
