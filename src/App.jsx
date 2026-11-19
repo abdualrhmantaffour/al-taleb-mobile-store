@@ -64,7 +64,7 @@ const STORE_CONFIG = {
   storeAddress: 'الفرع الرئيسي - شارع الجامع الكبير - جانب معجنات الحرية',
   workHours: 'يومياً من 10:00 صباحاً حتى 10:00 مساءً',
   showroomImage:
-    'https://unsplash.com/photos/a-cell-phone-on-a-table-vRRYyCd2TDE',
+    'https://images.unsplash.com/photo-1656078411660-05f2cf994d33?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D',
 
   instagramFollowers: '442K',
   instagramLabel: 'متابع على وسائل التواصل الاجتماعي',
