@@ -64,7 +64,7 @@ const STORE_CONFIG = {
   storeAddress: 'الفرع الرئيسي - شارع الجامع الكبير - جانب معجنات الحرية',
   workHours: 'يومياً من 10:00 صباحاً حتى 10:00 مساءً',
   showroomImage:
-    'https://unsplash.com/photos/smartphone-smartwatch-and-wireless-earbuds-YLNMXzXk8zs',
+    'https://unsplash.com/photos/a-cell-phone-on-a-table-vRRYyCd2TDE',
 
   instagramFollowers: '442K',
   instagramLabel: 'متابع على وسائل التواصل الاجتماعي',
