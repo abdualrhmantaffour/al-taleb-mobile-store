@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
 
 export default defineConfig({
-  base: '/al-taleb-mobile-store/', // <-- هذا هو السطر الذي سيعيد الموقع للعمل
+  base: '/', // <-- هذا هو السطر الذي سيعيد الموقع للعمل
   plugins: [
     react(),
     VitePWA({
