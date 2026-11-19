@@ -1160,137 +1160,154 @@ export default function App() {
         )}
       </header>
 
-      {/* 1. HERO SECTION */}
-      <section style={{ backgroundColor: STORE_CONFIG.colors.darkBg }} className="relative text-white pt-10 pb-14 px-4 sm:px-8 border-b border-white/10 overflow-hidden">
-        <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[360px] sm:w-[600px] h-[360px] rounded-full bg-gradient-to-tr from-[#0095D9]/15 via-[#6CBE45]/10 to-rose-500/10 blur-3xl" />
+      {/* 1. HERO SECTION (Landscape on Desktop, Compact Portrait on Mobile) */}
+      <section style={{ backgroundColor: STORE_CONFIG.colors.darkBg }} className="relative text-white pt-7 pb-14 px-4 sm:px-6 lg:px-8 border-b border-white/10 overflow-hidden">
+        <div className="pointer-events-none absolute top-1/4 left-1/2 -translate-x-1/2 w-[500px] h-[300px] rounded-full bg-gradient-to-tr from-[#0095D9]/10 via-[#6CBE45]/5 to-rose-500/5 blur-3xl" />
 
-        <div className="max-w-6xl mx-auto relative z-10">
-          <div className="flex flex-col lg:flex-row items-center justify-center gap-10 lg:gap-16">
-            <div className="flex-1 flex flex-col items-center lg:items-start text-center lg:text-right space-y-6">
-              <AlTalebCrest />
-              
-              <div className="space-y-4">
-                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight leading-tight">
-                  <span className="block mb-3">{settings.heroSloganPrefix}</span>
-                  <span className="relative inline-block pb-3 text-[#0095D9]">
-                    {settings.heroSloganHighlight}
-                    <span className="absolute bottom-0 right-0 left-0 h-[4px] rounded-full bg-gradient-to-l from-[#6CBE45] via-[#0095D9] to-[#E11D48]" />
-                  </span>
-                </h1>
-                <p className="text-neutral-400 text-sm sm:text-base lg:text-lg max-w-md lg:max-w-lg mx-auto lg:mx-0 leading-relaxed">
-                  الوجهة الأولى والمضمونة لبيع وشراء وتبديل كافة أجهزة الموبايل مع كفالة حقيقية وفحص شامل يضمن حقوقك.
-                </p>
-              </div>
+        <div className="max-w-5xl mx-auto relative z-10 flex flex-col items-center">
+          
+          {/* الشعار والنصوص في المنتصف */}
+          <div className="flex flex-col items-center text-center space-y-3 mb-6 md:mb-8">
 
-              <button
-                type="button"
-                onClick={() => { setSheetZoom(1); setShowPriceSheet(true); }}
-                className="inline-flex items-center justify-center gap-3 px-7 py-3.5 rounded-full bg-white/[0.08] hover:bg-white/[0.15] active:scale-95 border border-white/20 text-sm font-bold text-neutral-200 transition shadow-lg mt-2 mx-auto lg:mx-0"
-              >
-                <span className="w-2.5 h-2.5 rounded-full bg-white animate-pulse" />
-                <span className="text-neutral-300">أسعار اليوم:</span>
-                <span className="text-white">نشرة الأسعار</span>
-                <ArrowLeft className="w-4 h-4 text-neutral-300" />
-              </button>
-            </div>
+            <h1 className="text-xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight flex flex-wrap items-center justify-center gap-1.5 sm:gap-2">
+              <span>{settings.heroSloganPrefix}</span>
+              <span className="text-[#0095D9]">{settings.heroSloganHighlight}</span>
+            </h1>
 
-            {currentOffer && (
-              <div className="w-full max-w-[400px] sm:max-w-[420px] shrink-0">
-                <div className="rounded-[30px] bg-[#12141C]/95 border border-white/12 p-4 sm:p-5 shadow-[0_24px_70px_rgba(0,0,0,0.65)] space-y-4">
-                  <div className="relative aspect-[4/3] rounded-[22px] overflow-hidden bg-[#1A1D26]">
-                    <img src={currentOffer.imageUrl} alt={currentOffer.title} className="w-full h-full object-cover" />
-                    <div className="absolute top-3.5 right-3.5 w-14 h-14 rounded-full bg-black/55 backdrop-blur-md border border-white/25 flex flex-col items-center justify-center text-center leading-none shadow-lg">
-                      <span className="text-[11px] font-black text-white tracking-tight">{STORE_CONFIG.brandNameEn}</span>
-                      <span className="text-[7px] font-bold text-[#6CBE45] tracking-widest mt-0.5">STORE</span>
+            <button
+              type="button"
+              onClick={() => { setSheetZoom(1); setShowPriceSheet(true); }}
+              className="inline-flex items-center justify-center gap-2 px-5 py-2 rounded-full bg-white/[0.06] hover:bg-white/[0.12] active:scale-95 border border-white/15 text-xs sm:text-sm font-bold text-neutral-300 hover:text-white transition shadow-lg"
+            >
+              <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
+              <span>أسعار اليوم:</span>
+              <span className="text-white">نشرة الأسعار</span>
+              <ArrowLeft className="w-3.5 h-3.5 text-neutral-400" />
+            </button>
+          </div>
+
+          {/* بطاقة العرض: أفقية على اللابتوب، وطولية مدمجة على الجوال */}
+          {currentOffer && (
+            <div className="w-full max-w-[420px] md:max-w-4xl">
+              <div className="rounded-[28px] md:rounded-[32px] bg-[#12141A]/95 border border-white/10 p-4 md:p-7 shadow-[0_30px_90px_rgba(0,0,0,0.75)] overflow-hidden">
+                <div className="flex flex-col md:flex-row items-center gap-4 md:gap-10">
+                  
+                  {/* قسم التفاصيل (يسار على اللابتوب، أسفل الصورة على الجوال) */}
+                  <div className="flex-1 w-full order-2 md:order-1 flex flex-col justify-between space-y-2.5 md:space-y-4">
+                    
+                    <div className="flex items-center justify-between">
+                      <span dir="ltr" className="text-[11px] md:text-xs font-mono font-bold text-neutral-400">
+                        № {String((currentOfferIndex % featuredOffers.length) + 1).padStart(2, '0')}/{String(featuredOffers.length).padStart(2, '0')}
+                      </span>
+                      <span className="px-3 py-0.5 md:px-3.5 md:py-1 rounded-full bg-white/[0.08] border border-white/15 text-neutral-200 text-[11px] md:text-xs font-bold">
+                        {currentOffer.badge || 'عرض خاص'}
+                      </span>
+                    </div>
+
+                    <div className="text-right space-y-1 md:space-y-1.5">
+                      <h2 dir="ltr" className="text-xl md:text-3xl font-black text-white tracking-tight uppercase text-right line-clamp-1 md:line-clamp-none">
+                        {currentOffer.title}
+                      </h2>
+                      <div className="flex items-center justify-between gap-2 text-[11px] md:text-xs text-neutral-400 pt-0.5 md:pt-1">
+                        <span className="truncate">{currentOffer.specs || 'مفحوص ومكفول بالكامل'}</span>
+                        {currentOffer.oldPrice && (
+                          <div className="font-semibold text-neutral-400 shrink-0">
+                            <span>كان </span>
+                            <span className="line-through text-rose-400 font-bold">{settings.currencySymbol}{currentOffer.oldPrice}</span>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="w-full">
+                      <ScratchPriceCard
+                        price={currentOffer.price}
+                        sypPrice={formatSYP(currentOffer.price)}
+                        currencySymbol={settings.currencySymbol}
+                        isRevealed={Boolean(revealedOffers[currentOffer.id])}
+                        onReveal={() => setRevealedOffers((prev) => ({ ...prev, [currentOffer.id]: true }))}
+                      />
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-2.5 md:gap-3 pt-0.5 md:pt-1">
+                      <button
+                        onClick={() => openWhatsAppProduct(currentOffer)}
+                        className="bg-white/15 hover:bg-[#6CBE45] text-white font-bold text-xs md:text-sm py-2.5 md:py-3 px-3 md:px-4 rounded-full flex items-center justify-center gap-1.5 md:gap-2 transition border border-white/10"
+                      >
+                        <MessageCircle className="w-4 h-4 shrink-0" />
+                        <span>اسأل عن العرض</span>
+                      </button>
+                      <button
+                        onClick={() => setActiveProduct(currentOffer)}
+                        className="bg-transparent hover:bg-white/10 text-white font-semibold text-xs md:text-sm py-2.5 md:py-3 px-3 md:px-4 rounded-full border border-white/20 transition"
+                      >
+                        تفاصيل الجهاز
+                      </button>
+                    </div>
+
+                    <div className="text-center md:text-right pt-0.5">
+                      <button
+                        onClick={() => setRevealedOffers((prev) => ({ ...prev, [currentOffer.id]: !prev[currentOffer.id] }))}
+                        className="text-[11px] text-neutral-400 hover:text-white underline underline-offset-4 transition"
+                      >
+                        {revealedOffers[currentOffer.id] ? 'إخفاء السعر وإعادة المسح' : 'اكشف بدون مسح'}
+                      </button>
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-between pt-1">
-                    <span className="px-3.5 py-1 rounded-full bg-[#0095D9]/15 border border-[#0095D9]/40 text-[#38BDF8] text-xs font-bold">
-                      {currentOffer.badge || 'عرض خاص'}
-                    </span>
-                    <span dir="ltr" className="text-xs font-mono font-bold text-neutral-400">
-                      № {String((currentOfferIndex % featuredOffers.length) + 1).padStart(2, '0')}/{String(featuredOffers.length).padStart(2, '0')}
-                    </span>
+                  {/* قسم الصورة (يمين على اللابتوب، أعلى البطاقة على الجوال) */}
+                  <div className="w-full md:w-[46%] aspect-[16/10] md:aspect-[4/3.5] rounded-[20px] md:rounded-[24px] overflow-hidden bg-[#1A1D26] relative order-1 md:order-2 shrink-0">
+                    <img 
+                      src={currentOffer.imageUrl} 
+                      alt={currentOffer.title} 
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute top-3 right-3 md:top-3.5 md:right-3.5 w-12 h-12 md:w-14 md:h-14 rounded-full bg-black/60 backdrop-blur-md border border-white/25 flex flex-col items-center justify-center text-center leading-none shadow-lg">
+                      <span className="text-[10px] md:text-[11px] font-black text-white tracking-tight">{STORE_CONFIG.brandNameEn}</span>
+                      <span className="text-[6px] md:text-[7px] font-bold text-[#6CBE45] tracking-widest mt-0.5">STORE</span>
+                    </div>
                   </div>
 
-                  <div className="text-left" dir="ltr">
-                    <h2 className="text-xl sm:text-2xl font-black text-white tracking-tight uppercase line-clamp-1">
-                      {currentOffer.title}
-                    </h2>
-                  </div>
-
-                  <div className="flex items-center justify-between text-xs text-neutral-400">
-                    <span>{currentOffer.specs || 'مفحوص ومكفول بالكامل'}</span>
-                    {currentOffer.oldPrice && (
-                      <div className="text-xs font-semibold text-neutral-300">
-                        <span>كان </span>
-                        <span className="line-through text-rose-400 font-bold">{settings.currencySymbol}{currentOffer.oldPrice}</span>
-                      </div>
-                    )}
-                  </div>
-
-                  <ScratchPriceCard
-                    price={currentOffer.price} sypPrice={formatSYP(currentOffer.price)} currencySymbol={settings.currencySymbol}
-                    isRevealed={Boolean(revealedOffers[currentOffer.id])}
-                    onReveal={() => setRevealedOffers((prev) => ({ ...prev, [currentOffer.id]: true }))}
-                  />
-
-                  <div className="grid grid-cols-2 gap-3 pt-1">
-                    <button
-                      onClick={() => openWhatsAppProduct(currentOffer)}
-                      className="bg-white/15 hover:bg-[#6CBE45] text-white font-bold text-xs sm:text-sm py-3 px-4 rounded-full flex items-center justify-center gap-2 transition border border-white/10"
-                    >
-                      <MessageCircle className="w-4 h-4" />
-                      <span>اسأل عن العرض</span>
-                    </button>
-                    <button
-                      onClick={() => setActiveProduct(currentOffer)}
-                      className="bg-transparent hover:bg-white/10 text-white font-semibold text-xs sm:text-sm py-3 px-4 rounded-full border border-white/20 transition"
-                    >
-                      تفاصيل الجهاز
-                    </button>
-                  </div>
-
-                  <div className="text-center pt-0.5">
-                    <button
-                      onClick={() => setRevealedOffers((prev) => ({ ...prev, [currentOffer.id]: !prev[currentOffer.id] }))}
-                      className="text-[11px] text-neutral-400 hover:text-white underline underline-offset-4 transition"
-                    >
-                      {revealedOffers[currentOffer.id] ? 'إخفاء السعر وإعادة المسح' : 'اكشف بدون مسح'}
-                    </button>
-                  </div>
-                </div>
-
-                <div className="flex items-center justify-between max-w-[290px] mx-auto mt-6">
-                  <button
-                    onClick={() => setCurrentOfferIndex((prev) => (prev - 1 + featuredOffers.length) % featuredOffers.length)}
-                    className="w-10 h-10 rounded-full border border-white/15 bg-white/[0.03] hover:bg-white/10 flex items-center justify-center text-neutral-300 transition"
-                  >
-                    <ArrowRight className="w-4 h-4" />
-                  </button>
-                  <div className="flex items-center gap-1.5">
-                    {featuredOffers.map((item, idx) => {
-                      const isActive = idx === currentOfferIndex % featuredOffers.length;
-                      return (
-                        <button key={item.id} onClick={() => setCurrentOfferIndex(idx)}
-                          className={`h-2 rounded-full transition-all ${isActive ? 'w-6 bg-[#0095D9]' : 'w-2 bg-white/25 hover:bg-white/40'}`}
-                        />
-                      );
-                    })}
-                  </div>
-                  <button
-                    onClick={() => setCurrentOfferIndex((prev) => (prev + 1) % featuredOffers.length)}
-                    className="w-10 h-10 rounded-full border border-white/15 bg-white/[0.03] hover:bg-white/10 flex items-center justify-center text-neutral-300 transition"
-                  >
-                    <ArrowLeft className="w-4 h-4" />
-                  </button>
                 </div>
               </div>
-            )}
-          </div>
 
-          <div className="pt-10 mt-10 border-t border-white/10 grid grid-cols-2 md:grid-cols-4 gap-y-8 gap-x-6 text-center max-w-5xl mx-auto">
+              {/* أزرار ونقاط التنقل */}
+              <div className="flex items-center justify-center gap-5 md:gap-6 mt-5 md:mt-6">
+                <button
+                  onClick={() => setCurrentOfferIndex((prev) => (prev - 1 + featuredOffers.length) % featuredOffers.length)}
+                  className="w-9 h-9 rounded-full border border-white/15 bg-white/[0.04] hover:bg-white/15 flex items-center justify-center text-neutral-300 transition"
+                  aria-label="السابق"
+                >
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+
+                <div className="flex items-center gap-2">
+                  {featuredOffers.map((item, idx) => {
+                    const isActive = idx === currentOfferIndex % featuredOffers.length;
+                    return (
+                      <button 
+                        key={item.id} 
+                        onClick={() => setCurrentOfferIndex(idx)}
+                        className={`h-2 rounded-full transition-all duration-300 ${isActive ? 'w-6 bg-rose-500' : 'w-2 bg-white/25 hover:bg-white/40'}`}
+                        aria-label={`شريحة ${idx + 1}`}
+                      />
+                    );
+                  })}
+                </div>
+
+                <button
+                  onClick={() => setCurrentOfferIndex((prev) => (prev + 1) % featuredOffers.length)}
+                  className="w-9 h-9 rounded-full border border-white/15 bg-white/[0.04] hover:bg-white/15 flex items-center justify-center text-neutral-300 transition"
+                  aria-label="التالي"
+                >
+                  <ArrowLeft className="w-4 h-4" />
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* قسم الإحصائيات الأربعة */}
+          <div className="w-full pt-8 md:pt-10 mt-10 md:mt-12 border-t border-white/10 grid grid-cols-2 md:grid-cols-4 gap-y-6 md:gap-y-8 gap-x-6 text-center max-w-4xl mx-auto">
             <div className="space-y-1">
               <div className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">{settings.stat1Val}</div>
               <div className="text-xs text-neutral-400 font-medium">{settings.stat1Label}</div>
@@ -1311,6 +1328,7 @@ export default function App() {
               <div className="text-xs text-neutral-400 font-medium">{settings.stat4Label}</div>
             </div>
           </div>
+
         </div>
       </section>
 
