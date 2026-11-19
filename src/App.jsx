@@ -483,7 +483,7 @@ export default function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [activeProduct, setActiveProduct] = useState(null);
 
-  const [isAdminLoginOpen, setIsAdminLoginOpen] = useState(window.location.hash === '#altaleb-dashboard');
+  const [isAdminLoginOpen, setIsAdminLoginOpen] = useState(window.location.hash === '#admin-12345-dashboard-67890');
   const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(false);
   const [isAdminDashboardOpen, setIsAdminDashboardOpen] = useState(false);
   const [passwordInput, setPasswordInput] = useState('');
@@ -774,7 +774,7 @@ export default function App() {
 
   useEffect(() => {
     const handleHash = () => {
-      if (window.location.hash === '#altaleb-dashboard') {
+      if (window.location.hash === '#admin-12345-dashboard-67890') {
         setIsAdminDashboardOpen(false);
         setIsAdminAuthenticated(false);
         setIsAdminLoginOpen(true);
@@ -895,12 +895,12 @@ export default function App() {
 
   const copyAdminUrl = () => {
     const base = window.location.href.split('#')[0].split('?')[0];
-    const url = `${base}#altaleb-dashboard`;
+    const url = `${base}#admin-12345-dashboard-67890`;
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(url);
     }
     window.location.hash = 'altaleb-dashboard';
-    showToast('تم نسخ رابط لوحة التحكم السري (#altaleb-dashboard)');
+    showToast('تم نسخ رابط لوحة التحكم السري (#admin-12345-dashboard-67890)');
   };
 
   const handleImageUpload = (e) => {
@@ -1696,7 +1696,7 @@ export default function App() {
             </div>
             <div className="flex items-center gap-2">
               <button onClick={copyAdminUrl} className="bg-white/10 hover:bg-white/20 text-[#6CBE45] text-[11px] font-semibold px-3 py-1.5 rounded-full flex items-center gap-1"><Copy className="w-3 h-3" /><span>نسخ رابط الإدارة</span></button>
-              <button onClick={() => { setIsAdminDashboardOpen(false); setIsAdminAuthenticated(false); setPasswordInput(''); setLoginError(''); if (window.location.hash === '#altaleb-dashboard') { window.history.pushState('', document.title, window.location.pathname); } }} className="bg-white text-[#1D1D1F] text-[11px] font-bold px-3.5 py-1.5 rounded-full flex items-center gap-1"><Eye className="w-3 h-3" /><span>معاينة الموقع</span></button>
+              <button onClick={() => { setIsAdminDashboardOpen(false); setIsAdminAuthenticated(false); setPasswordInput(''); setLoginError(''); if (window.location.hash === '#admin-12345-dashboard-67890') { window.history.pushState('', document.title, window.location.pathname); } }} className="bg-white text-[#1D1D1F] text-[11px] font-bold px-3.5 py-1.5 rounded-full flex items-center gap-1"><Eye className="w-3 h-3" /><span>معاينة الموقع</span></button>
             </div>
           </div>
           <div className="max-w-3xl mx-auto p-4 sm:p-6 space-y-4">
