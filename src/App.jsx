@@ -343,7 +343,7 @@ const ScratchPriceCard = ({ price, sypPrice, currencySymbol, isRevealed, onRevea
   return (
     <div className="relative w-full h-32 sm:h-36 rounded-2xl overflow-hidden select-none border border-white/15 bg-gradient-to-br from-[#161922] via-[#111318] to-[#0B0D12] shadow-inner">
       <div className="absolute inset-0 flex flex-col items-center justify-center p-3 text-center">
-        <span className="text-[11px] font-semibold text-[#6CBE45] mb-1 flex items-center gap-1">
+        <span className="text-[12px] font-semibold text-[#6CBE45] mb-1 flex items-center gap-1">
           <Sparkles className="w-3.5 h-3.5" />
           <span>سعر العرض الحصري اليوم</span>
         </span>
@@ -1208,7 +1208,7 @@ export default function App() {
                       <h2 dir="ltr" className="text-xl md:text-3xl font-black text-white tracking-tight uppercase text-right line-clamp-1 md:line-clamp-none">
                         {currentOffer.title}
                       </h2>
-                      <div className="flex items-center justify-between gap-2 text-[11px] md:text-xs text-neutral-400 pt-0.5 md:pt-1">
+                      <div className="flex items-center justify-between gap-2 text-[12px] md:text-xs text-neutral-400 pt-0.5 md:pt-1">
                         <span className="truncate">{currentOffer.specs || 'مفحوص ومكفول بالكامل'}</span>
                         {currentOffer.oldPrice && (
                           <div className="font-semibold text-neutral-400 shrink-0">
@@ -1335,7 +1335,7 @@ export default function App() {
       {/* 2. ALL DEVICES SECTION */}
       <section id="catalog" className="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
         <div className="text-center space-y-2 mb-8">
-          <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#0095D9]/10 text-[#0095D9] text-[11px] font-semibold">
+          <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#0095D9]/10 text-[#0095D9] text-[12px] font-semibold">
             <Smartphone className="w-3.5 h-3.5" />
             <span>كتالوج المتجر المحدث ({availableProductsCount} جهاز متوفر)</span>
           </div>
