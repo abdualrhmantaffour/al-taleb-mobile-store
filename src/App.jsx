@@ -57,9 +57,9 @@ const STORE_CONFIG = {
     lightBg: '#F5F5F7',
   },
 
-  defaultWhatsapp: '963942000000',
-  defaultSalesPhone: '0935 240 669',
-  defaultRepairPhone: '0986 895 611',
+  defaultWhatsapp: '963942011130',
+  defaultSalesPhone: '963942011130',
+  defaultRepairPhone: '963942011130',
   defaultChannelUrl: 'https://www.whatsapp.com/channel/0029VaCMm90KbYMJyac2v10R',
   storeAddress: 'الفرع الرئيسي - شارع الجامع الكبير - جانب معجنات الحرية',
   workHours: 'يومياً من 10:00 صباحاً حتى 10:00 مساءً',
@@ -74,9 +74,9 @@ const STORE_CONFIG = {
   buyBackLabel: 'بيع وشراء وتبديل',
 
   defaultCurrency: '$',
-  defaultExchangeRate: 15000,
+  defaultExchangeRate: 150,
   defaultAdminPin: 'admin',
-  storageCollectionPrefix: 'altaleb_store_v1',
+  storageCollectionPrefix: 'altaleb_store',
 };
 
 // --- Firebase Initialization ---
@@ -1784,7 +1784,7 @@ export default function App() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
                   <div>
                     <label className="block text-[11px] font-bold text-neutral-700 mb-1">رقم الواتساب لاستقبال الطلبات (مع الرمز الدولي بدون +):</label>
-                    <input type="text" dir="ltr" placeholder="963942000000" value={settings.whatsappNumber} onChange={(e) => setSettings({ ...settings, whatsappNumber: e.target.value })} className="w-full rounded-xl border border-neutral-300 px-3 py-2.5 text-xs font-mono text-left outline-none focus:border-[#0095D9]" />
+                    <input type="text" dir="ltr" placeholder="963942011130" value={settings.whatsappNumber} onChange={(e) => setSettings({ ...settings, whatsappNumber: e.target.value })} className="w-full rounded-xl border border-neutral-300 px-3 py-2.5 text-xs font-mono text-left outline-none focus:border-[#0095D9]" />
                   </div>
                   <div>
                     <label className="block text-[11px] font-bold text-neutral-700 mb-1">رابط قناة الواتساب:</label>
