@@ -1502,14 +1502,14 @@ export default function App() {
       {/* 6. STORE LOCATION */}
       <section id="location" className="py-14 sm:py-20 px-4 sm:px-6 lg:px-8 max-w-3xl mx-auto">
         <div className="text-center space-y-1.5 mb-7">
-          <span className="text-[11px] text-[#0095D9] font-semibold">العنوان وأوقات الدوام</span>
+          <span className="text-[12px] text-[#0095D9] font-semibold">العنوان وأوقات الدوام</span>
           <h2 className="text-xl sm:text-2xl font-bold text-[#1D1D1F] tracking-tight">{settings.locationTitle}</h2>
         </div>
 
         <div className="apple-card rounded-[28px] overflow-hidden">
           <div className="p-6 sm:p-8 space-y-5 text-right">
-            <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed">{settings.locationDesc}</p>
-            <div className="space-y-2.5 text-xs text-[#1D1D1F] bg-[#F5F5F7] p-4 sm:p-5 rounded-2xl">
+            <p className="text-[13px] sm:text-sm text-neutral-600 leading-relaxed">{settings.locationDesc}</p>
+            <div className="space-y-2.5 text-sm text-[#1D1D1F] bg-[#F5F5F7] p-4 sm:p-5 rounded-2xl">
               <div className="flex items-center gap-2.5 font-semibold">
                 <MapPin className="w-4 h-4 text-[#0095D9] shrink-0" />
                 <span>{settings.addressLine1}</span>
@@ -1541,13 +1541,13 @@ export default function App() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10 text-right">
             <div className="space-y-4">
               <AlTalebLogo size="md" />
-              <p className="text-xs sm:text-sm text-neutral-400 leading-relaxed max-w-sm">
+              <p className="text-[13px] sm:text-sm text-neutral-400 leading-relaxed max-w-sm">
                 {settings.storeName} — وجهتك الموثوقة لبيع وشراء وتبديل كافة أجهزة الموبايل الجديدة والمستعملة المكفولة مع خدمة صيانة احترافية.
               </p>
             </div>
             <div className="space-y-3">
-              <h4 className="text-xs font-bold text-white uppercase tracking-wider">روابط سريعة</h4>
-              <ul className="space-y-2.5 text-xs text-neutral-400">
+              <h4 className="text-[13px] font-bold text-white uppercase tracking-wider">روابط سريعة</h4>
+              <ul className="space-y-2.5 text-[13px] text-neutral-400">
                 <li><a href="#catalog" className="hover:text-white transition">كل الأجهزة ({availableProductsCount} جهاز متوفر)</a></li>
                 <li><a href="#maintenance" className="hover:text-white transition">مركز صيانة الموبايل</a></li>
                 <li><a href="#why-us" className="hover:text-white transition">لماذا شركة الطالب للإتصالات</a></li>
@@ -1555,9 +1555,9 @@ export default function App() {
               </ul>
             </div>
             <div className="space-y-3">
-              <h4 className="text-xs font-bold text-white uppercase tracking-wider">تواصل مباشر</h4>
-              <p className="text-xs text-neutral-400 leading-relaxed">{settings.addressLine1}</p>
-              <p className="text-xs text-neutral-500">{settings.workingHours}</p>
+              <h4 className="text-[13px] font-bold text-white uppercase tracking-wider">تواصل مباشر</h4>
+              <p className="text-[13px] text-neutral-400 leading-relaxed">{settings.addressLine1}</p>
+              <p className="text-[13px] text-neutral-500">{settings.workingHours}</p>
               <div className="pt-2 flex items-center gap-2.5">
                 <button onClick={() => openWhatsAppGeneral()} className="bg-white/10 hover:bg-[#6CBE45] text-white text-xs font-semibold px-4 py-2 rounded-full transition">مراسلة واتساب</button>
                 <a href={settings.whatsappChannel} target="_blank" rel="noopener noreferrer" className="bg-white/5 hover:bg-white/15 border border-white/10 text-neutral-300 text-xs font-semibold px-4 py-2 rounded-full transition">قناة العروض</a>
