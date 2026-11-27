@@ -1577,9 +1577,7 @@ export default function App() {
         </div>
       </footer>
 
-      <button onClick={() => openWhatsAppGeneral()} className="fixed bottom-6 left-6 z-40 w-13 h-13 rounded-full bg-[#25D366] hover:bg-[#20bd5a] text-white shadow-2xl flex items-center justify-center transition active:scale-90" aria-label="تواصل واتساب">
-        <MessageCircle className="w-6 h-6 fill-white" />
-      </button>
+
 
       {/* PRODUCT DETAILS MODAL */}
       {activeProduct && (
