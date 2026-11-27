@@ -1567,13 +1567,12 @@ export default function App() {
           
           <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
             <span>جميع الحقوق محفوظة © {new Date().getFullYear()} {settings.storeName}</span>
-            <span className="hidden sm:inline text-neutral-700">•</span>
-            <span className="text-neutral-400 font-mono text-[11px]" dir="ltr">
-              Designed by <span className="text-neutral-200 font-semibold">Abdualrhman Taffour</span>
-            </span>
             <div className="flex items-center gap-3">
               <span>دائماً وأبداً شعارنا: ثقتكم تهمنا</span>
             </div>
+            <span className="text-neutral-400 font-neutral text-[14px]" dir="ltr">
+              Designed by <span className="text-neutral-200 font-semibold">Abdualrhman Taffour</span>
+            </span>
           </div>
         </div>
       </footer>
